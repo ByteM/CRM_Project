@@ -885,19 +885,34 @@
                     <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="30,12,0,0" VerticalAlignment="Top"/>
                     <Label Content="Insurance" HorizontalAlignment="Left" Margin="5,-48,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                     <ComboBox x:Name="cmbInsurance_CustName" HorizontalAlignment="Left" Margin="139,15,0,0" VerticalAlignment="Top" Width="361" Height="24" IsEditable="True" SelectionChanged="cmbInsurance_CustName_SelectionChanged"/>
-                    <DataGrid x:Name="dgvInsurance_Details" HorizontalAlignment="Left" Margin="5,53,0,0" VerticalAlignment="Top" Height="200" Width="1115" AutoGenerateColumns="False">
+                    <DataGrid x:Name="dgvInsurance_Details" HorizontalAlignment="Left" Margin="5,53,0,0" VerticalAlignment="Top" Height="175" Width="1115" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Domain Name" Width="130"  x:Name="grdInsuranece_ID" Visibility="Visible" SortMemberPath="Domain_Name" Binding="{Binding Domain_Name, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Product Name" Width="140"  x:Name="grdInsurance_C_Date" SortMemberPath="Product_Name" Binding="{Binding Product_Name, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Brand Name" Width="140"  x:Name="grdInsurance_Name" SortMemberPath="Brand_Name" Binding="{Binding Brand_Name, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Product Category" Width="140"  x:Name="grdInsurance_MobileNo" SortMemberPath="Product_Category" Binding="{Binding Product_Category, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Model No" Width="140"  x:Name="grdInsurance_PhoneNo" SortMemberPath="Model_No" Binding="{Binding Model_No, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Color" Width="130"  x:Name="grdInsurnce_PhoneNo" SortMemberPath="Color" Binding="{Binding Color, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Price" Width="110"  x:Name="grdInsurance_Products" SortMemberPath="Per_Product_Price" Binding="{Binding Per_Product_Price, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Domain Name" Width="125"  x:Name="grdInsuranece_ID" Visibility="Visible" SortMemberPath="Domain_Name" Binding="{Binding Domain_Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Product Name" Width="125"  x:Name="grdInsurance_C_Date" SortMemberPath="Product_Name" Binding="{Binding Product_Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Brand Name" Width="125"  x:Name="grdInsurance_Name" SortMemberPath="Brand_Name" Binding="{Binding Brand_Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Product Category" Width="127"  x:Name="grdInsurance_MobileNo" SortMemberPath="Product_Category" Binding="{Binding Product_Category, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Model No" Width="127"  x:Name="grdInsurance_PhoneNo" SortMemberPath="Model_No" Binding="{Binding Model_No, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Color" Width="120"  x:Name="grdInsurnce_PhoneNo" SortMemberPath="Color" Binding="{Binding Color, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Price" Width="90"  x:Name="grdInsurance_Products" SortMemberPath="Per_Product_Price" Binding="{Binding Per_Product_Price, Mode=TwoWay}" />
                             <DataGridTextColumn Header="Qty" Width="60"  x:Name="grdInsurance_Products1" SortMemberPath="Per_Product_Price" Binding="{Binding Qty, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Sub Total" Width="110"  x:Name="grdInsurance_Produc" SortMemberPath="C_Price" Binding="{Binding C_Price, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Insurance" Width="110"  x:Name="grdInsurance_Insurance" SortMemberPath="Have_Insurance" Binding="{Binding Have_Insurance, Mode=TwoWay}" />
-                            <DataGridCheckBoxColumn Header="Action" Width="110"  x:Name="grdInsurance_Check" SortMemberPath="Insurance" Binding="{Binding Insurance, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Sub Total" Width="90"  x:Name="grdInsurance_Produc" SortMemberPath="C_Price" Binding="{Binding C_Price, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Insurance" Width="70"  x:Name="grdInsurance_Insurance" SortMemberPath="Have_Insurance" Binding="{Binding Have_Insurance, Mode=TwoWay}" />
+                            <DataGridCheckBoxColumn Header="Action" Width="50"  x:Name="grdInsurance_Check" SortMemberPath="Insurance" Binding="{Binding Insurance, Mode=TwoWay}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid x:Name="dgvInsurance_Details_Copy" HorizontalAlignment="Left" Margin="5,235,0,0" VerticalAlignment="Top" Height="263" Width="1115" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Domain Name" Width="125"  x:Name="grdInsuranece_ID1" Visibility="Visible" SortMemberPath="Domain_Name" Binding="{Binding Domain_Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Product Name" Width="125"  x:Name="grdInsurance_C_Date1" SortMemberPath="Product_Name" Binding="{Binding Product_Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Brand Name" Width="125"  x:Name="grdInsurance_Name1" SortMemberPath="Brand_Name" Binding="{Binding Brand_Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Product Category" Width="127"  x:Name="grdInsurance_MobileNo1" SortMemberPath="Product_Category" Binding="{Binding Product_Category, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Model No" Width="127"  x:Name="grdInsurance_PhoneNo1" SortMemberPath="Model_No" Binding="{Binding Model_No, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Color" Width="120"  x:Name="grdInsurnce_PhoneNo1" SortMemberPath="Color" Binding="{Binding Color, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Price" Width="90"  x:Name="grdInsurance_Products2" SortMemberPath="Per_Product_Price" Binding="{Binding Per_Product_Price, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Qty" Width="60"  x:Name="grdInsurance_Products3" SortMemberPath="Per_Product_Price" Binding="{Binding Qty, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Sub Total" Width="90"  x:Name="grdInsurance_Produc1" SortMemberPath="C_Price" Binding="{Binding C_Price, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Insurance" Width="70"  x:Name="grdInsurance_Insurance1" SortMemberPath="Have_Insurance" Binding="{Binding Have_Insurance, Mode=TwoWay}" />
+                            <DataGridCheckBoxColumn Header="Action" Width="50"  x:Name="grdInsurance_Check1" SortMemberPath="Insurance" Binding="{Binding Insurance, Mode=TwoWay}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

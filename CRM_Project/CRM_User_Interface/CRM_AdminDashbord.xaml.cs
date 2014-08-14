@@ -1983,6 +1983,9 @@ namespace CRM_User_Interface
         private void btnInsurance_Exit_Click(object sender, RoutedEventArgs e)
         {
             grd_Insurance.Visibility = System.Windows.Visibility.Hidden;
+            cmbInsurance_CustName.SelectedValue = null;
+            dgvInsurance_Details.ItemsSource = null;
+            
         }
 
         public void Load_CustomerDetails()
