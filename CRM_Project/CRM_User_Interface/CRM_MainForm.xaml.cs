@@ -33,9 +33,9 @@ namespace CRM_User_Interface
 
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
         string caption = "Green Future Glob";
-        int cid,I;
+        int cid,I,ID;
         double y1,m1;
-        string   yarvalue, year,month,g,pm_c,pm_ch,pm_f,pm_ins;
+        string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue;
         public Button targetButton;
       
         public CRM_MainForm()
@@ -79,6 +79,9 @@ namespace CRM_User_Interface
 
         BAL_Installment bins = new BAL_Installment();
         DAL_Installment dins = new DAL_Installment();
+
+        BAL_C_Installment bcins = new BAL_C_Installment();
+        DAL_C_Installment dcins = new DAL_C_Installment();
         public void PREPROCUREMENTid()
         {
 
@@ -3621,13 +3624,58 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             }
 
             bins.Installment_Year = yarvalue;
-            bins.Installment_Month = "";
+            bins.Installment_Month ="NO";
 
             }
             else if (rdoInvoice_rdo_Invoice_Monthlyinstallment.IsChecked==true)
             {
-                bins.Installment_Year = "";
-                bins.Installment_Month = cmdInvoice_InstalMonth.SelectedValue.ToString();
+                string monthins = cmdInvoice_InstalMonth.SelectedValue.ToString();
+                if (monthins == "1 Month")
+                {
+                    monthvalue = "1";
+                }
+                if (monthins == "2 Month")
+                {
+                    monthvalue = "2";
+                }
+                if (monthins == "3 Month")
+                {
+                    monthvalue = "3";
+                }
+                if (monthins == "4 Month")
+                {
+                    monthvalue = "4";
+                }
+                if (monthins == "5 Month")
+                {
+                    monthvalue = "5";
+                }
+                if (monthins == "6 Month")
+                {
+                    monthvalue = "6";
+                }
+                if (monthins == "7 Month")
+                {
+                    monthvalue = "7";
+                }
+                if (monthins == "8 Month")
+                {
+                    monthvalue = "8";
+                }
+                if (monthins == "9 Month")
+                {
+                    monthvalue = "9";
+                }
+                if (monthins == "10 Month")
+                {
+                    monthvalue = "10";
+                }
+                if (monthins == "11 Month")
+                {
+                    monthvalue = "11";
+                }
+                bins.Installment_Year = "NO";
+                bins.Installment_Month = monthvalue;
 
             }
            
@@ -3821,14 +3869,17 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             try
             {
                 object item = DGRD_InstallmentCust.SelectedItem;
-                string ID = (DGRD_InstallmentCust.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+                ID =Convert .ToInt32 ( (DGRD_InstallmentCust.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text);
                 string cid = (DGRD_InstallmentCust.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
                 string CName = (DGRD_InstallmentCust.SelectedCells[2].Column.GetCellContent(item) as TextBlock).Text;
                 double TP =Convert .ToDouble((DGRD_InstallmentCust.SelectedCells[4].Column.GetCellContent(item) as TextBlock).Text);
                 double PA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[5].Column.GetCellContent(item) as TextBlock).Text);
                 double BA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[6].Column.GetCellContent(item) as TextBlock).Text);
                 double MA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[7].Column.GetCellContent(item) as TextBlock).Text);
-                MessageBox.Show(ID);
+                string  y =(DGRD_InstallmentCust.SelectedCells[8].Column.GetCellContent(item) as TextBlock).Text;
+
+                double m = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[9].Column.GetCellContent(item) as TextBlock).Text);
+                MessageBox.Show(ID.ToString ());
                 GRD_InstallmentProcess.Visibility = Visibility;
                 lbl_Instal_CustomerID.Content = cid;
                 txt_InstalCustomerName.Text = CName;
@@ -3836,6 +3887,14 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 txt_InstalPaidAmount.Text = PA.ToString();
                 txt_InstalBalanceAmount.Text = BA.ToString();
                 txtInstalAmountPermonth.Text = MA.ToString();
+                if(y!="")
+                { lbl_InstalY_M.Content  = y; }
+                else if (y == null && m != null)
+                {
+                    lbl_InstalY_M .Content = m.ToString();
+                }
+              
+
             }
             catch (Exception)
             {
@@ -3851,8 +3910,41 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             GRD_InstallmentProcess.Visibility = Visibility.Hidden;
         }
 
-      
+      public void Save_Customer_Installment()
+        {
+            try
+            {
+                bcins.Flag = 1;
+                bcins.Customer_ID = ID;
+                bcins.Bill_No = lblbillno.Content.ToString();
+                bcins.Total_Price = Convert.ToDouble(txtInvoice_InstalTotalAmount.Text);
+                bcins.Paid_Amount = Convert.ToDouble(txtInvoice_InstalPaidAmount.Text);
+                bcins.Balance_Amount = Convert.ToDouble(txtInvoice_InstalBalanceAmount.Text);
+                bcins.Monthly_Amount = Convert.ToDouble(txtInvoice_InstalAmountPermonth.Text);
+                bcins.Total_Installment_Month = lbl_InstalY_M.Content.ToString();
+                bcins.Current_Installment_No = txt_Installemntno.Text ;
+                bcins.Remaining_Installments = txt_InstallmentRemaining.Text ;
+                bcins.Current_Installment_Amount = Convert.ToDouble(txt_InstallmentAmount.Text);
+                bcins.CInstallment_Date = dp_Instalpermonth.Text;
+                bcins.S_Status = "Active";
+                bcins.C_Date = System.DateTime.Now.ToShortDateString();
+                dcins.Save_C_Installment(bcins);
+                MessageBox.Show("Installment Added Succsessfully", caption, MessageBoxButton.OK);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
+        }
 
+      private void btn_InstalSaveandPrint_Click(object sender, RoutedEventArgs e)
+      {
+          Save_Customer_Installment();
+      }
+
+      
 
     }
 
