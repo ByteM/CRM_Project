@@ -115,7 +115,6 @@ C:\Users\gfg\Documents\GitHub\CRM\CRM_Project\CRM_User_Interface\bin\Debug\CRM_U
 C:\Users\gfg\Documents\GitHub\CRM\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.csproj.ResolveComReference.cache
 C:\Users\gfg\Documents\GitHub\CRM\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.exe
 C:\Users\gfg\Documents\GitHub\CRM\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.pdb
-<<<<<<< HEAD
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\CRM_User_Interface.exe.config
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.csproj.ResolveComReference.cache
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.exe
@@ -156,7 +155,6 @@ C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.g.resources
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.Properties.Resources.resources
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.csproj.GenerateResource.Cache
-=======
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\CRM_User_Interface.exe.config
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.csproj.ResolveComReference.cache
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.exe
@@ -197,4 +195,3 @@ C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interf
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.g.resources
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.Properties.Resources.resources
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.csproj.GenerateResource.Cache
->>>>>>> origin/master

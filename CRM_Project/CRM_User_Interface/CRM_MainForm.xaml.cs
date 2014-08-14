@@ -3358,11 +3358,11 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         {
             if (dtstat.Rows.Count > 0)
             {
-                for (int i = 0; dtstat.Rows.Count>i; i++)
+                for (int i = 0; i < dtstat.Rows .Count; i++)
                 {
+                  //  int rowCount = ((DataTable)this.Dgrd_InvoiceADDProducts.DataSource).Rows.Count;
 
-
-                    g = dtstat.Rows[0]["Products"].ToString();
+                    g = dtstat.Rows[i]["Products"].ToString();
                     FetchProductsID();
                     // string s = "  Select  S.ID,S.Domain_ID , S.Product_ID ,S.Brand_ID ,S.P_Category ,S.Model_No_ID ,S.Color_ID  From StockDetails S where ID='"+cmbInvoiceStockProducts .SelectedItem .GetHashCode ()+"' and  S.S_Status='Active' ORDER BY S.C_Date ASC";
                     DataSet ds = new DataSet();
@@ -3391,13 +3391,13 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                     binvd.P_Category = Convert.ToInt32(txtPC.Text);
                     binvd.Model_No_ID = Convert.ToInt32(txtM.Text);
                     binvd.Color_ID = Convert.ToInt32(txtC.Text);
-                    binvd.Products123 = dtstat.Rows[0]["Products"].ToString();
-                    binvd.Per_Product_Price = Convert.ToDouble(dtstat.Rows[0]["RatePer_Product"].ToString());
-                    binvd.Qty = Convert.ToDouble(dtstat.Rows[0]["Qty"].ToString());
-                    binvd.C_Price = Convert.ToDouble(dtstat.Rows[0]["Total_Price"].ToString());
-                    binvd.Tax_Name = dtstat.Rows[0]["Tax Name"].ToString();
-                    binvd.Tax = Convert.ToDouble(dtstat.Rows[0]["Taxes %"].ToString());
-                    binvd.Total_Price = Convert.ToDouble(dtstat.Rows[0]["SubTotal"].ToString());
+                    binvd.Products123 = dtstat.Rows[i]["Products"].ToString();
+                    binvd.Per_Product_Price = Convert.ToDouble(dtstat.Rows[i]["RatePer_Product"].ToString());
+                    binvd.Qty = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
+                    binvd.C_Price = Convert.ToDouble(dtstat.Rows[i]["Total_Price"].ToString());
+                    binvd.Tax_Name = dtstat.Rows[i]["Tax Name"].ToString();
+                    binvd.Tax = Convert.ToDouble(dtstat.Rows[i]["Taxes %"].ToString());
+                    binvd.Total_Price = Convert.ToDouble(dtstat.Rows[i]["SubTotal"].ToString());
                     if (pm_c == "Cash")
                     {
                         binvd.Payment_Mode = "Cash";
