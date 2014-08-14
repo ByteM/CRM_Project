@@ -20,6 +20,7 @@ public string Current_Installment_No { get; set; }
 public string Remaining_Installments { get; set; }
 public double Current_Installment_Amount { get; set; }
 public string CInstallment_Date { get; set; }
+public string Paid_Unpaid { get; set; }
 public string S_Status { get; set; }
 public string C_Date { get; set; }
     }

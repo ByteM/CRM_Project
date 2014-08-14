@@ -34,6 +34,7 @@ namespace CRM_DAL
                 cmd.Parameters.AddWithValue("@Remaining_Installments", bCins.Remaining_Installments);
                 cmd.Parameters.AddWithValue("@Current_Installment_Amount", bCins.Current_Installment_Amount);
                 cmd.Parameters.AddWithValue("@CInstallment_Date", bCins.CInstallment_Date);
+                cmd.Parameters.AddWithValue("@Paid_Unpaid", bCins.Paid_Unpaid);
                 cmd.Parameters.AddWithValue("@S_Status", bCins.S_Status);
                 cmd.Parameters.AddWithValue("@C_Date", bCins.C_Date);
                 int i = cmd.ExecuteNonQuery();

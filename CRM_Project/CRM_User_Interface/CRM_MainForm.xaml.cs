@@ -55,8 +55,9 @@ namespace CRM_User_Interface
         BAL_AddProduct baddprd = new BAL_AddProduct();
         DAL_AddProduct dalprd = new DAL_AddProduct();
         string maincked;
-        string  bpg;
-        int fetcdoc;
+        string bpg, cid1;
+        int fetcdoc, Cust_id;
+        int exist;
         List<string> checkedStuff;
         static DataTable dtstat = new DataTable();
        
@@ -3743,9 +3744,9 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
 
         private void txtInstall_CustName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            DealerDetails_LoadData();
+            InstallmentCustomerDetails_LoadData();
         }
-        public void DealerDetails_LoadData()
+        public void InstallmentCustomerDetails_LoadData()
         {
             try
             {
@@ -3799,7 +3800,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
 
         private void cmbInstall_CustID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DealerDetails_LoadData();
+            InstallmentCustomerDetails_LoadData();
         }
 
         #region Old Customer Details
@@ -3870,28 +3871,56 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             {
                 object item = DGRD_InstallmentCust.SelectedItem;
                 ID =Convert .ToInt32 ( (DGRD_InstallmentCust.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text);
-                string cid = (DGRD_InstallmentCust.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
-                string CName = (DGRD_InstallmentCust.SelectedCells[2].Column.GetCellContent(item) as TextBlock).Text;
-                double TP =Convert .ToDouble((DGRD_InstallmentCust.SelectedCells[4].Column.GetCellContent(item) as TextBlock).Text);
-                double PA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[5].Column.GetCellContent(item) as TextBlock).Text);
-                double BA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[6].Column.GetCellContent(item) as TextBlock).Text);
-                double MA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[7].Column.GetCellContent(item) as TextBlock).Text);
-                string  y =(DGRD_InstallmentCust.SelectedCells[8].Column.GetCellContent(item) as TextBlock).Text;
 
-                double m = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[9].Column.GetCellContent(item) as TextBlock).Text);
-                MessageBox.Show(ID.ToString ());
-                GRD_InstallmentProcess.Visibility = Visibility;
-                lbl_Instal_CustomerID.Content = cid;
-                txt_InstalCustomerName.Text = CName;
-                txt_InstalTotalAmount.Text = TP.ToString ();
-                txt_InstalPaidAmount.Text = PA.ToString();
-                txt_InstalBalanceAmount.Text = BA.ToString();
-                txtInstalAmountPermonth.Text = MA.ToString();
-                if(y!="")
-                { lbl_InstalY_M.Content  = y; }
-                else if (y == null && m != null)
+                cid1 = (DGRD_InstallmentCust.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
+                con.Open();
+                string w = "Select ID,Cust_ID from tlb_Customer Where Cust_ID='" + cid1 + "' ";
+                DataTable dt = new DataTable();
+                SqlCommand cmd = new SqlCommand(w, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
                 {
-                    lbl_InstalY_M .Content = m.ToString();
+                   Cust_id =Convert .ToInt32 ( dt.Rows[0]["ID"]);
+                }
+                con.Close();
+               int result=CheckExsistance();
+                if(result ==0)
+                {
+                    string CName = (DGRD_InstallmentCust.SelectedCells[2].Column.GetCellContent(item) as TextBlock).Text;
+                    double TP = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[4].Column.GetCellContent(item) as TextBlock).Text);
+                    double PA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[5].Column.GetCellContent(item) as TextBlock).Text);
+                    double BA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[6].Column.GetCellContent(item) as TextBlock).Text);
+                    double MA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[7].Column.GetCellContent(item) as TextBlock).Text);
+                    string y = (DGRD_InstallmentCust.SelectedCells[8].Column.GetCellContent(item) as TextBlock).Text;
+
+                    string m = (DGRD_InstallmentCust.SelectedCells[9].Column.GetCellContent(item) as TextBlock).Text;
+                    MessageBox.Show(ID.ToString());
+                    GRD_InstallmentProcess.Visibility = Visibility;
+                    lbl_Instal_CustomerID.Content = cid1;
+                    txt_InstalCustomerName.Text = CName;
+                    txt_InstalTotalAmount.Text = TP.ToString();
+                    txt_InstalPaidAmount.Text = PA.ToString();
+                    txt_InstalBalanceAmount.Text = BA.ToString();
+                    txtInstalAmountPermonth.Text = MA.ToString();
+                    if (y != "NO" && m == "NO")
+                    {
+                        lbl_InstalY_M.Content = y;
+                    }
+                    else if (y == "NO" && m != "NO")
+                    {
+                        lbl_InstalY_M.Content = m.ToString();
+                    }
+                    txt_Installemntno.Text = 1.ToString();
+                    int b =Convert .ToInt32 ( txt_Installemntno.Text);
+                    int c = Convert .ToInt32 (lbl_InstalY_M.Content.ToString ());
+                    int a = c - b;
+                    txt_InstallmentRemaining.Text = a.ToString();
+
+                }
+                else if(result ==1)
+                {
+
                 }
               
 
@@ -3904,7 +3933,33 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             finally { con.Close(); }
            
         }
-
+        public int CheckExsistance()
+        {
+            try
+            {
+               int  exist;
+                con.Open();
+                DataTable dt = new DataTable();
+                string chk = "Select Customer_ID from tlb_Customer_Installment where Customer_ID='" + Cust_id + "' and S_Status='Active' ";
+                SqlCommand cmd = new SqlCommand(chk, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                if(dt.Rows.Count  >0)
+                {
+                    exist = 1;
+                }
+                else
+                {
+                    exist = 0;
+                }
+                return exist;
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
         private void btn_InstalExit_Click(object sender, RoutedEventArgs e)
         {
             GRD_InstallmentProcess.Visibility = Visibility.Hidden;
@@ -3926,6 +3981,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 bcins.Remaining_Installments = txt_InstallmentRemaining.Text ;
                 bcins.Current_Installment_Amount = Convert.ToDouble(txt_InstallmentAmount.Text);
                 bcins.CInstallment_Date = dp_Instalpermonth.Text;
+                bcins.Paid_Unpaid = "Paid";
                 bcins.S_Status = "Active";
                 bcins.C_Date = System.DateTime.Now.ToShortDateString();
                 dcins.Save_C_Installment(bcins);
@@ -3942,6 +3998,28 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
       private void btn_InstalSaveandPrint_Click(object sender, RoutedEventArgs e)
       {
           Save_Customer_Installment();
+      }
+
+      private void txt_InstallmentAmount_TextChanged(object sender, TextChangedEventArgs e)
+     {
+      //    double amt = Convert.ToDouble(txt_InstallmentAmount.Text);
+      //    double pamt = Convert.ToDouble(txt_InstalPaidAmount.Text);
+      //    double upamt = amt + pamt;
+      //    txt_InstalPaidAmount.Text = upamt.ToString();
+      //    double bamt = Convert.ToDouble(txt_InstalBalanceAmount .Text );
+      //    double ubamt = bamt - amt;
+      //    txt_InstalBalanceAmount.Text = ubamt.ToString();
+      }
+
+      private void txt_InstallmentAmount_LostFocus(object sender, RoutedEventArgs e)
+      {
+          double amt = Convert.ToDouble(txt_InstallmentAmount.Text);
+          double pamt = Convert.ToDouble(txt_InstalPaidAmount.Text);
+          double upamt = amt + pamt;
+          txt_InstalPaidAmount.Text = upamt.ToString();
+          double bamt = Convert.ToDouble(txt_InstalBalanceAmount.Text);
+          double ubamt = bamt - amt;
+          txt_InstalBalanceAmount.Text = ubamt.ToString();
       }
 
       
