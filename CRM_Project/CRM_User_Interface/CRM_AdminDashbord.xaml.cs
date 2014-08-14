@@ -1977,7 +1977,87 @@ namespace CRM_User_Interface
             SaleCustomer_ProductDetails();
         }
         #endregion SaleCustomerDetails Event
+
         #endregion SaleCustomerDet Function
+
+        private void btnInsurance_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Insurance.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        public void Load_CustomerDetails()
+        {
+            //  cmbInstall_CustID.Text = "--Select--";
+            string q = "SELECT ID  ,Name FROM tlb_Customer ";
+            cmd = new SqlCommand(q, con);
+            // DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            adp.Fill(ds);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                cmbInsurance_CustName.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                cmbInsurance_CustName.ItemsSource = ds.Tables[0].DefaultView;
+                cmbInsurance_CustName.DisplayMemberPath = ds.Tables[0].Columns["Name"].ToString();
+            }
+        }
+
+        public void Products_CustomerDetails()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT P.[ID],P.[Customer_ID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Per_Product_Price],P.[Qty],P.[C_Price],P.[Tax_Name],P.[Tax],P.[Total_Price] " +
+                      ",DM.[Domain_Name],PM.[Product_Name],B.[Brand_Name],PC.[Product_Category],MN.[Model_No],C.[Color] " +
+                      ",PP.[Have_Insurance] " +
+                      "FROM [tlb_InvoiceDetails] P " +
+                      "INNER JOIN [tb_Domain] DM ON DM.[ID]=P.[Domain_ID] " +
+                      "INNER JOIN [tlb_Products] PM ON PM.[ID]=P.[Product_ID] " +
+                      "INNER JOIN [tlb_Brand] B ON B.[ID]=P.[Brand_ID] " +
+                      "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=P.[P_Category]" +
+                      "INNER JOIN [tlb_Model] MN ON MN.[ID]=P.[Model_No_ID] " +
+                      "INNER JOIN [tlb_Color] C ON C.[ID]=P.[Color_ID] " +
+                      "INNER JOIN [Pre_Procurement] PP ON PP.[Model_No_ID]=P.[Model_No_ID] " +
+                      "WHERE ";
+                if (cmbAdm_DealerFilter_Search.SelectedIndex > 0)
+                {
+                    str = str + "P.[Customer_ID] = '" + cmbInsurance_CustName.SelectedValue.GetHashCode() + "' AND ";
+                }
+                str = str + "P.[Customer_ID]= '" + cmbInsurance_CustName.SelectedValue.GetHashCode() + "' AND P.[S_Status] = 'Active' ORDER BY DM.[Domain_Name] ASC ";
+                
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void sminsurance_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Insurance.Visibility = System.Windows.Visibility.Visible;
+            Load_CustomerDetails();
+        }
+
+        private void cmbInsurance_CustName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Products_CustomerDetails();
+        }
+
     }
 }
 
