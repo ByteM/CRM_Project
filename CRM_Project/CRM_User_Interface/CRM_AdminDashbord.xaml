@@ -879,13 +879,13 @@
                 </Grid>
                 <TextBox x:Name="txtSaleCustID" HorizontalAlignment="Left" Height="23" Margin="770,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Visibility="Hidden"/>
             </Grid>
-            <Grid x:Name="grd_Insurance" Visibility="Hidden" HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid x:Name="grd_Insurance" Visibility="Visible" HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <Button x:Name="btnInsurance_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,0,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnInsurance_Exit_Click"/>
                 <Grid HorizontalAlignment="Left" Height="500" Margin="20,50,0,0" VerticalAlignment="Top" Width="1125" Background="White">
                     <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="30,12,0,0" VerticalAlignment="Top"/>
                     <Label Content="Insurance" HorizontalAlignment="Left" Margin="5,-48,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                     <ComboBox x:Name="cmbInsurance_CustName" HorizontalAlignment="Left" Margin="139,15,0,0" VerticalAlignment="Top" Width="361" Height="24" IsEditable="True" SelectionChanged="cmbInsurance_CustName_SelectionChanged"/>
-                    <DataGrid x:Name="dgvInsurance_Details" HorizontalAlignment="Left" Margin="5,53,0,0" VerticalAlignment="Top" Height="175" Width="1115" AutoGenerateColumns="False">
+                    <DataGrid x:Name="dgvInsurance_Details" HorizontalAlignment="Left" Margin="5,53,0,0" VerticalAlignment="Top" Height="175" Width="1115" AutoGenerateColumns="False" SelectedCellsChanged="dgvInsurance_Details_SelectedCellsChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Domain Name" Width="125"  x:Name="grdInsuranece_ID" Visibility="Visible" SortMemberPath="Domain_Name" Binding="{Binding Domain_Name, Mode=TwoWay}" />
                             <DataGridTextColumn Header="Product Name" Width="125"  x:Name="grdInsurance_C_Date" SortMemberPath="Product_Name" Binding="{Binding Product_Name, Mode=TwoWay}" />
