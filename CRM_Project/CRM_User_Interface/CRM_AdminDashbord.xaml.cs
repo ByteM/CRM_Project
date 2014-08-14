@@ -2061,6 +2061,14 @@ namespace CRM_User_Interface
             Products_CustomerDetails();
         }
 
+        private void dgvInsurance_Details_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            frmInsurance obj = new frmInsurance();
+            obj.ShowDialog();
+            obj.LoadYearsMonth();
+            obj.LoadInterval();
+        }
+
     }
 }
 
