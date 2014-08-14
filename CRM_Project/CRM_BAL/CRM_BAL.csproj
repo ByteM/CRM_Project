@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="BAL_AddProduct.cs" />
     <Compile Include="BAL_Customer.cs" />
+    <Compile Include="BAL_C_Installment.cs" />
     <Compile Include="BAL_DealerEntry.cs" />
     <Compile Include="BAL_EmployeeEntry.cs" />
     <Compile Include="BAL_FinalDealer.cs" />
