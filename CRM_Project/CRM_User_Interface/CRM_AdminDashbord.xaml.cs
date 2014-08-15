@@ -3198,12 +3198,7 @@ namespace CRM_User_Interface
             {
 
                 throw;
-            }
-            finally
-            {
-                con.Close();
-            }
-           
+            }          
         }
 
         private void btndomainexit_Click(object sender, RoutedEventArgs e)
@@ -3238,10 +3233,7 @@ namespace CRM_User_Interface
 
                 throw;
             }
-            finally
-            {
-                con.Close();
-            }
+            
         }
 
         private void btnProduct_Exit_Click(object sender, RoutedEventArgs e)
@@ -3258,7 +3250,7 @@ namespace CRM_User_Interface
 
             try
             {
-
+                
                 baddprd.Flag = 1;
                 baddprd.Product_ID = Convert.ToInt32(cmbProductBrand.SelectedValue.GetHashCode());
                 baddprd.Brand_Name = txtBrand.Text;
@@ -3278,10 +3270,7 @@ namespace CRM_User_Interface
 
                 throw;
             }
-            finally
-            {
-                con.Close();
-            }
+            
         }
 
         private void btnBrandExit_Click(object sender, RoutedEventArgs e)
@@ -3336,10 +3325,6 @@ namespace CRM_User_Interface
             {
 
                 throw;
-            }
-            finally
-            {
-                con.Close();
             }
         }
 
@@ -3399,10 +3384,7 @@ namespace CRM_User_Interface
 
                 throw;
             }
-            finally
-            {
-                con.Close();
-            }
+            
         }
 
         private void btnmodelnoexie_Click(object sender, RoutedEventArgs e)
