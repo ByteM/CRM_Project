@@ -878,15 +878,15 @@
                             <DataGridTextColumn Header="Total_Price" Width="100" x:Name="grdCInstal_Totalprice1" SortMemberPath="Total_Price" Binding="{Binding Total_Price, Mode=TwoWay}"/>
                             <DataGridTextColumn Header="Paid_Amount" Width="100" x:Name="grdCInstall_PaidAmt1" SortMemberPath="Paid_Amount" Binding="{Binding Paid_Amount, Mode=TwoWay}"/>
                             <DataGridTextColumn Header="Balance_Amount" Width="100" x:Name="grdCInstall_Balance1" SortMemberPath="Balance_Amount" Binding="{Binding Balance_Amount, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Current_Installment_No" Width="100" x:Name="Current_Installment_No" SortMemberPath="Current_Installment_No" Binding="{Binding Current_Installment_No, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Installment_No" Width="100" x:Name="Current_Installment_No" SortMemberPath="Current_Installment_No" Binding="{Binding Current_Installment_No, Mode=TwoWay}"/>
                             <DataGridTextColumn Header="Remaining_Installments" Width="110" x:Name="Remaining_Installments" SortMemberPath="Remaining_Installments" Binding="{Binding Remaining_Installments, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Current_Installment_Amount" Width="110" x:Name="Current_Installment_Amount" SortMemberPath="Current_Installment_Amount" Binding="{Binding Current_Installment_Amount, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="CInstallment_Date" Width="110" x:Name="CInstallment_Date" SortMemberPath="CInstallment_Date" Binding="{Binding CInstallment_Date, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Paid_Unpaid" Width="110" x:Name="Paid_Unpaid" SortMemberPath="Paid_Unpaid" Binding="{Binding Paid_Unpaid, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Installment_Amount" Width="110" x:Name="Current_Installment_Amount" SortMemberPath="Current_Installment_Amount" Binding="{Binding Current_Installment_Amount, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Installment_Date" Width="100" x:Name="CInstallment_Date" SortMemberPath="CInstallment_Date" Binding="{Binding CInstallment_Date, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Paid_Unpaid" Width="100" x:Name="Paid_Unpaid" SortMemberPath="Paid_Unpaid" Binding="{Binding Paid_Unpaid, Mode=TwoWay}"/>
                             <DataGridTemplateColumn Header="Edit" Width="80">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <Button Content="Edit" x:Name="btndgv_InstCustEdit" />
+                                        <Button Content="Edit" x:Name="btndgv_InstCustEdit" Click="btndgv_InstCustEdit_Click" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -920,7 +920,7 @@
 
 
                 </Grid>
-                <Grid HorizontalAlignment="Left" Name="GRD_InstallmentProcess" Visibility="Visible"       Width="1105" Margin="24,309,0,0" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Name="GRD_InstallmentProcess" Visibility="Hidden"  Width="1105" Margin="24,309,0,0" Background="#FFF0F0F0">
                     <Grid HorizontalAlignment="Left" Width="1085" Margin="10,10,0,0" Background="White" Height="235" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="294*"/>
@@ -941,7 +941,7 @@
                         <Button x:Name="btn_InstalSaveandPrint" Content="Save &amp; Print " HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Margin="260,205,0,0" Click="btn_InstalSaveandPrint_Click"/>
                         <Button x:Name="btn_InstalClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="400,205,0,0"/>
                         <Button x:Name="btn_InstalExit" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="500,205,0,0" Click="btn_InstalExit_Click"/>
-                        <Label x:Name="lbl_Instal" Content="Invoice No" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="960,5,0,0"/>
+                        <Label x:Name="lblbillnoInstall" Content="Invoice No" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="960,5,0,0"/>
                         <Label Content="Customer Name :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="550,35,0,0"/>
                         <TextBox x:Name="txt_InstalCustomerName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Margin="675,40,0,0"/>
                         <Label Content="Customer ID :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="913,39,0,0"/>
