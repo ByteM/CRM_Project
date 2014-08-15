@@ -48,6 +48,11 @@ namespace CRM_User_Interface
         }
         #endregion Event
 
+        public void InsuranceID(string iid)
+        {
+            txtInsuranceID.Text = iid;
+        }
+
         public void LoadYearsMonth()
         {
             cmbValidity.Text = "Select";
@@ -209,7 +214,7 @@ namespace CRM_User_Interface
                 result = true;
                 MessageBox.Show("Please Select Bank Name", "Green Future Glob", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
-            else if(dtpInsuranceDate.Text == "")
+            else if(dtpDate.Text == "")
             {
                 result = true;
                 MessageBox.Show("Please Select Date", "Green Future Glob", MessageBoxButton.OK, MessageBoxImage.Stop);
