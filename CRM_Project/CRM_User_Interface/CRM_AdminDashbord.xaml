@@ -100,35 +100,35 @@
 
                 </MenuItem>
                 <MenuItem>
-                <MenuItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Padding="0" Margin="0 0 0 1" Foreground="White" Content="Insurance" />
-                        <Border>
-                            <ToggleButton IsChecked="False" IsHitTestVisible="False"
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Padding="0" Margin="0 0 0 1" Foreground="White" Content="Insurance" />
+                            <Border>
+                                <ToggleButton IsChecked="False" IsHitTestVisible="False"
 									BorderBrush="{TemplateBinding Border.BorderBrush}"
 									Background="{TemplateBinding Panel.Background}">
-                                <ToggleButton.Style>
-                                    <Style TargetType="{x:Type ToggleButton}">
-                                        <Setter Property="OverridesDefaultStyle" Value="True" />
+                                    <ToggleButton.Style>
+                                        <Style TargetType="{x:Type ToggleButton}">
+                                            <Setter Property="OverridesDefaultStyle" Value="True" />
 
-                                        <Setter Property="Focusable" Value="False" />
-                                        <Setter Property="IsTabStop" Value="False" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                                    <Path Data="M0,0L3.5,4 7,0z" Fill="White"  x:Name="Arrow"
+                                            <Setter Property="Focusable" Value="False" />
+                                            <Setter Property="IsTabStop" Value="False" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                        <Path Data="M0,0L3.5,4 7,0z" Fill="White"  x:Name="Arrow"
 															Margin="3,1,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ToggleButton.Style>
-                            </ToggleButton>
-                        </Border>
-                    </StackPanel>
-                </MenuItem.Header>
-                <MenuItem Header="Insurance " x:Name="sminsurance" Click="sminsurance_Click" />
-                
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ToggleButton.Style>
+                                </ToggleButton>
+                            </Border>
+                        </StackPanel>
+                    </MenuItem.Header>
+                    <MenuItem Header="Insurance " x:Name="sminsurance" Click="sminsurance_Click" />
+
 
                 </MenuItem>
 
@@ -879,15 +879,16 @@
                 </Grid>
                 <TextBox x:Name="txtSaleCustID" HorizontalAlignment="Left" Height="23" Margin="770,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Visibility="Hidden"/>
             </Grid>
+
             <Grid x:Name="grd_Insurance" Visibility="Visible" HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <Button x:Name="btnInsurance_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,0,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnInsurance_Exit_Click"/>
                 <Grid HorizontalAlignment="Left" Height="500" Margin="20,50,0,0" VerticalAlignment="Top" Width="1125" Background="White">
                     <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="30,12,0,0" VerticalAlignment="Top"/>
                     <Label Content="Insurance" HorizontalAlignment="Left" Margin="5,-48,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                     <ComboBox x:Name="cmbInsurance_CustName" HorizontalAlignment="Left" Margin="139,15,0,0" VerticalAlignment="Top" Width="361" Height="24" IsEditable="True" SelectionChanged="cmbInsurance_CustName_SelectionChanged"/>
-                    <DataGrid x:Name="dgvInsurance_Details" HorizontalAlignment="Left" Margin="5,53,0,0" VerticalAlignment="Top" Height="175" Width="1115" AutoGenerateColumns="False" SelectedCellsChanged="dgvInsurance_Details_SelectedCellsChanged">
+                    <DataGrid x:Name="dgvInsurance_Details" HorizontalAlignment="Left" Margin="5,66,0,0" VerticalAlignment="Top" Height="175" Width="1115" AutoGenerateColumns="False" SelectedCellsChanged="dgvInsurance_Details_SelectedCellsChanged">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Domain Name" Width="125"  x:Name="grdInsuranece_ID" Visibility="Visible" SortMemberPath="Domain_Name" Binding="{Binding Domain_Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="ID" Width="25"  x:Name="grdInsuranece_ID" Visibility="Visible" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />
                             <DataGridTextColumn Header="Product Name" Width="125"  x:Name="grdInsurance_C_Date" SortMemberPath="Product_Name" Binding="{Binding Product_Name, Mode=TwoWay}" />
                             <DataGridTextColumn Header="Brand Name" Width="125"  x:Name="grdInsurance_Name" SortMemberPath="Brand_Name" Binding="{Binding Brand_Name, Mode=TwoWay}" />
                             <DataGridTextColumn Header="Product Category" Width="127"  x:Name="grdInsurance_MobileNo" SortMemberPath="Product_Category" Binding="{Binding Product_Category, Mode=TwoWay}" />
@@ -897,7 +898,13 @@
                             <DataGridTextColumn Header="Qty" Width="60"  x:Name="grdInsurance_Products1" SortMemberPath="Per_Product_Price" Binding="{Binding Qty, Mode=TwoWay}" />
                             <DataGridTextColumn Header="Sub Total" Width="90"  x:Name="grdInsurance_Produc" SortMemberPath="C_Price" Binding="{Binding C_Price, Mode=TwoWay}" />
                             <DataGridTextColumn Header="Insurance" Width="70"  x:Name="grdInsurance_Insurance" SortMemberPath="Have_Insurance" Binding="{Binding Have_Insurance, Mode=TwoWay}" />
-                            <DataGridCheckBoxColumn Header="Action" Width="50"  x:Name="grdInsurance_Check" SortMemberPath="Insurance" Binding="{Binding Insurance, Mode=TwoWay}" />
+                            <DataGridTemplateColumn Header="Action" Width="75"  x:Name="grd_InsuranceAction">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox  Name="chkInsurance" Checked="chkInsurance_Checked"  />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <DataGrid x:Name="dgvInsurance_Details_Copy" HorizontalAlignment="Left" Margin="5,235,0,0" VerticalAlignment="Top" Height="263" Width="1115" AutoGenerateColumns="False">
@@ -916,6 +923,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
+                <TextBox x:Name="txtInsurance_InvoiceID" HorizontalAlignment="Left" Height="23" Margin="1020,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
             </Grid>
 
 
