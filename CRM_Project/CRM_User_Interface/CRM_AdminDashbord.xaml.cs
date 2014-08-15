@@ -2165,7 +2165,137 @@ namespace CRM_User_Interface
             if(txtdomain.Text == "")
             {
                 result = true;
-                MessageBox.Show("Please Select Domain Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+                MessageBox.Show("Please Enter Domain Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool Product_Validation()
+        {
+            bool result = false;
+            if(cmb_DomainProduct.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtProductName.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool Brand_Validation()
+        {
+            bool result = false;
+            if (cmbDomainBrand.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbProductBrand.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtBrand.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Brand Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool ProductCategory_Validation()
+        {
+            bool result = false;
+            if (cmbDomainPCategory.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbProductPCategoryy.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbBrandPCategory.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtPCategoy.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Product Category", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool ModelNo_Validation()
+        {
+            bool result = false;
+            if (cmbDomainModelno.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbProductModelno.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbBrandModelno.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPCategoryModelno.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Category", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtmodelno.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Model No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool Color_Validation()
+        {
+            bool result = false;
+            if (cmbDomainColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbProductColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbBrandColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPCategoryColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Category", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if(cmbModelColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Model No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtcolor.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Product Color", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
             }
             return result;
         }
@@ -2961,6 +3091,9 @@ namespace CRM_User_Interface
         #region Domain Button Event
         private void btndomainsave_Click(object sender, RoutedEventArgs e)
         {
+            if (Domain_Validation() == true)
+                return;
+
             try
             {
                 string strpan, stradhar, strpass, straddress, strseventw, strfrm16, strdelerlic, strnoidpf, strnodoc, strcmpid;
@@ -3082,6 +3215,9 @@ namespace CRM_User_Interface
         #region Product Button Event
         private void btnProductSave_Click(object sender, RoutedEventArgs e)
         {
+            if (Product_Validation() == true)
+                return;
+
             try
             {
                 baddprd.Flag = 1;
@@ -3117,6 +3253,9 @@ namespace CRM_User_Interface
         #region Brand Button Event
         private void btnBrandSave_Click(object sender, RoutedEventArgs e)
         {
+            if (Brand_Validation() == true)
+                return;
+
             try
             {
 
@@ -3172,6 +3311,9 @@ namespace CRM_User_Interface
 
         private void btnPCategorySave_Click(object sender, RoutedEventArgs e)
         {
+            if (ProductCategory_Validation() == true)
+                return;
+
             try
             {
 
@@ -3231,6 +3373,9 @@ namespace CRM_User_Interface
 
         private void btnModelNoSave_Click(object sender, RoutedEventArgs e)
         {
+            if (ModelNo_Validation() == true)
+                return;
+
             try
             {
 
@@ -3301,6 +3446,8 @@ namespace CRM_User_Interface
 
         private void btnColorSave_Click(object sender, RoutedEventArgs e)
         {
+            if (Color_Validation() == true)
+                return;
 
             try
             {
