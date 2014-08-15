@@ -2116,6 +2116,60 @@ namespace CRM_User_Interface
 
 
         //----------add product
+        #region AddProduct Function
+        #region AddPro Fun
+        public bool AddProduct_Validation()
+        {
+            bool result = false;
+            if(cmbP_domain.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_Product.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_Brand.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_PCategory.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Categeory", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_ModelNo.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Model No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_Color.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Color", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtP_Price.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Product Price", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+        
+        public bool Domain_Validation()
+        {
+            bool result = false;
+            if(txtdomain.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
         public void Fetch_Product()
         {
             try
@@ -2765,8 +2819,9 @@ namespace CRM_User_Interface
                 con.Close();
             }
         }
+        #endregion AddPro Fun
 
-
+        #region AddProduct Event
         private void cmbP_domain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbP_Product.SelectedValue = null;
@@ -2806,7 +2861,9 @@ namespace CRM_User_Interface
             cmbP_Color.SelectedValue = null;
             fetch_Color();
         }
+        #endregion AddProduct Event
 
+        #region AddPro Button Event
         private void btnP_AddDomain_Click(object sender, RoutedEventArgs e)
         {
             grd_Domain.Visibility = System.Windows.Visibility.Visible;
@@ -2849,6 +2906,9 @@ namespace CRM_User_Interface
 
         private void btnP_Save_Click(object sender, RoutedEventArgs e)
         {
+            if (AddProduct_Validation() == true)
+                return;
+            
             try
             {
 
@@ -2891,6 +2951,7 @@ namespace CRM_User_Interface
         {
             grd_U_AddProducts.Visibility = System.Windows.Visibility.Hidden;
         }
+        #endregion AddPro Button Event
 
         private void grd_U_AddProducts_Loaded(object sender, RoutedEventArgs e)
         {
@@ -3273,8 +3334,8 @@ namespace CRM_User_Interface
             grd_Color.Visibility = System.Windows.Visibility.Hidden;
         }
         #endregion Colour Button Event
+        #endregion AddProduct Function
 
-       
     }
 }
 
