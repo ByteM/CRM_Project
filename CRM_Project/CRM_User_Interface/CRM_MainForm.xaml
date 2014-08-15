@@ -825,7 +825,7 @@
 
 
 
-            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Visible" Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Hidden" Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
 
                 <Grid HorizontalAlignment="Left" Height="535" VerticalAlignment="Top" Width="1130" Margin="10,15,0,0" Background="White">
                     <Grid.ColumnDefinitions>

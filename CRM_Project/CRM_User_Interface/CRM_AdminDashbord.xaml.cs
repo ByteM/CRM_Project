@@ -39,6 +39,13 @@ namespace CRM_User_Interface
         {
             InitializeComponent();
         }
+        
+        /// <summary>
+        /// Add Products
+        /// </summary>
+        BAL_AddProduct baddprd = new BAL_AddProduct();
+        DAL_AddProduct dalprd = new DAL_AddProduct();
+
         BAL_EmployeeEntry bempetr = new BAL_EmployeeEntry();
         DAL_EmployeeEntry dempetr = new DAL_EmployeeEntry();
         BAL_DealerEntry bdealeretr = new BAL_DealerEntry();
@@ -59,7 +66,8 @@ namespace CRM_User_Interface
 
         private void smaddproducts_Click(object sender, RoutedEventArgs e)
         {
-           
+
+            grd_U_AddProducts.Visibility = System.Windows.Visibility.Visible;
         }
 
         #region Employee Function
@@ -2089,7 +2097,7 @@ namespace CRM_User_Interface
 
                 frmInsurance obj = new frmInsurance();
                 obj.InsuranceID(txtInsurance_InvoiceID.Text.Trim());
-                //obj.FillData();
+                obj.Insurance_FillData();
                 //obj.LoadNoOfYears1();
                 //obj.LoadNoOfMonths1();
                 obj.ShowDialog();
@@ -2106,6 +2114,1167 @@ namespace CRM_User_Interface
             }
         }
 
+
+        //----------add product
+        public void Fetch_Product()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Domain_ID,Product_Name from tlb_Products where  Domain_ID='" + cmbP_domain.SelectedValue.GetHashCode() + "' ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbP_Product.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbP_Product.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbP_Product.DisplayMemberPath = ds.Tables[0].Columns["Product_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void fetch_Brand()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Brand_Name from tlb_Brand where Product_ID='" + cmbP_Product.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbP_Brand.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbP_Brand.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbP_Brand.DisplayMemberPath = ds.Tables[0].Columns["Brand_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void Fetch_PC()
+        {
+
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT  ID,Product_Category from tlb_P_Category where Brand_ID='" + cmbP_Brand.SelectedValue.GetHashCode() + "' ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbP_PCategory.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbP_PCategory.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbP_PCategory.DisplayMemberPath = ds.Tables[0].Columns["Product_Category"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void fetch_Model()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Model_No from tlb_Model where P_Category='" + cmbP_PCategory.SelectedValue.GetHashCode() + "' ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbP_ModelNo.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbP_ModelNo.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbP_ModelNo.DisplayMemberPath = ds.Tables[0].Columns["Model_No"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void fetch_Color()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Color from tlb_Color where Model_No_ID='" + cmbP_ModelNo.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbP_Color.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbP_Color.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbP_Color.DisplayMemberPath = ds.Tables[0].Columns["Color"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_DomainP()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Domain_Name from tb_Domain ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmb_DomainProduct.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmb_DomainProduct.ItemsSource = ds.Tables[0].DefaultView;
+                    cmb_DomainProduct.DisplayMemberPath = ds.Tables[0].Columns["Domain_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void Load_DomainB()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Domain_Name from tb_Domain ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbDomainBrand.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbDomainBrand.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbDomainBrand.DisplayMemberPath = ds.Tables[0].Columns["Domain_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void Load_PCDomain()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Domain_Name from tb_Domain ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbDomainPCategory.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbDomainPCategory.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbDomainPCategory.DisplayMemberPath = ds.Tables[0].Columns["Domain_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void Load_MDomain()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Domain_Name from tb_Domain ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbDomainModelno.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbDomainModelno.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbDomainModelno.DisplayMemberPath = ds.Tables[0].Columns["Domain_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_CDomain()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Domain_Name from tb_Domain ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbDomainColor.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbDomainColor.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbDomainColor.DisplayMemberPath = ds.Tables[0].Columns["Domain_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_Domain()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Domain_Name from tb_Domain ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbP_domain.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbP_domain.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbP_domain.DisplayMemberPath = ds.Tables[0].Columns["Domain_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void clearAllADDProducts()
+        {
+            cmbP_domain.SelectedValue = null;
+            cmbP_Product.SelectedValue = null;
+            cmbP_Brand.SelectedValue = null;
+            cmbP_PCategory.SelectedValue = null;
+            cmbP_ModelNo.SelectedValue = null;
+            cmbP_Color.SelectedValue = null;
+            Load_Domain();
+
+        }
+
+        public void Load_BrandProduct()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Domain_ID, Product_Name from tlb_Products where Domain_ID ='" + cmbDomainBrand.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbProductBrand.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbProductBrand.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbProductBrand.DisplayMemberPath = ds.Tables[0].Columns["Product_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void Load_PCProduct()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Domain_ID, Product_Name from tlb_Products where Domain_ID='" + cmbDomainPCategory.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbProductPCategoryy.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbProductPCategoryy.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbProductPCategoryy.DisplayMemberPath = ds.Tables[0].Columns["Product_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_PCBrand()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Product_ID, Brand_Name from tlb_Brand where Product_ID='" + cmbProductPCategoryy.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbBrandPCategory.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbBrandPCategory.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbBrandPCategory.DisplayMemberPath = ds.Tables[0].Columns["Brand_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_MProduct()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Domain_ID, Product_Name from tlb_Products where Domain_ID='" + cmbDomainModelno.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbProductModelno.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbProductModelno.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbProductModelno.DisplayMemberPath = ds.Tables[0].Columns["Product_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_MBrand()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Product_ID,Brand_Name from tlb_Brand where Product_ID='" + cmbProductModelno.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbBrandModelno.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbBrandModelno.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbBrandModelno.DisplayMemberPath = ds.Tables[0].Columns["Brand_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_MPC()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Brand_ID, Product_Category from tlb_P_Category where Brand_ID='" + cmbBrandModelno.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbPCategoryModelno.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbPCategoryModelno.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbPCategoryModelno.DisplayMemberPath = ds.Tables[0].Columns["Product_Category"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_CProduct()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Domain_ID, Product_Name from tlb_Products where Domain_ID='" + cmbDomainColor.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbProductColor.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbProductColor.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbProductColor.DisplayMemberPath = ds.Tables[0].Columns["Product_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_CBrand()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Product_ID, Brand_Name from tlb_Brand where Product_ID='" + cmbProductColor.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbBrandColor.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbBrandColor.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbBrandColor.DisplayMemberPath = ds.Tables[0].Columns["Brand_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_CPC()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,Brand_ID, Product_Category from tlb_P_Category where Brand_ID='" + cmbBrandColor.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbPCategoryColor.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbPCategoryColor.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbPCategoryColor.DisplayMemberPath = ds.Tables[0].Columns["Product_Category"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Load_CModel()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID,P_Category, Model_No from tlb_Model where P_Category='" + cmbPCategoryColor.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbModelColor.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbModelColor.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbModelColor.DisplayMemberPath = ds.Tables[0].Columns["Model_No"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        private void cmbP_domain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbP_Product.SelectedValue = null;
+            cmbP_Brand.SelectedValue = null;
+            cmbP_PCategory.SelectedValue = null;
+            cmbP_ModelNo.SelectedValue = null;
+            cmbP_Color.SelectedValue = null;
+            Fetch_Product();
+        }
+
+        private void cmbP_Product_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbP_Brand.SelectedValue = null;
+            cmbP_PCategory.SelectedValue = null;
+            cmbP_ModelNo.SelectedValue = null;
+            cmbP_Color.SelectedValue = null;
+            fetch_Brand();
+        }
+
+        private void cmbP_Brand_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbP_PCategory.SelectedValue = null;
+            cmbP_ModelNo.SelectedValue = null;
+            cmbP_Color.SelectedValue = null;
+            Fetch_PC();
+        }
+
+        private void cmbP_PCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbP_ModelNo.SelectedValue = null;
+            cmbP_Color.SelectedValue = null;
+            fetch_Model();
+        }
+
+        private void cmbP_ModelNo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbP_Color.SelectedValue = null;
+            fetch_Color();
+        }
+
+        private void btnP_AddDomain_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Domain.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnP_AddProduct_Click_1(object sender, RoutedEventArgs e)
+        {
+            grd_Product.Visibility = Visibility;
+            Load_DomainP();
+        }
+
+        private void btnP_AddBrand_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Brand.Visibility = Visibility;
+            Load_DomainB();
+        }
+
+        private void btnP_AddPCategory_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ProductCategory.Visibility = Visibility;
+            Load_PCDomain();
+        }
+
+        private void btnP_AddModelNo_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ModelNo.Visibility = Visibility;
+            Load_MDomain();
+        }
+
+        private void btnP_AddColor1_Click_1(object sender, RoutedEventArgs e)
+        {
+            grd_Color.Visibility = Visibility;
+            Load_CDomain();
+        }
+
+        private void btnAdm_AddProductExit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_U_AddProducts.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnP_Save_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                baddprd.Flag = 1;
+                baddprd.Domain_ID = Convert.ToInt32(cmbP_domain.SelectedValue.GetHashCode());
+                baddprd.Product_ID = Convert.ToInt32(cmbP_Product.SelectedValue.GetHashCode());
+                baddprd.Brand_ID = Convert.ToInt32(cmbP_Brand.SelectedValue.GetHashCode());
+                baddprd.P_Category = Convert.ToInt32(cmbP_PCategory.SelectedValue.GetHashCode());
+                baddprd.Model_No_ID = Convert.ToInt32(cmbP_ModelNo.SelectedValue.GetHashCode());
+                baddprd.Color_ID = Convert.ToInt32(cmbP_Color.SelectedValue.GetHashCode());
+                baddprd.Narration = txtP_Narration.Text;
+                baddprd.Price = Convert.ToDouble(txtP_Price.Text);
+                baddprd.S_Status = "Active";
+                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                dalprd.Save_Insert_Update_Delete(baddprd);
+                MessageBox.Show("Data Save Successfully");
+                txtP_Narration.Text = "";
+                txtP_Price.Text = "";
+                clearAllADDProducts();
+                // Load_Domain();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void btnP_Clear_Click(object sender, RoutedEventArgs e)
+        {
+            clearAllADDProducts();
+        }
+
+        private void btnP_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_U_AddProducts.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void grd_U_AddProducts_Loaded(object sender, RoutedEventArgs e)
+        {
+            Load_Domain();
+        }
+
+        #region Domain Button Event
+        private void btndomainsave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string strpan, stradhar, strpass, straddress, strseventw, strfrm16, strdelerlic, strnoidpf, strnodoc, strcmpid;
+                baddprd.Flag = 1;
+                baddprd.Domain_Name = txtdomain.Text;
+                if (chkpancard.IsChecked == true)
+                {
+                    strpan = "Yes";
+                }
+                else
+                {
+                    strpan = "No";
+                }
+                if (chkadharcard.IsChecked == true)
+                {
+                    stradhar = "Yes";
+                }
+                else
+                {
+                    stradhar = "No";
+                }
+                if (chkPassport.IsChecked == true)
+                {
+                    strpass = "Yes";
+                }
+                else
+                {
+                    strpass = "No";
+                }
+                if (chkaddress.IsChecked == true)
+                {
+                    straddress = "Yes";
+                }
+                else
+                {
+                    straddress = "No";
+                }
+                if (chkseventwelve.IsChecked == true)
+                {
+                    strseventw = "Yes";
+                }
+                else
+                {
+                    strseventw = "No";
+                }
+                if (chkform16.IsChecked == true)
+                {
+                    strfrm16 = "Yes";
+                }
+                else
+                {
+                    strfrm16 = "No";
+                }
+                if (chkdealerlisence.IsChecked == true)
+                {
+                    strdelerlic = "Yes";
+                }
+                else
+                {
+                    strdelerlic = "No";
+                }
+                if (chkotherid.IsChecked == true)
+                {
+                    strnoidpf = "Yes";
+                }
+                else
+                {
+                    strnoidpf = "No";
+                }
+                if (chknodocument.IsChecked == true)
+                {
+                    strnodoc = "Yes";
+                }
+                else { strnodoc = "No"; }
+                if (chkcidproof.IsChecked == true)
+                {
+                    strcmpid = "Yes";
+                }
+                else
+                {
+                    strcmpid = "No";
+                }
+                baddprd.PAN_Card = strpan;
+                baddprd.Adhar_Card = stradhar;
+                baddprd.Passport = strpass;
+                baddprd.Address_Proof = straddress;
+                baddprd.Seven_Twevel = strseventw;
+                baddprd.Form_16 = strfrm16;
+                baddprd.Dealer_Lisence = strdelerlic;
+                baddprd.Other_ID_Proof = strnoidpf;
+                baddprd.No_Documents = strnodoc;
+                baddprd.Cmp_ID_Proof = strcmpid;
+                baddprd.S_Status = "Active";
+
+                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                dalprd.AddDomain_Insert_Update_Delete(baddprd);
+                MessageBox.Show("Data Save Successfully");
+                txtdomain.Text = "";
+                Load_Domain();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+           
+        }
+
+        private void btndomainexit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Domain.Visibility = System.Windows.Visibility.Hidden;
+        }
+        #endregion Domain Button Event
+
+        #region Product Button Event
+        private void btnProductSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                baddprd.Flag = 1;
+                baddprd.Domain_ID = Convert.ToInt32(cmb_DomainProduct.SelectedValue.GetHashCode());
+                baddprd.Product_Name = txtProductName.Text;
+                baddprd.S_Status = "Active";
+
+
+                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                dalprd.AddProducts_Insert_Update_Delete(baddprd);
+                MessageBox.Show("Data Save Successfully");
+                txtProductName.Text = "";
+                Load_DomainP();
+                //Fetch_Product();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void btnProduct_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Product.Visibility = System.Windows.Visibility.Hidden;
+        }
+        #endregion Product Button Event
+
+        #region Brand Button Event
+        private void btnBrandSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                baddprd.Flag = 1;
+                baddprd.Product_ID = Convert.ToInt32(cmbProductBrand.SelectedValue.GetHashCode());
+                baddprd.Brand_Name = txtBrand.Text;
+                baddprd.S_Status = "Active";
+                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                dalprd.AddBrand_Insert_Update_Delete(baddprd);
+                MessageBox.Show("Data Save Successfully");
+                txtBrand.Text = "";
+                cmbProductBrand.SelectedValue = null;
+                Load_Domain();
+                // fetch_Brand();
+                // Load_DomainB();
+                // Load_BrandProduct();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void btnBrandExit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Brand.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void cmbDomainBrand_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbProductBrand.SelectedValue = null;
+            Load_BrandProduct();
+        }
+        #endregion Brand Button Event
+
+        #region ProductCategory Button Event
+        private void cmbDomainPCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbBrandPCategory.SelectedValue = null;
+            cmbProductPCategoryy.SelectedValue = null;
+            Load_PCProduct();
+        }
+
+        private void cmbProductPCategoryy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Load_PCBrand();
+        }
+
+        private void btnPCategorySave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                baddprd.Flag = 1;
+                baddprd.Brand_ID = Convert.ToInt32(cmbBrandPCategory.SelectedValue.GetHashCode());
+                baddprd.Product_Category = txtPCategoy.Text;
+                baddprd.S_Status = "Active";
+                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                dalprd.AddP_Category_Insert_Update_Delete(baddprd);
+                MessageBox.Show("Data Save Successfully");
+                txtPCategoy.Text = "";
+                cmbBrandPCategory.SelectedValue = null;
+                cmbProductPCategoryy.SelectedValue = null;
+                cmbDomainPCategory.SelectedValue = null;
+                Load_Domain();
+                //  Load_PCDomain();
+                // Fetch_PC();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void btnPCategoryExit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ProductCategory.Visibility = System.Windows.Visibility.Hidden;
+        }
+        #endregion ProductCategory Button Event
+
+        #region ModelNo Button Event
+        private void cmbDomainModelno_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbProductModelno.SelectedValue = null;
+            cmbBrandModelno.SelectedValue = null;
+            cmbPCategoryModelno.SelectedValue = null;
+            Load_MProduct();
+        }
+
+        private void cmbProductModelno_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbBrandModelno.SelectedValue = null;
+            cmbPCategoryModelno.SelectedValue = null;
+            Load_MBrand();
+        }
+
+        private void cmbBrandModelno_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbPCategoryModelno.SelectedValue = null;
+            Load_MPC();
+        }
+
+        private void btnModelNoSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                baddprd.Flag = 1;
+                baddprd.P_Category = Convert.ToInt32(cmbPCategoryModelno.SelectedValue.GetHashCode());
+                baddprd.Model_No = txtmodelno.Text;
+                baddprd.S_Status = "Active";
+                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                dalprd.AddModel_Insert_Update_Delete(baddprd);
+                MessageBox.Show("Data Save Successfully");
+                txtmodelno.Text = "";
+                cmbDomainModelno.SelectedValue = null;
+                cmbProductModelno.SelectedValue = null;
+                cmbBrandModelno.SelectedValue = null;
+                cmbPCategoryModelno.SelectedValue = null;
+                Load_Domain();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void btnmodelnoexie_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ModelNo.Visibility = System.Windows.Visibility.Hidden;
+        }
+        #endregion ModelNo Button Event
+
+        #region Colour Button Event
+        private void cmbDomainColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbProductColor.SelectedValue = null;
+            cmbBrandColor.SelectedValue = null;
+            cmbPCategoryColor.SelectedValue = null;
+            cmbModelColor.SelectedValue = null;
+            Load_CProduct();
+        }
+
+        private void cmbProductColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //cmbProductColor.SelectedValue = null;
+            cmbBrandColor.SelectedValue = null;
+            cmbPCategoryColor.SelectedValue = null;
+            cmbModelColor.SelectedValue = null;
+
+            Load_CBrand();
+        }
+
+        private void cmbBrandColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbPCategoryColor.SelectedValue = null;
+            cmbModelColor.SelectedValue = null;
+            Load_CPC();
+        }
+
+        private void cmbPCategoryColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbModelColor.SelectedValue = null;
+            Load_CModel();
+        }
+
+        private void btnColorSave_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+
+                baddprd.Flag = 1;
+                baddprd.Model_No_ID = Convert.ToInt32(cmbModelColor.SelectedValue.GetHashCode());
+                baddprd.Color = txtcolor.Text;
+                baddprd.S_Status = "Active";
+                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                dalprd.AddColor_Insert_Update_Delete(baddprd);
+                MessageBox.Show("Data Save Successfully");
+                txtcolor.Text = "";
+                cmbDomainColor.SelectedValue = null;
+                cmbProductColor.SelectedValue = null;
+                cmbBrandColor.SelectedValue = null;
+                cmbPCategoryColor.SelectedValue = null;
+                cmbModelColor.SelectedValue = null;
+
+                Load_Domain();
+                // fetch_Color();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnColorExit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Color.Visibility = System.Windows.Visibility.Hidden;
+        }
+        #endregion Colour Button Event
+
+       
     }
 }
 
