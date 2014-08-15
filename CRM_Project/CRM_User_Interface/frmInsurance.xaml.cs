@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace CRM_User_Interface
 {
@@ -19,6 +22,13 @@ namespace CRM_User_Interface
     /// </summary>
     public partial class frmInsurance : Window
     {
+
+        public SqlConnection con = new SqlConnection(ConfigurationSettings.AppSettings["ConstCRM"].ToString());
+        SqlCommand cmd;
+        SqlDataReader dr;
+        string caption = "Green Future Glob";
+        static int PK_ID;
+
         public frmInsurance()
         {
             InitializeComponent();
@@ -48,6 +58,7 @@ namespace CRM_User_Interface
         }
         #endregion Event
 
+        #region Insurance Function
         public void InsuranceID(string iid)
         {
             txtInsuranceID.Text = iid;
@@ -232,6 +243,47 @@ namespace CRM_User_Interface
             return result;
         }
 
+        public void Insurance_FillData()
+        {
+            try
+            {
+                con.Open();
+                string sqlquery = "SELECT I.[ID],I.[Customer_ID],I.[Domain_ID],I.[Product_ID],I.[Brand_ID],I.[P_Category],I.[Model_No_ID],I.[Color_ID] " + 
+                                  ",PM.[Product_Name] + ' , ' + B.[Brand_Name] + ' , ' + PC.[Product_Category] + ' , ' + MN.[Model_No] + ' , ' + C.[Color] AS [Products]" +
+                                  ",M.[Name],M.[Mobile_No],M.[Email_ID] " +
+                                  "FROM [tlb_InvoiceDetails] I " +
+                                  "INNER JOIN [tb_Domain] DM ON DM.[ID]=I.[Domain_ID] " +
+                                  "INNER JOIN [tlb_Products] PM ON PM.[ID]=I.[Product_ID] " +
+                                  "INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] " +
+                                  "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=I.[P_Category]" +
+                                  "INNER JOIN [tlb_Model] MN ON MN.[ID]=I.[Model_No_ID] " +
+                                  "INNER JOIN [tlb_Color] C ON C.[ID]=I.[Color_ID] " +
+                                  "INNER JOIN [tlb_Customer] M ON M.[ID]=I.[Customer_ID] " +
+                                  "where I.[ID]='" + txtInsuranceID.Text + "' ";
+                SqlCommand cmd = new SqlCommand(sqlquery, con);
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    lblCustomerName.Content = dt.Rows[0]["Name"].ToString();
+                    lblMobileNo.Content = dt.Rows[0]["Mobile_No"].ToString();
+                    lblEmailID.Content = dt.Rows[0]["Email_ID"].ToString();
+                    lblProductName.Content = dt.Rows[0]["Products"].ToString();
+                    
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
         public void Cal_InstallmentMonth()
         {
             double insAmt,intMonth,intervalAmt,month, monthAmt;
@@ -249,7 +301,7 @@ namespace CRM_User_Interface
                 throw;
             }
         }
-
+        #endregion Insurance Function
         private void cmbInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Cal_InstallmentMonth();

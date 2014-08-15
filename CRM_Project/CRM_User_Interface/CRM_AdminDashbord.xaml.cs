@@ -2089,7 +2089,7 @@ namespace CRM_User_Interface
 
                 frmInsurance obj = new frmInsurance();
                 obj.InsuranceID(txtInsurance_InvoiceID.Text.Trim());
-                //obj.FillData();
+                obj.Insurance_FillData();
                 //obj.LoadNoOfYears1();
                 //obj.LoadNoOfMonths1();
                 obj.ShowDialog();
