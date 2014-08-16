@@ -38,6 +38,7 @@ namespace CRM_User_Interface
         public CRM_AdminDashbord()
         {
             InitializeComponent();
+            checkedStuff = new List<string>();
         }
         
         /// <summary>
@@ -745,7 +746,7 @@ namespace CRM_User_Interface
                 result = true;
                 MessageBox.Show("Please Enter Price", caption, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            else if (txtQuantity.Text == "")
+            else if (txtQuantityF.Text == "")
             {
                 result = true;
                 MessageBox.Show("Please Enter Quantity", caption, MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -765,7 +766,7 @@ namespace CRM_User_Interface
                 String str;
                 //con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT P.[ID],P.[DealerID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Warranty],P.[Quantity],P.[C_Date] " +
+                str = "SELECT P.[ID],P.[DealerID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Warranty],P.[Quantity],P.[C_Date],P.[Have_Insurance] " +
                       ",D.[DealerFirstName] + '' + D.[DealerLastName] AS [DealerName],D.[MobileNo],D.[PhoneNo] " +
                       ",DM.[Domain_Name] + ' , ' +  PM.[Product_Name] + ' , ' + B.[Brand_Name] + ' , ' + PC.[Product_Category] + ' , ' + MN.[Model_No] + ' , ' + C.[Color] AS [Products]" +
                       ",PP.[Price] " +
@@ -786,13 +787,13 @@ namespace CRM_User_Interface
                     str = str + "P.[C_Date] Between '" + StartDate + "' AND '" + EndDate + "'  AND ";
                 }
 
-                if (cmbAdm_DealerFilter_Search.Text.Equals("Domain"))
-                {
-                    if (txtAdm_Dealer_Filter_Search.Text.Trim() != "")
-                    {
-                        str = str + "DM.[Domain_Name] LIKE ISNULL('" + txtAdm_Dealer_Filter_Search.Text.Trim() + "',DM.[Domain_Name]) + '%' AND ";
-                    }
-                }
+                //if (cmbAdm_DealerFilter_Search.Text.Equals("Domain"))
+                //{
+                //    if (txtAdm_Dealer_Filter_Search.Text.Trim() != "")
+                //    {
+                //        str = str + "DM.[Domain_Name] LIKE ISNULL('" + txtAdm_Dealer_Filter_Search.Text.Trim() + "',DM.[Domain_Name]) + '%' AND ";
+                //    }
+                //}
                 if (cmbAdm_DealerFilter_Search.Text.Equals("Product Type"))
                 {
                     if (txtAdm_Dealer_Filter_Search.Text.Trim() != "")
@@ -859,7 +860,7 @@ namespace CRM_User_Interface
         public void LoadFinal()
         {
             cmbAdm_DealerFilter_Search.Text = "Select";
-            cmbAdm_DealerFilter_Search.Items.Add("Domain");
+            //cmbAdm_DealerFilter_Search.Items.Add("Domain");
             cmbAdm_DealerFilter_Search.Items.Add("Product Type");
             cmbAdm_DealerFilter_Search.Items.Add("Brand");
             cmbAdm_DealerFilter_Search.Items.Add("Product Category");
@@ -917,6 +918,7 @@ namespace CRM_User_Interface
                                             {
                                                 result = false;
                                             }
+                                                                                        
                                         }
                                     }
                                 }
@@ -1110,11 +1112,12 @@ namespace CRM_User_Interface
             //MessageBox.Show(ID);
             grd_FinalizeProducts.Visibility = Visibility;
             Salesid();
+            //txtAdm_AvilableQty.Text = "0.00";
 
             try
             {
                 con.Open();
-                string sqlquery = "SELECT P.[ID],P.[DealerID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Warranty],P.[Quantity],P.[C_Date],P.[Net_Amount] " +
+                string sqlquery = "SELECT P.[ID],P.[DealerID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Warranty],P.[Quantity],P.[C_Date],P.[Net_Amount],P.[Have_Insurance] " +
                       ",D.[DealerFirstName] + '' + D.[DealerLastName] AS [DealerName],D.[MobileNo],D.[PhoneNo] " +
                       ",DM.[Domain_Name] + ' , ' +  PM.[Product_Name] + ' , ' + B.[Brand_Name] + ' , ' + PC.[Product_Category] + ' , ' + MN.[Model_No] + ' , ' + C.[Color] AS [Products]" +
                       ",PP.[Price] " +
@@ -1151,6 +1154,7 @@ namespace CRM_User_Interface
                     lblProcePrice.Content = Convert.ToDouble(Microsoft.VisualBasic.Strings.Format(price, "##,###.00"));
                     double qt = Convert.ToDouble(dt.Rows[0]["Quantity"].ToString());
                     lblProceQty.Content = Convert.ToDouble(Microsoft.VisualBasic.Strings.Format(qt, "##,###.00"));
+                    lblInsurance.Content = dt.Rows[0]["Have_Insurance"].ToString();
                 }
 
                 //grd_FinalizeProducts.Visibility = System.Windows.Visibility.Visible;
@@ -1185,6 +1189,50 @@ namespace CRM_User_Interface
         {
             Final_DealerDetails();
         }
+
+        private void txtQuantityF_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtPrice.Text == "")
+            {
+                //MessageBox.Show("Please Insert Price", caption, MessageBoxButton.OK);
+                txtQuantityF.Text = 0.ToString();
+
+            }
+            else if (txtQuantityF.Text == "")
+            {
+                txtTotalPrice.Text = txtPrice.Text;
+            }
+            else if (txtPrice.Text != "" && txtQuantityF.Text != "")
+            {
+                double tamt1;
+                nfi = (NumberFormatInfo)nfi.Clone();
+                nfi.CurrencySymbol = "";
+
+                double prc = Convert.ToDouble(txtPrice.Text);
+                double qty = Convert.ToDouble(txtQuantityF.Text);
+                double tamt = (prc * qty);
+                txtTotalPrice.Text = tamt.ToString();
+                //  txtpreroundoff.Text = Math.Round(tamt).ToString();
+                //roundoff Method
+                if (txtTotalPrice.Text.Trim().Length > 0)
+                {
+                    tamt1 = Convert.ToDouble(txtTotalPrice.Text);
+                }
+                else
+                {
+                    tamt1 = 0;
+                }
+                double netAmt = Math.Round(tamt1);
+                double roundDiff = netAmt - tamt1;
+                double roundDiff1 = Math.Round(roundDiff, 2);
+
+                txtNetAmount.Text = String.Format(nfi, "{0:C}", Convert.ToDouble(netAmt));
+                //txtRoundUp.Text = String.Format(nfi, "{0:C}", Convert.ToDouble(roundDiff));
+                txtpreroundoff.Text = Convert.ToString(roundDiff1);
+
+            }
+        }
+
         #endregion Final Product Event
 
         #region DealerSales
@@ -1239,7 +1287,7 @@ namespace CRM_User_Interface
             lblProceNetAmt.Content = "";
             lblProcePrice.Content = "";
             txtPrice.Text = "";
-            txtQuantity.Text = "";
+            txtQuantityF.Text = "";
             dtpFinalDate.Text = "";
             txtTotalPrice.Text = "";
             txtpreroundoff.Text = "";
@@ -1260,12 +1308,51 @@ namespace CRM_User_Interface
                     bstockDet.Flag = 1;
                     bstockDet.SID = Convert.ToInt32(txtAdm_StockID.Text);
                     //bstockDet.Products123 = lblProducts.Content.ToString();
-                    bstockDet.NewQty = txtQuantity.Text;
+                    bstockDet.NewQty = txtQuantityF.Text;
                     bstockDet.FinalPrice = Convert.ToDouble(txtPrice.Text);
                     bstockDet.S_Status = "Active";
                     bstockDet.C_Date = Convert.ToString(System.DateTime.Now.ToShortDateString());
                     dstUpdate.AddStockDetailsUp_Insert_Update_Delete(bstockDet);
-                    MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    con.Close();
+                }
+
+                AddQuantity_Check();
+                AddQuantity();
+                try
+                {
+                    bstockDet.Flag = 1;
+                    bstockDet.SID = Convert.ToInt32(txtAdm_StockID.Text);
+                    //bstockDet.Products123 = lblProducts.Content.ToString();
+                    bstockDet.AvilableQty = Convert.ToString(add);
+                    daddqty.AddQtyStockDetails_Insert_Update_Delete(bstockDet);
+                    //MessageBox.Show("Quantity Save Succesfully...", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    con.Close();
+                }
+
+
+                try
+                {
+                    bstockDet.Flag = 1;
+                    bstockDet.SID = Convert.ToInt32(txtAdm_StockID.Text);
+                    //bstockDet.Products123 = lblProducts.Content.ToString();
+                    bstockDet.AvilableQty = Convert.ToString(add);
+                    daddqty.AddQtyStockDetails_Insert_Update_Delete(bstockDet);
+                    //MessageBox.Show("Quantity Save Succesfully...", caption, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception)
                 {
@@ -1294,10 +1381,11 @@ namespace CRM_User_Interface
 
                     bstockDet.Products1234 = lblProducts.Content.ToString();
                     //bstockDet.Products123= lblProducts.Content.ToString();
-                    bstockDet.AvilableQty = txtQuantity.Text;
+                    bstockDet.AvilableQty = txtQuantityF.Text;
                     bstockDet.SaleQty = txtSaleQuantity.Text;
-                    bstockDet.NewQty = txtQuantity.Text;
+                    bstockDet.NewQty = txtQuantityF.Text;
                     bstockDet.FinalPrice = Convert.ToDouble(txtPrice.Text);
+                    bstockDet.Insurance = lblInsurance.Content.ToString();
                     bstockDet.S_Status = "Active";
 
                     //string STRTODAYDATE = System.DateTime.Now.ToShortDateString();
@@ -1313,7 +1401,7 @@ namespace CRM_User_Interface
                     //baddprd.C_Date =Convert .ToDateTime( DATE);
                     bstockDet.C_Date = Convert.ToString(System.DateTime.Now.ToShortDateString());
                     dstockDet.AddStockDetails_Insert_Update_Delete(bstockDet);
-                    MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
                 catch (Exception)
@@ -1353,7 +1441,7 @@ namespace CRM_User_Interface
                 bfinaldealer1.ProcPrice = Convert.ToDouble(lblProcePrice.Content.ToString());
                 bfinaldealer1.ProcQty = lblProceQty.Content.ToString();
                 bfinaldealer1.FinalPrice = Convert.ToDouble(txtPrice.Text);
-                bfinaldealer1.FinalQty = txtQuantity.Text;
+                bfinaldealer1.FinalQty = txtQuantityF.Text;
                 bfinaldealer1.SubTotal = Convert.ToDouble(txtTotalPrice.Text);
                 bfinaldealer1.RoundUp = Convert.ToDouble(txtpreroundoff.Text);
                 bfinaldealer1.NetAmt = Convert.ToDouble(txtNetAmount.Text);
@@ -1376,7 +1464,7 @@ namespace CRM_User_Interface
                 //bfinaldealer.C_Date =Convert .ToDateTime(dtpFinalDate.SelectedDate.ToString);
                 bfinaldealer1.C_Date = Convert.ToString(System.DateTime.Now.ToShortDateString());
                 dfinaldealer.FinalDealer_Insert_Update_Delete(bfinaldealer1);
-                MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
             catch (Exception)
@@ -1388,45 +1476,45 @@ namespace CRM_User_Interface
                 con.Close();
             }
 
-            AddQuantity_Check();
-            AddQuantity();
+            //AddQuantity_Check();
+            //AddQuantity();
 
-            try
-            {
-                bstockDet.Flag = 1;
-                bstockDet.SID = Convert.ToInt32(txtAdm_StockID.Text);
-                //bstockDet.Products123 = lblProducts.Content.ToString();
-                bstockDet.AvilableQty = Convert.ToString(add);
-                daddqty.AddQtyStockDetails_Insert_Update_Delete(bstockDet);
-                MessageBox.Show("Quantity Save Succesfully...", caption, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.Close();
-            }
+            //try
+            //{
+            //    bstockDet.Flag = 1;
+            //    bstockDet.SID = Convert.ToInt32(txtAdm_StockID.Text);
+            //    //bstockDet.Products123 = lblProducts.Content.ToString();
+            //    bstockDet.AvilableQty = Convert.ToString(add);
+            //    daddqty.AddQtyStockDetails_Insert_Update_Delete(bstockDet);
+            //    //MessageBox.Show("Quantity Save Succesfully...", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    con.Close();
+            //}
 
 
-            try
-            {
-                bstockDet.Flag = 1;
-                bstockDet.SID = Convert.ToInt32(txtAdm_StockID.Text);
-                //bstockDet.Products123 = lblProducts.Content.ToString();
-                bstockDet.AvilableQty = Convert.ToString(add);
-                daddqty.AddQtyStockDetails_Insert_Update_Delete(bstockDet);
-                MessageBox.Show("Quantity Save Succesfully...", caption, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.Close();
-            }
+            //try
+            //{
+            //    bstockDet.Flag = 1;
+            //    bstockDet.SID = Convert.ToInt32(txtAdm_StockID.Text);
+            //    //bstockDet.Products123 = lblProducts.Content.ToString();
+            //    bstockDet.AvilableQty = Convert.ToString(add);
+            //    daddqty.AddQtyStockDetails_Insert_Update_Delete(bstockDet);
+            //    //MessageBox.Show("Quantity Save Succesfully...", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    con.Close();
+            //}
 
             try
             {
@@ -1434,7 +1522,7 @@ namespace CRM_User_Interface
                 bfinaldealer1.FDealerID = Convert.ToInt32(txtAdm_DealerID.Text);
                 bfinaldealer1.S_Status = "DeActive";
                 dFup.FinalUpdateD_Insert_Update_Delete(bfinaldealer1);
-                MessageBox.Show("Update Final Dealer Succesfully...", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show("Update Final Dealer Succesfully...", caption, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception)
             {
@@ -1444,6 +1532,8 @@ namespace CRM_User_Interface
             {
                 con.Close();
             }
+
+            MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
 
             //txtAdm_DomainID.Text = "";
             //txtAdm_ProductID.Text = "";
@@ -1461,7 +1551,7 @@ namespace CRM_User_Interface
             lblProceNetAmt.Content = "";
             lblProcePrice.Content = "";
             txtPrice.Text = "";
-            txtQuantity.Text = "";
+            txtQuantityF.Text = "";
             dtpFinalDate.Text = "";
             txtTotalPrice.Text = "";
             txtpreroundoff.Text = "";
@@ -1535,7 +1625,7 @@ namespace CRM_User_Interface
             try
             {         
                 aviQty = Convert.ToInt32(txtAdm_AvilableQty.Text);
-                newQty = Convert.ToInt32(txtQuantity.Text);
+                newQty = Convert.ToInt32(txtQuantityF.Text);
                 add = aviQty + newQty;
             }
             catch(Exception)
@@ -2046,7 +2136,7 @@ namespace CRM_User_Interface
                 DataSet ds = new DataSet();
                 str = "SELECT P.[ID],P.[Customer_ID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Per_Product_Price],P.[Qty],P.[C_Price],P.[Tax_Name],P.[Tax],P.[Total_Price] " +
                       ",DM.[Domain_Name],PM.[Product_Name],B.[Brand_Name],PC.[Product_Category],MN.[Model_No],C.[Color] " +
-                      ",PP.[Have_Insurance] " +
+                      ",S.[HaveInsurance] " +
                       "FROM [tlb_InvoiceDetails] P " +
                       "INNER JOIN [tb_Domain] DM ON DM.[ID]=P.[Domain_ID] " +
                       "INNER JOIN [tlb_Products] PM ON PM.[ID]=P.[Product_ID] " +
@@ -2054,7 +2144,7 @@ namespace CRM_User_Interface
                       "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=P.[P_Category]" +
                       "INNER JOIN [tlb_Model] MN ON MN.[ID]=P.[Model_No_ID] " +
                       "INNER JOIN [tlb_Color] C ON C.[ID]=P.[Color_ID] " +
-                      "INNER JOIN [Pre_Procurement] PP ON PP.[Model_No_ID]=P.[Model_No_ID] " +
+                      "INNER JOIN [StockDetails] S ON S.[Model_No_ID]=P.[Model_No_ID] " +
                       "WHERE ";
                 if (cmbAdm_DealerFilter_Search.SelectedIndex > 0)
                 {
@@ -4104,6 +4194,7 @@ namespace CRM_User_Interface
                 checkedStuff.Remove(s);
         }
         #endregion PrePro Button Event
+
         #endregion PreProcurment Function
     }
 }
