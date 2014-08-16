@@ -1061,31 +1061,31 @@ namespace CRM_User_Interface
         private void txtQuantity_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            if (txtPrice.Text == "")
+            if (txtPrice4.Text == "")
             {
                 MessageBox.Show("Please Insert Price", caption, MessageBoxButton.OK);
-                txtQuantity.Text = 0.ToString();
+                txtQuantity4.Text = 0.ToString();
 
             }
-            else if (txtQuantity.Text == "")
+            else if (txtQuantity4.Text == "")
             {
-                txtTotalPrice.Text = txtPrice.Text;
+                txtTotalPrice4.Text = txtPrice4.Text;
             }
-            else if (txtPrice.Text != "" && txtQuantity.Text != "")
+            else if (txtPrice4.Text != "" && txtQuantity4.Text != "")
             {
                 double tamt1;
                 nfi = (NumberFormatInfo)nfi.Clone();
                 nfi.CurrencySymbol = "";
 
-                double prc = Convert.ToDouble(txtPrice.Text);
-                double qty = Convert.ToDouble(txtQuantity.Text);
+                double prc = Convert.ToDouble(txtPrice4.Text);
+                double qty = Convert.ToDouble(txtQuantity4.Text);
                 double tamt = (prc * qty);
-                txtTotalPrice.Text = tamt.ToString();
+                txtTotalPrice4.Text = tamt.ToString();
                 //  txtpreroundoff.Text = Math.Round(tamt).ToString();
                 //roundoff Method
-                if (txtTotalPrice.Text.Trim().Length > 0)
+                if (txtTotalPrice4.Text.Trim().Length > 0)
                 {
-                    tamt1 = Convert.ToDouble(txtTotalPrice.Text);
+                    tamt1 = Convert.ToDouble(txtTotalPrice4.Text);
                 }
                 else
                 {
@@ -1094,10 +1094,10 @@ namespace CRM_User_Interface
                 double netAmt = Math.Round(tamt1);
                 double roundDiff = netAmt - tamt1;
                 double roundDiff1 = Math.Round(roundDiff, 2);
-
-                txtNetAmount.Text = String.Format(nfi, "{0:C}", Convert.ToDouble(netAmt));
+                
+                txtNetAmount4.Text = String.Format(nfi, "{0:C}", Convert.ToDouble(netAmt));
                 //txtRoundUp.Text = String.Format(nfi, "{0:C}", Convert.ToDouble(roundDiff));
-                txtpreroundoff.Text = Convert.ToString(roundDiff1);
+                txtpreroundoff4.Text = Convert.ToString(roundDiff1);
 
             }
 
@@ -4016,11 +4016,11 @@ namespace CRM_User_Interface
                 bpreproc.Model_No_ID = Convert.ToInt32(cmbPreModel.SelectedValue.GetHashCode());
                 bpreproc.Color_ID = Convert.ToInt32(cmd_PreColor.SelectedValue.GetHashCode());
 
-                bpreproc.Procurment_Price = Convert.ToDouble(txtPrice.Text);
-                bpreproc.Quantity = Convert.ToDouble(txtQuantity.Text);
-                bpreproc.Total_Amount = Convert.ToDouble(txtTotalPrice.Text);
-                bpreproc.Net_Amount = Convert.ToDouble(txtNetAmount.Text);
-                bpreproc.Round_Off = Convert.ToDouble(txtpreroundoff.Text);
+                bpreproc.Procurment_Price = Convert.ToDouble(txtPrice4.Text);
+                bpreproc.Quantity = Convert.ToDouble(txtQuantity4.Text);
+                bpreproc.Total_Amount = Convert.ToDouble(txtTotalPrice4.Text);
+                bpreproc.Net_Amount = Convert.ToDouble(txtNetAmount4.Text);
+                bpreproc.Round_Off = Convert.ToDouble(txtpreroundoff4.Text);
                 //    for (int i = 0; i < 5;i++ )
                 //    { 
                 //        if (chkidproof.IsChecked == true)
