@@ -3151,10 +3151,16 @@ namespace CRM_User_Interface
    }
        else if (txtInvoiceActualPrice.Text != "" && txtInvoice_Qty.Text != "")
        {
-         double actualprice =Convert .ToDouble( txtInvoiceActualPrice.Text);
-       double q = Convert.ToDouble(txtInvoice_Qty.Text);
-       double tprice = actualprice * q;
-       txtInvoice_TotalPriceofQty.Text = tprice.ToString();
+           int o = Convert.ToInt32(txtInvoice_AvailabeQty.Text);
+           int p = Convert.ToInt32(txtInvoice_Qty.Text);
+           if (o >= p)
+           {
+               double actualprice = Convert.ToDouble(txtInvoiceActualPrice.Text);
+               double q = Convert.ToDouble(txtInvoice_Qty.Text);
+               double tprice = actualprice * q;
+               txtInvoice_TotalPriceofQty.Text = tprice.ToString();
+           }
+        
      }
        else if (txtInvoice_Qty.Text ==d.ToString ())
        {
