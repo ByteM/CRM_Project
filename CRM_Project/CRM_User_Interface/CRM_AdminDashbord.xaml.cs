@@ -46,6 +46,12 @@ namespace CRM_User_Interface
         BAL_AddProduct baddprd = new BAL_AddProduct();
         DAL_AddProduct dalprd = new DAL_AddProduct();
 
+        /// <summary>
+        /// Pre Procurment
+        /// </summary>
+        BAL_Pre_Procurement bpreproc = new BAL_Pre_Procurement();
+        DAL_Pre_Procurement dpreproc = new DAL_Pre_Procurement();
+
         BAL_EmployeeEntry bempetr = new BAL_EmployeeEntry();
         DAL_EmployeeEntry dempetr = new DAL_EmployeeEntry();
         BAL_DealerEntry bdealeretr = new BAL_DealerEntry();
@@ -57,6 +63,14 @@ namespace CRM_User_Interface
         DAL_FinalDealer dfinaldealer = new DAL_FinalDealer();
         DAL_StockAddQty daddqty = new DAL_StockAddQty();
         DAL_FinalDealerUpdate dFup = new DAL_FinalDealerUpdate();
+
+        string maincked, CName;
+        string bpg, cid1;
+        int fetcdoc, Cust_id;
+        int exist;
+        List<string> checkedStuff;
+        static DataTable dtstat = new DataTable();
+        double MA;
 
         private void btnadminexit_Click(object sender, RoutedEventArgs e)
         {
@@ -1046,9 +1060,10 @@ namespace CRM_User_Interface
 
         private void txtQuantity_TextChanged(object sender, TextChangedEventArgs e)
         {
+
             if (txtPrice.Text == "")
             {
-                //MessageBox.Show("Please Insert Price", caption, MessageBoxButton.OK);
+                MessageBox.Show("Please Insert Price", caption, MessageBoxButton.OK);
                 txtQuantity.Text = 0.ToString();
 
             }
@@ -1809,7 +1824,15 @@ namespace CRM_User_Interface
 
         private void smnewprocurement_Click(object sender, RoutedEventArgs e)
         {
-            
+            GRD_NewProcurement.Visibility = System.Windows.Visibility.Visible;
+            // load_DSelect();
+            PREPROCUREMENTid();
+            load_DSelect();
+            Fetch_Pre_Domain();
+            load_Insurance();
+            load_Followup();
+            FetchDealarname();
+            SetWarrantyYM();
             
         }
 
@@ -2116,6 +2139,190 @@ namespace CRM_User_Interface
 
 
         //----------add product
+        #region AddProduct Function
+        #region AddPro Fun
+        public bool AddProduct_Validation()
+        {
+            bool result = false;
+            if(cmbP_domain.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_Product.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_Brand.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_PCategory.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Categeory", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_ModelNo.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Model No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbP_Color.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Color", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtP_Price.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Product Price", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+        
+        public bool Domain_Validation()
+        {
+            bool result = false;
+            if(txtdomain.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Domain Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool Product_Validation()
+        {
+            bool result = false;
+            if(cmb_DomainProduct.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtProductName.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool Brand_Validation()
+        {
+            bool result = false;
+            if (cmbDomainBrand.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbProductBrand.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtBrand.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Brand Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool ProductCategory_Validation()
+        {
+            bool result = false;
+            if (cmbDomainPCategory.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbProductPCategoryy.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbBrandPCategory.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtPCategoy.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Product Category", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool ModelNo_Validation()
+        {
+            bool result = false;
+            if (cmbDomainModelno.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbProductModelno.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbBrandModelno.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPCategoryModelno.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Category", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtmodelno.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Model No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public bool Color_Validation()
+        {
+            bool result = false;
+            if (cmbDomainColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbProductColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Ptoduct Type", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbBrandColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPCategoryColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Category", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if(cmbModelColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Model No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtcolor.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Product Color", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
         public void Fetch_Product()
         {
             try
@@ -2765,8 +2972,9 @@ namespace CRM_User_Interface
                 con.Close();
             }
         }
+        #endregion AddPro Fun
 
-
+        #region AddProduct Event
         private void cmbP_domain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbP_Product.SelectedValue = null;
@@ -2806,7 +3014,9 @@ namespace CRM_User_Interface
             cmbP_Color.SelectedValue = null;
             fetch_Color();
         }
+        #endregion AddProduct Event
 
+        #region AddPro Button Event
         private void btnP_AddDomain_Click(object sender, RoutedEventArgs e)
         {
             grd_Domain.Visibility = System.Windows.Visibility.Visible;
@@ -2849,6 +3059,9 @@ namespace CRM_User_Interface
 
         private void btnP_Save_Click(object sender, RoutedEventArgs e)
         {
+            if (AddProduct_Validation() == true)
+                return;
+            
             try
             {
 
@@ -2891,6 +3104,7 @@ namespace CRM_User_Interface
         {
             grd_U_AddProducts.Visibility = System.Windows.Visibility.Hidden;
         }
+        #endregion AddPro Button Event
 
         private void grd_U_AddProducts_Loaded(object sender, RoutedEventArgs e)
         {
@@ -2900,6 +3114,9 @@ namespace CRM_User_Interface
         #region Domain Button Event
         private void btndomainsave_Click(object sender, RoutedEventArgs e)
         {
+            if (Domain_Validation() == true)
+                return;
+
             try
             {
                 string strpan, stradhar, strpass, straddress, strseventw, strfrm16, strdelerlic, strnoidpf, strnodoc, strcmpid;
@@ -3004,12 +3221,7 @@ namespace CRM_User_Interface
             {
 
                 throw;
-            }
-            finally
-            {
-                con.Close();
-            }
-           
+            }          
         }
 
         private void btndomainexit_Click(object sender, RoutedEventArgs e)
@@ -3021,6 +3233,9 @@ namespace CRM_User_Interface
         #region Product Button Event
         private void btnProductSave_Click(object sender, RoutedEventArgs e)
         {
+            if (Product_Validation() == true)
+                return;
+
             try
             {
                 baddprd.Flag = 1;
@@ -3041,10 +3256,7 @@ namespace CRM_User_Interface
 
                 throw;
             }
-            finally
-            {
-                con.Close();
-            }
+            
         }
 
         private void btnProduct_Exit_Click(object sender, RoutedEventArgs e)
@@ -3056,9 +3268,12 @@ namespace CRM_User_Interface
         #region Brand Button Event
         private void btnBrandSave_Click(object sender, RoutedEventArgs e)
         {
+            if (Brand_Validation() == true)
+                return;
+
             try
             {
-
+                
                 baddprd.Flag = 1;
                 baddprd.Product_ID = Convert.ToInt32(cmbProductBrand.SelectedValue.GetHashCode());
                 baddprd.Brand_Name = txtBrand.Text;
@@ -3078,10 +3293,7 @@ namespace CRM_User_Interface
 
                 throw;
             }
-            finally
-            {
-                con.Close();
-            }
+            
         }
 
         private void btnBrandExit_Click(object sender, RoutedEventArgs e)
@@ -3111,6 +3323,9 @@ namespace CRM_User_Interface
 
         private void btnPCategorySave_Click(object sender, RoutedEventArgs e)
         {
+            if (ProductCategory_Validation() == true)
+                return;
+
             try
             {
 
@@ -3133,10 +3348,6 @@ namespace CRM_User_Interface
             {
 
                 throw;
-            }
-            finally
-            {
-                con.Close();
             }
         }
 
@@ -3170,6 +3381,9 @@ namespace CRM_User_Interface
 
         private void btnModelNoSave_Click(object sender, RoutedEventArgs e)
         {
+            if (ModelNo_Validation() == true)
+                return;
+
             try
             {
 
@@ -3193,10 +3407,7 @@ namespace CRM_User_Interface
 
                 throw;
             }
-            finally
-            {
-                con.Close();
-            }
+            
         }
 
         private void btnmodelnoexie_Click(object sender, RoutedEventArgs e)
@@ -3240,6 +3451,8 @@ namespace CRM_User_Interface
 
         private void btnColorSave_Click(object sender, RoutedEventArgs e)
         {
+            if (Color_Validation() == true)
+                return;
 
             try
             {
@@ -3273,8 +3486,625 @@ namespace CRM_User_Interface
             grd_Color.Visibility = System.Windows.Visibility.Hidden;
         }
         #endregion Colour Button Event
+        #endregion AddProduct Function
 
-       
+        //------------Pre procurment
+        #region PreProcurment Function
+        #region PrePro Fun
+        public bool PrePro_Validation()
+        {
+            bool result = false;
+            if(cmbPre_Pro_Salename.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Dealer Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreDomain.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreProduct.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreBrand.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPrePCategory.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Category", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreModel.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Model No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmd_PreColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Color", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtPrice4.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Price", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtQuantity4.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Quantity", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreFollowup.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Followup", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreInsurance.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Insurance", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
+
+        public void load_DSelect()
+        {
+            cmbPreDomain.Text = "--Select--";
+            cmbPreProduct.Text = "--Select--";
+            cmbPreBrand.Text = "--Select--";
+            cmbPrePCategory.Text = "--Select--";
+            cmbPreModel.Text = "--Select--";
+            cmd_PreColor.Text = "--Select--";
+        }
+
+        public void Fetch_Pre_Domain()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Domain_Name from tb_Domain ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+
+                    // cmbPreDomain.Text = "--Select--";
+                    cmbPreDomain.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbPreDomain.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbPreDomain.DisplayMemberPath = ds.Tables[0].Columns["Domain_Name"].ToString();
+                    // cmbPreDomain.Items.Insert(0, "--Select--");
+                    // cmbPreDomain.Items.Insert(0, new ListItem("--Select--", "0"));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void load_Insurance()
+        {
+            cmbPreInsurance.Text = "--Select--";
+            cmbPreInsurance.Items.Add("Yes");
+            cmbPreInsurance.Items.Add("No");
+
+        }
+
+        public void load_Followup()
+        {
+            cmbPreFollowup.Text = "--Select--";
+            cmbPreFollowup.Items.Add("Default");
+            cmbPreFollowup.Items.Add("Custom");
+
+        }
+
+        public void FetchDealarname()
+        {
+            try
+            {
+                con.Open();
+                String str2 = "Select ID, [DealerFirstName]+' '+[DealerLastName] as [DealerName] from tbl_DealerEntry  where  S_Status='Active' ";
+                cmd = new SqlCommand(str2, con);
+                DataSet ds = new DataSet();
+                // dt = new DataTable();
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                adp.Fill(ds);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+
+
+                    cmbPre_Pro_Salename.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbPre_Pro_Salename.ItemsSource = ds.Tables[0].DefaultView;
+                    //string a = ds.Tables[0].Columns["DealerFirstName"].ToString();
+                    //string b = ds.Tables[0].Columns["DealerLastName"].ToString();
+                    cmbPre_Pro_Salename.DisplayMemberPath = ds.Tables[0].Columns["DealerName"].ToString();
+
+                }
+
+            }
+            catch { throw; }
+            finally { con.Close(); }
+        }
+
+        public void SetWarrantyYM()
+        {
+            cmbPreWarrantyYM.Text = "---Select---";
+            cmbPreWarrantyYM.Items.Add("Month");
+            cmbPreWarrantyYM.Items.Add("Year");
+        }
+
+        public void fetch_Documents()
+        {
+
+            try
+            {
+                con.Open();
+
+                cmd = new SqlCommand("Select PAN_Card,Adhar_Card,Passport,Address_Proof,Seven_Twevel,Form_16,Dealer_Lisence,Other_ID_Proof,No_Documents,Cmp_ID_Proof  from tb_Domain where ID='" + cmbPreDomain.SelectedValue.GetHashCode() + "' ", con);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    string p = dr["PAN_Card"].ToString();
+                    string ad = dr["Adhar_Card"].ToString();
+                    string pa = dr["Passport"].ToString();
+                    string addr = dr["Address_Proof"].ToString();
+                    string st = dr["Seven_Twevel"].ToString();
+                    string frm = dr["Form_16"].ToString();
+                    string dl = dr["Dealer_Lisence"].ToString();
+                    string oidp = dr["Other_ID_Proof"].ToString();
+                    string nod = dr["No_Documents"].ToString();
+                    string cmpid = dr["Cmp_ID_Proof"].ToString();
+                    if (p == "Yes")
+                    {
+                        chkPANCARD.IsEnabled = true;
+                        //chkPANCARD.IsChecked = true;
+                    }
+                    if (pa == "Yes")
+                    {
+                        chkPASSPORT.IsEnabled = true;
+                    }
+                    if (ad == "Yes")
+                    {
+                        CHKADHARC.IsEnabled = true;
+                        //chkPANCARD.IsChecked = true;
+                    }
+                    if (addr == "Yes")
+                    {
+                        chkaddressproof.IsEnabled = true;
+                    }
+                    if (st == "Yes")
+                    {
+                        chk7_12.IsEnabled = true;
+                    }
+                    if (frm == "Yes")
+                    {
+                        chkform_16.IsEnabled = true;
+                    }
+                    if (dl == "Yes")
+                    {
+                        chkDEALERL.IsEnabled = true;
+                    }
+                    if (oidp == "Yes")
+                    {
+                        chkOTHERID.IsEnabled = true;
+                    }
+                    if (nod == "Yes")
+                    {
+                        chkNODOCS.IsEnabled = true;
+                    }
+                    if (cmpid == "Yes")
+                    {
+                        chkcmpid.IsEnabled = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+
+        }
+
+        public void Fetch_Pre_Product()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Product_Name from tlb_Products where Domain_ID='" + cmbPreDomain.SelectedValue.GetHashCode() + "' ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbPreProduct.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbPreProduct.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbPreProduct.DisplayMemberPath = ds.Tables[0].Columns["Product_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void fetch_Pre_Brand()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Brand_Name from tlb_Brand where Product_ID='" + cmbPreProduct.SelectedValue.GetHashCode() + "' ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbPreBrand.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbPreBrand.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbPreBrand.DisplayMemberPath = ds.Tables[0].Columns["Brand_Name"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public void Fetch_Pre_PC()
+        {
+
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT  ID,Product_Category from tlb_P_Category where Brand_ID='" + cmbPreBrand.SelectedValue.GetHashCode() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbPrePCategory.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbPrePCategory.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbPrePCategory.DisplayMemberPath = ds.Tables[0].Columns["Product_Category"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void fetch_Pre_Model()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Model_No from tlb_Model where P_Category='" + cmbPrePCategory.SelectedValue.GetHashCode() + "' ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmbPreModel.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmbPreModel.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbPreModel.DisplayMemberPath = ds.Tables[0].Columns["Model_No"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void fetch_Pre_Color()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                cmd = new SqlCommand("Select DISTINCT ID, Color from tlb_Color where Model_No_ID='" + cmbPreModel.SelectedValue.GetHashCode() + "' ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    cmd_PreColor.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                    cmd_PreColor.ItemsSource = ds.Tables[0].DefaultView;
+                    cmd_PreColor.DisplayMemberPath = ds.Tables[0].Columns["Color"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void clearallPreProcurement()
+        {
+            cmbPreDomain.SelectedValue = null;
+            cmbPreProduct.SelectedValue = null;
+            cmbPrePCategory.SelectedValue = null;
+            cmbPreBrand.SelectedValue = null;
+            cmbPreModel.SelectedValue = null;
+            cmd_PreColor.SelectedValue = null;
+            //txtprephone.Text = "";
+            txtPreFerbcost.Text = "";
+            txtnarration.Text = "";
+            //chkidproof.IsChecked = false;
+            //chkNodoc.IsChecked = false;
+            // chkAddress__Proof.IsChecked = false;
+            // chketc.IsChecked = false;
+            // chkForm16.IsChecked = false;
+            chkNODOCS.IsEnabled = false;
+            chkPANCARD.IsEnabled = false;
+            chkPASSPORT.IsEnabled = false;
+            CHKADHARC.IsEnabled = false;
+            chkOTHERID.IsEnabled = false;
+            chkform_16.IsEnabled = false;
+            chkDEALERL.IsEnabled = false;
+            chkaddressproof.IsEnabled = false;
+            chk7_12.IsEnabled = false;
+            chkNODOCS.IsEnabled = false;
+            chk7_12.IsChecked = false;
+
+            cmbPreInsurance.Items.Clear();
+            cmbPreFollowup.Items.Clear();
+            load_Insurance();
+            load_Followup();
+            txtPrice.Text = "";
+            chkcmpid.IsEnabled = false;
+            txtPreWarranty.Text = "";
+        }
+
+        public void PREPROCUREMENTid()
+        {
+
+            int id1 = 0;
+            // SqlConnection con = new SqlConnection(constring);
+            con.Open();
+            SqlCommand cmd = new SqlCommand("select (COUNT(ID)) from Pre_Procurement", con);
+            id1 = Convert.ToInt32(cmd.ExecuteScalar());
+            id1 = id1 + 1;
+            lblPro_no.Content = "# Pre_Proc/" + id1.ToString();
+            con.Close();
+
+
+        }
+        #endregion PrePro Fun
+
+        #region PrePro Event
+        private void cmbPreDomain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // fetcdoc = cmbPreDomain.SelectedValue.GetHashCode();
+            cmbPreProduct.SelectedValue = null;
+            cmbPrePCategory.SelectedValue = null;
+            cmbPreBrand.SelectedValue = null;
+            cmbPreModel.SelectedValue = null;
+            cmd_PreColor.SelectedValue = null;
+            fetch_Documents();
+            Fetch_Pre_Product();
+        }
+
+        private void cmbPreProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbPrePCategory.SelectedValue = null;
+            cmbPreBrand.SelectedValue = null;
+            cmbPreModel.SelectedValue = null;
+            cmd_PreColor.SelectedValue = null;
+
+            fetch_Pre_Brand();
+        }
+
+        private void cmbPreBrand_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbPrePCategory.SelectedValue = null;
+            cmbPreModel.SelectedValue = null;
+            cmd_PreColor.SelectedValue = null;
+            Fetch_Pre_PC();
+        }
+
+        private void cmbPrePCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //cmbPreBrand.SelectedValue = null;
+            cmbPreModel.SelectedValue = null;
+            cmd_PreColor.SelectedValue = null;
+            fetch_Pre_Model();
+        }
+
+        private void cmbPreModel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmd_PreColor.SelectedValue = null;
+            fetch_Pre_Color();
+        }
+
+        private void cmd_PreColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            con.Open();
+
+            cmd = new SqlCommand("Select  Price from Pre_Products where Color_ID='" + cmd_PreColor.SelectedValue.GetHashCode() + "' ", con);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                txtPrice.Text = dr["Price"].ToString();
+            }
+            con.Close();
+        }
+        #endregion PrePro Event
+
+        #region PrePro Button Event
+        private void btnPro_Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (PrePro_Validation() == true)
+                return;
+
+            try
+            {
+
+                bpreproc.Flag = 1;
+                bpreproc.DealerID = cmbPre_Pro_Salename.SelectedValue.GetHashCode(); //txtsalername.Text;
+
+                //bpreproc.Phone_Id = txtprephone .Text ;
+                bpreproc.Domain_ID = Convert.ToInt32(cmbPreDomain.SelectedValue.GetHashCode());
+                bpreproc.Product_ID = Convert.ToInt32(cmbPreProduct.SelectedValue.GetHashCode());
+                bpreproc.Brand_ID = Convert.ToInt32(cmbPreBrand.SelectedValue.GetHashCode());
+                bpreproc.P_Category = Convert.ToInt32(cmbPrePCategory.SelectedValue.GetHashCode());
+                bpreproc.Model_No_ID = Convert.ToInt32(cmbPreModel.SelectedValue.GetHashCode());
+                bpreproc.Color_ID = Convert.ToInt32(cmd_PreColor.SelectedValue.GetHashCode());
+
+                bpreproc.Procurment_Price = Convert.ToDouble(txtPrice.Text);
+                bpreproc.Quantity = Convert.ToDouble(txtQuantity.Text);
+                bpreproc.Total_Amount = Convert.ToDouble(txtTotalPrice.Text);
+                bpreproc.Net_Amount = Convert.ToDouble(txtNetAmount.Text);
+                bpreproc.Round_Off = Convert.ToDouble(txtpreroundoff.Text);
+                //    for (int i = 0; i < 5;i++ )
+                //    { 
+                //        if (chkidproof.IsChecked == true)
+                //        {
+                //            maincked = "ID Proof";
+                //        }
+
+                //    if(chkaddressproof  .IsChecked ==true )
+                //    {
+                //        maincked = "Address Proof";
+                //    }
+                //        string concate += ","+item maincked;
+                //}
+                string checkList = string.Join(",", checkedStuff.ToArray());
+                if (checkList == null)
+                { bpreproc.Reg_Document = "No"; }
+                else if (checkList != null)
+                {
+                    bpreproc.Reg_Document = checkList;
+                }
+
+                bpreproc.Have_Insurance = cmbPreInsurance.SelectedValue.ToString();
+                string a = (txtPreWarranty.Text) + "" + (cmbPreWarrantyYM.SelectedItem.ToString());
+                bpreproc.Warranty = a;
+                bpreproc.re_ferb_cost = Convert.ToDouble(txtPreFerbcost.Text);
+                bpreproc.Follow_up = cmbPreFollowup.SelectedValue.ToString();
+                bpreproc.Narration = txtnarration.Text;
+                bpreproc.S_Status = "Active";
+                bpreproc.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                dpreproc.Pre_Procurement_Save_Insert_Update_Delete(bpreproc);
+                MessageBox.Show("Data Save Successfully", caption);
+                txtP_Narration.Text = txtnarration.Text;
+                txtP_Price.Text = "";
+                clearallPreProcurement();
+                PREPROCUREMENTid();
+                Fetch_Pre_Domain();
+
+
+                //baddprd.Flag = 1;
+                //baddprd.Domain_Name = cmbP_domain.SelectedValue.ToString ();
+                //baddprd.Product_Name = cmbP_Product.SelectedValue.ToString();
+                //baddprd.Brand_Name = cmbP_Brand.SelectedValue.ToString();
+                //baddprd.Product_Category = cmbP_PCategory.SelectedValue.ToString();
+                //baddprd.Model_No = cmbP_ModelNo.SelectedValue.ToString();
+                //baddprd.Color = cmbP_Color.SelectedValue.ToString();
+                //baddprd.Narration = txtP_Narration.Text;
+                //baddprd.Price = Convert.ToDouble(txtP_Price.Text);
+                //baddprd.S_Status = "Active";
+                //baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                //dalprd.Save_Insert_Update_Delete(baddprd);
+                //MessageBox.Show("Data Save Successfully");
+                //txtP_Narration.Text = "";
+                //txtP_Price.Text = "";
+                // Load_Domain();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnPro_Clear_Click(object sender, RoutedEventArgs e)
+        {
+            clearallPreProcurement();
+        }
+
+        private void btnPro_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            GRD_NewProcurement.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void Check_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox cbox = sender as CheckBox;
+            string s = cbox.Content as string;
+
+            if ((bool)cbox.IsChecked)
+                checkedStuff.Add(s);
+            else
+                checkedStuff.Remove(s);
+        }
+        #endregion PrePro Button Event
+        #endregion PreProcurment Function
     }
 }
 
