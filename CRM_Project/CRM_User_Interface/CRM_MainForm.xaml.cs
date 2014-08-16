@@ -33,7 +33,7 @@ namespace CRM_User_Interface
 
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
         string caption = "Green Future Glob";
-        int cid,I,ID,o,p;
+        int cid,I,ID,o,p,i;
         double y1,m1;
         string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue;
         public Button targetButton;
@@ -3373,12 +3373,13 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
     SaveInvoiceDetails();
     Save_CommonBill();
     SaveCash();
+    //updateQuantity();
 }
         public void SaveInvoiceDetails()
         {
             if (dtstat.Rows.Count > 0)
             {
-                for (int i = 0; i < dtstat.Rows .Count; i++)
+                for ( i = 0; i < dtstat.Rows .Count; i++)
                 {
                   //  int rowCount = ((DataTable)this.Dgrd_InvoiceADDProducts.DataSource).Rows.Count;
 
@@ -3438,10 +3439,24 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                     binvd.C_Date = System.DateTime.Now.ToShortDateString();
                     dinvd.InvoiceDetails_Save(binvd);
                     MessageBox.Show("Done");
+                    updateQuantity();
                 }
             }
        
           }
+        public void updateQuantity()
+        {
+            binvd.Flag = 1;
+            binvd.Products123 =g;
+           // binvd.Bill_No = lblbillno.Content.ToString();
+            binvd.AvilableQty = Convert.ToDouble(txtInvoice_remainingqty.Content);
+            binvd.SaleQty = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
+            binvd.S_Status = "Active";
+            binvd.C_Date = System.DateTime.Now.ToShortDateString();
+            dinvd.Update_QTY(binvd);
+            MessageBox.Show("Quantity updated ");
+
+        }
         public void FetchProductsID()
         {
            
@@ -3850,7 +3865,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 String str;
                 //con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT [ID],[Name],[Mobile_No], [Email_ID],[Address],[Occupation] " +
+                str = "SELECT  Distinct [ID],[Name],[Mobile_No], [Email_ID],[Address],[Occupation] " +
                       "FROM [tlb_Customer]  " +
                       "WHERE ";
 
@@ -4173,7 +4188,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
    {
        Clear_SaveInstallment();
    }
-      
+   
 
     }
 

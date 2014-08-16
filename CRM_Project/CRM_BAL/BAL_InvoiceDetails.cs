@@ -22,12 +22,14 @@ namespace CRM_BAL
       public string Products123 { get; set; }
       public double Per_Product_Price { get; set; }
       public double Qty { get; set; }
+      public double AvilableQty { get; set; }
+      public double SaleQty { get; set; }
       public double  C_Price{ get; set; }
       public string Tax_Name { get; set; }
       public double Tax { get; set; }
       public double Total_Price { get; set; }
       public string Payment_Mode { get; set; }
-     
+    
       public double Paid_Amount { get; set; }
       public double Balance_Amount { get; set; }
       public string S_Status { get; set; }
