@@ -2763,6 +2763,7 @@ namespace CRM_User_Interface
         private void btnInvoice_InstalExit_Click(object sender, RoutedEventArgs e)
         {
             GRDInvoice_Installment.Visibility = Visibility.Hidden;
+            Clear_SaveInstallment();
         }
 
         private void btnInvoice_Installment_Click(object sender, RoutedEventArgs e)
@@ -2968,6 +2969,8 @@ namespace CRM_User_Interface
               double stot = ((totprice * tx) / 100);
               txtInvoice_SubToatal.Text = (totprice + stot).ToString();
           }
+         
+          
         }
         public void FetchtaxDetails()
         {
@@ -3590,6 +3593,16 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             SaveInvoiceDetails();
             Save_CommonBill();
             SaveInstallment();
+            Clear_SaveInstallment();
+        }
+        public void Clear_SaveInstallment()
+        {
+            txtInvoice_InstalTotalAmount.Text = "";
+            txtInvoice_InstalPaidAmount.Text = "";
+            txtInvoice_InstalBalanceAmount.Text = "";
+            txtInvoice_InstalAmountPermonth.Text = "";
+            dpInvoice_Instalpermonth.Text = "";
+           // rdo_Invoice_Yearlyinstallment
         }
         public void SaveInstallment()
         {
@@ -3979,6 +3992,9 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         private void btn_InstalExit_Click(object sender, RoutedEventArgs e)
         {
             GRD_InstallmentProcess.Visibility = Visibility.Hidden;
+            Clear_Installmentsgrd();
+            DGRD_Installment.ItemsSource = "";
+            InstallmentCustomerDetails_LoadData();
         }
 
       public void Save_Customer_Installment()
@@ -4033,6 +4049,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
       {
           Save_Customer_Installment();
           Save_CommonBillNew();
+          Clear_Installmentsgrd();
       }
      public void Save_CommonBillNew()
       {
@@ -4118,9 +4135,31 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
               
               throw;
           }
-
+      }
+   public void Clear_Installmentsgrd()
+      {
+          lbl_Instal_CustomerID.Content = "";
+          txt_InstalCustomerName.Text = "";
+          txt_InstalTotalAmount.Text = "";
+          txt_InstalPaidAmount.Text = "";
+          txt_InstalBalanceAmount.Text = "";
+          txtInstalAmountPermonth.Text = "";
+          lblbillnoInstall.Content = "";
+          txt_Installemntno.Text = "";        
+          txt_InstallmentRemaining.Text = "";
+          txt_InstallmentAmount.Text = "";
+          dp_Instalpermonth.Text = "";
       }
 
+   private void btn_InstalClear_Click(object sender, RoutedEventArgs e)
+   {
+       Clear_Installmentsgrd();
+   }
+
+   private void btnInvoice_InstalClear_Click(object sender, RoutedEventArgs e)
+   {
+       Clear_SaveInstallment();
+   }
       
 
     }
