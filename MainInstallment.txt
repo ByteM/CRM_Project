@@ -1,0 +1,60 @@
+create Table tlb_MainInstallment
+(
+ID int IDENTITY(1,1) CONSTRAINT PKinsid PRIMARY KEY(ID) NOT NULL,
+Customer_ID int CONSTRAINT fkinsID FOREIGN KEY REFERENCES tlb_Customer NOT NULL,
+Bill_No nvarchar(MAX) not null,
+Total_Price money not null,
+Paid_Amount money not null,
+Balance_Amount money not null,
+Monthly_Amount money not null,
+Installment_Year nvarchar(MAX) null,
+Installment_Month nvarchar(MAX) null,
+Installment_Date nvarchar(MAX)not null,
+S_Status nvarchar(MAX)not null,
+C_Date nvarchar(MAX) not null,
+)
+
+Drop table tlb_MainInstallment
+Select * from tlb_MainInstallment
+Truncate Table tlb_MainInstallment
+
+
+sp====================================
+
+USE [DB_CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_MainInstallment]    Script Date: 08/16/2014 10:01:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[SP_MainInstallment]
+@Flag int=null,
+@Customer_ID int=NULL,
+@Bill_No nvarchar(MAX) ,
+@Total_Price money  ,
+@Paid_Amount money  ,
+@Balance_Amount money  ,
+@Monthly_Amount money  ,
+@Installment_Year nvarchar(MAX) ,
+@Installment_Month nvarchar(MAX) ,
+@Installment_Date nvarchar(MAX),
+@S_Status nvarchar(MAX),
+@C_Date nvarchar(MAX) 
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    if(@Flag =1)
+    begin
+    insert into tlb_MainInstallment(Customer_ID,Bill_No,Total_Price,Paid_Amount,Balance_Amount,Monthly_Amount,Installment_Year,Installment_Month,Installment_Date,S_Status,C_Date) values(@Customer_ID ,@Bill_No ,@Total_Price ,@Paid_Amount ,@Balance_Amount ,@Monthly_Amount ,@Installment_Year ,@Installment_Month ,@Installment_Date ,@S_Status ,@C_Date )
+    end
+END
