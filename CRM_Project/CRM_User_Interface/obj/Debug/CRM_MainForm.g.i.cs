@@ -1928,6 +1928,14 @@ namespace CRM_User_Interface {
         #line hidden
         
         
+        #line 709 "..\..\CRM_MainForm.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Label txtInvoice_remainingqty;
+        
+        #line default
+        #line hidden
+        
+        
         #line 713 "..\..\CRM_MainForm.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.GroupBox groupbox_Payment;
@@ -4262,9 +4270,12 @@ namespace CRM_User_Interface {
             this.lblinvoiceSr = ((System.Windows.Controls.Label)(target));
             return;
             case 240:
-            this.groupbox_Payment = ((System.Windows.Controls.GroupBox)(target));
+            this.txtInvoice_remainingqty = ((System.Windows.Controls.Label)(target));
             return;
             case 241:
+            this.groupbox_Payment = ((System.Windows.Controls.GroupBox)(target));
+            return;
+            case 242:
             this.txtInvoice_InvcTotalAmount = ((System.Windows.Controls.TextBox)(target));
             
             #line 716 "..\..\CRM_MainForm.xaml"
@@ -4273,7 +4284,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 242:
+            case 243:
             this.btnInvoice_Cash = ((System.Windows.Controls.Button)(target));
             
             #line 724 "..\..\CRM_MainForm.xaml"
@@ -4282,7 +4293,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 243:
+            case 244:
             this.btnInvoice_Cheque = ((System.Windows.Controls.Button)(target));
             
             #line 728 "..\..\CRM_MainForm.xaml"
@@ -4291,7 +4302,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 244:
+            case 245:
             this.btnInvoice_Finance = ((System.Windows.Controls.Button)(target));
             
             #line 732 "..\..\CRM_MainForm.xaml"
@@ -4300,7 +4311,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 245:
+            case 246:
             this.btnInvoice_Installment = ((System.Windows.Controls.Button)(target));
             
             #line 736 "..\..\CRM_MainForm.xaml"
@@ -4309,13 +4320,13 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 246:
+            case 247:
             this.GRDInvoce_Cash = ((System.Windows.Controls.Grid)(target));
             return;
-            case 247:
+            case 248:
             this.txtInvoice_C_InvcTotalAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 248:
+            case 249:
             this.txtInvoice_C_PaidAmount = ((System.Windows.Controls.TextBox)(target));
             
             #line 755 "..\..\CRM_MainForm.xaml"
@@ -4324,10 +4335,10 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 249:
+            case 250:
             this.txtInvoice_C_BalanceAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 250:
+            case 251:
             this.btnInvoice_C_SaveandPrint = ((System.Windows.Controls.Button)(target));
             
             #line 758 "..\..\CRM_MainForm.xaml"
@@ -4336,10 +4347,10 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 251:
+            case 252:
             this.txtInvoice_C_Clear = ((System.Windows.Controls.Button)(target));
             return;
-            case 252:
+            case 253:
             this.txtInvoice_C_Exit = ((System.Windows.Controls.Button)(target));
             
             #line 760 "..\..\CRM_MainForm.xaml"
@@ -4348,25 +4359,25 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 253:
+            case 254:
             this.___No_Name_txtInvoice_C_Invoiceno = ((System.Windows.Controls.Label)(target));
             return;
-            case 254:
+            case 255:
             this.GRDInvoice_Cheque = ((System.Windows.Controls.Grid)(target));
             return;
-            case 255:
+            case 256:
             this.btnInvoice_CH_InvcTAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 256:
+            case 257:
             this.btnInvoice_CH_chequeno = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 257:
+            case 258:
             this.btnInvoice_CH_Amount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 258:
+            case 259:
             this.lblInvoice_CH_Invcno = ((System.Windows.Controls.Label)(target));
             return;
-            case 259:
+            case 260:
             this.btnInvoice_CH_SaveandPrint = ((System.Windows.Controls.Button)(target));
             
             #line 773 "..\..\CRM_MainForm.xaml"
@@ -4375,10 +4386,10 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 260:
+            case 261:
             this.btnInvoice_CH_Clear = ((System.Windows.Controls.Button)(target));
             return;
-            case 261:
+            case 262:
             this.btnInvoice_CH_Exit = ((System.Windows.Controls.Button)(target));
             
             #line 775 "..\..\CRM_MainForm.xaml"
@@ -4387,22 +4398,22 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 262:
+            case 263:
             this.cmbInvoic_CH_BankName = ((System.Windows.Controls.ComboBox)(target));
             return;
-            case 263:
+            case 264:
             this.dpInvoice_CH_ChequeDate = ((System.Windows.Controls.DatePicker)(target));
             return;
-            case 264:
+            case 265:
             this.GRDInvoice_Finance = ((System.Windows.Controls.Grid)(target));
             return;
-            case 265:
+            case 266:
             this.GRDInvoice_Installment = ((System.Windows.Controls.Grid)(target));
             return;
-            case 266:
+            case 267:
             this.txtInvoice_InstalTotalAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 267:
+            case 268:
             this.txtInvoice_InstalPaidAmount = ((System.Windows.Controls.TextBox)(target));
             
             #line 791 "..\..\CRM_MainForm.xaml"
@@ -4411,10 +4422,10 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 268:
+            case 269:
             this.txtInvoice_InstalBalanceAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 269:
+            case 270:
             this.rdo_Invoice_Yearlyinstallment = ((System.Windows.Controls.RadioButton)(target));
             
             #line 795 "..\..\CRM_MainForm.xaml"
@@ -4423,7 +4434,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 270:
+            case 271:
             this.rdoInvoice_rdo_Invoice_Monthlyinstallment = ((System.Windows.Controls.RadioButton)(target));
             
             #line 796 "..\..\CRM_MainForm.xaml"
@@ -4432,7 +4443,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 271:
+            case 272:
             this.cmdInvoice_InstalYear = ((System.Windows.Controls.ComboBox)(target));
             
             #line 798 "..\..\CRM_MainForm.xaml"
@@ -4441,7 +4452,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 272:
+            case 273:
             this.cmdInvoice_InstalMonth = ((System.Windows.Controls.ComboBox)(target));
             
             #line 799 "..\..\CRM_MainForm.xaml"
@@ -4450,13 +4461,13 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 273:
+            case 274:
             this.txtInvoice_InstalAmountPermonth = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 274:
+            case 275:
             this.dpInvoice_Instalpermonth = ((System.Windows.Controls.DatePicker)(target));
             return;
-            case 275:
+            case 276:
             this.btnInvoice_InstalSaveandPrint = ((System.Windows.Controls.Button)(target));
             
             #line 803 "..\..\CRM_MainForm.xaml"
@@ -4465,7 +4476,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 276:
+            case 277:
             this.btnInvoice_InstalClear = ((System.Windows.Controls.Button)(target));
             
             #line 804 "..\..\CRM_MainForm.xaml"
@@ -4474,7 +4485,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 277:
+            case 278:
             this.btnInvoice_InstalExit = ((System.Windows.Controls.Button)(target));
             
             #line 805 "..\..\CRM_MainForm.xaml"
@@ -4483,10 +4494,10 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 278:
+            case 279:
             this.lblInvoice_Instal = ((System.Windows.Controls.Label)(target));
             return;
-            case 279:
+            case 280:
             this.btnInvoice_MainExit = ((System.Windows.Controls.Button)(target));
             
             #line 809 "..\..\CRM_MainForm.xaml"
@@ -4495,7 +4506,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 280:
+            case 281:
             
             #line 811 "..\..\CRM_MainForm.xaml"
             ((System.Windows.Documents.Hyperlink)(target)).Click += new System.Windows.RoutedEventHandler(this.Hyperlink_Click);
@@ -4503,34 +4514,34 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 281:
+            case 282:
             this.txtd = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 282:
+            case 283:
             this.txtP = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 283:
+            case 284:
             this.txtB = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 284:
+            case 285:
             this.txtPC = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 285:
+            case 286:
             this.txtM = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 286:
+            case 287:
             this.txtC = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 287:
+            case 288:
             this.txtid = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 288:
+            case 289:
             this.lblbillno = ((System.Windows.Controls.Label)(target));
             return;
-            case 289:
+            case 290:
             this.GRD_Installment = ((System.Windows.Controls.Grid)(target));
             return;
-            case 290:
+            case 291:
             this.txtInstall_CustName = ((System.Windows.Controls.TextBox)(target));
             
             #line 844 "..\..\CRM_MainForm.xaml"
@@ -4539,7 +4550,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 291:
+            case 292:
             this.cmbInstall_CustID = ((System.Windows.Controls.ComboBox)(target));
             
             #line 845 "..\..\CRM_MainForm.xaml"
@@ -4548,85 +4559,85 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 292:
+            case 293:
             this.btnInstall_Refresh = ((System.Windows.Controls.Button)(target));
             return;
-            case 293:
+            case 294:
             this.cmbInstall_Year_Month = ((System.Windows.Controls.ComboBox)(target));
             return;
-            case 294:
+            case 295:
             this.DGRD_InstallmentCust = ((System.Windows.Controls.DataGrid)(target));
             return;
-            case 295:
+            case 296:
             this.grdC_ID = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 296:
+            case 297:
             this.grdCInstCID = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 297:
+            case 298:
             this.grdInstal_CustName = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 298:
+            case 299:
             this.grdBillNo = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 299:
+            case 300:
             this.grdCInstal_Totalprice = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 300:
+            case 301:
             this.grdCInstall_PaidAmt = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 301:
+            case 302:
             this.grdCInstall_Balance = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 302:
+            case 303:
             this.grdCInstall_Monthlyamt = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 303:
+            case 304:
             this.grdCInstall_Year = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 304:
+            case 305:
             this.grdCInstall_Month = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 305:
+            case 306:
             this.grdCInstall_Date = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 307:
+            case 308:
             this.DGRD_Installment = ((System.Windows.Controls.DataGrid)(target));
             return;
-            case 308:
+            case 309:
             this.grdC_ID1 = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 309:
+            case 310:
             this.grdCInstCID1 = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 310:
+            case 311:
             this.grdBillNo1 = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 311:
+            case 312:
             this.grdCInstal_Totalprice1 = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 312:
+            case 313:
             this.grdCInstall_PaidAmt1 = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 313:
+            case 314:
             this.grdCInstall_Balance1 = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 314:
+            case 315:
             this.Current_Installment_No = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 315:
+            case 316:
             this.Remaining_Installments = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 316:
+            case 317:
             this.Current_Installment_Amount = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 317:
+            case 318:
             this.CInstallment_Date = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 318:
+            case 319:
             this.Paid_Unpaid = ((System.Windows.Controls.DataGridTextColumn)(target));
             return;
-            case 320:
+            case 321:
             this.btnInstall_ExitInstallment = ((System.Windows.Controls.Button)(target));
             
             #line 896 "..\..\CRM_MainForm.xaml"
@@ -4635,16 +4646,16 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 321:
+            case 322:
             this.GRD_InstallmentFrm = ((System.Windows.Controls.Grid)(target));
             return;
-            case 322:
+            case 323:
             this.GRDInstallment = ((System.Windows.Controls.Grid)(target));
             return;
-            case 323:
+            case 324:
             this.txtInstal_InstalTotalAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 324:
+            case 325:
             this.txtInstal_InstalPaidAmount = ((System.Windows.Controls.TextBox)(target));
             
             #line 902 "..\..\CRM_MainForm.xaml"
@@ -4653,10 +4664,10 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 325:
+            case 326:
             this.txtInstal_InstalBalanceAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 326:
+            case 327:
             this.rdoInstall_Yearlyinstallment = ((System.Windows.Controls.RadioButton)(target));
             
             #line 906 "..\..\CRM_MainForm.xaml"
@@ -4665,7 +4676,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 327:
+            case 328:
             this.rdoInstall_Monthlyinstallment = ((System.Windows.Controls.RadioButton)(target));
             
             #line 907 "..\..\CRM_MainForm.xaml"
@@ -4674,7 +4685,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 328:
+            case 329:
             this.cmdInstalYear = ((System.Windows.Controls.ComboBox)(target));
             
             #line 909 "..\..\CRM_MainForm.xaml"
@@ -4683,7 +4694,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 329:
+            case 330:
             this.cmdInstalMonth = ((System.Windows.Controls.ComboBox)(target));
             
             #line 910 "..\..\CRM_MainForm.xaml"
@@ -4692,13 +4703,13 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 330:
+            case 331:
             this.txtInstalInstalAmountPermonth = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 331:
+            case 332:
             this.dpInstalpermonth = ((System.Windows.Controls.DatePicker)(target));
             return;
-            case 332:
+            case 333:
             this.btnInstalSaveandPrint = ((System.Windows.Controls.Button)(target));
             
             #line 914 "..\..\CRM_MainForm.xaml"
@@ -4707,10 +4718,10 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 333:
+            case 334:
             this.btnInstalClear = ((System.Windows.Controls.Button)(target));
             return;
-            case 334:
+            case 335:
             this.btnInstalExit = ((System.Windows.Controls.Button)(target));
             
             #line 916 "..\..\CRM_MainForm.xaml"
@@ -4719,25 +4730,25 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 335:
+            case 336:
             this.GRD_InstallmentProcess = ((System.Windows.Controls.Grid)(target));
             return;
-            case 336:
+            case 337:
             this.txt_InstalTotalAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 337:
+            case 338:
             this.txt_InstalPaidAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 338:
+            case 339:
             this.txt_InstalBalanceAmount = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 339:
+            case 340:
             this.txtInstalAmountPermonth = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 340:
+            case 341:
             this.dp_Instalpermonth = ((System.Windows.Controls.DatePicker)(target));
             return;
-            case 341:
+            case 342:
             this.btn_InstalSaveandPrint = ((System.Windows.Controls.Button)(target));
             
             #line 942 "..\..\CRM_MainForm.xaml"
@@ -4746,7 +4757,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 342:
+            case 343:
             this.btn_InstalClear = ((System.Windows.Controls.Button)(target));
             
             #line 943 "..\..\CRM_MainForm.xaml"
@@ -4755,7 +4766,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 343:
+            case 344:
             this.btn_InstalExit = ((System.Windows.Controls.Button)(target));
             
             #line 944 "..\..\CRM_MainForm.xaml"
@@ -4764,22 +4775,22 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 344:
+            case 345:
             this.lblbillnoInstall = ((System.Windows.Controls.Label)(target));
             return;
-            case 345:
+            case 346:
             this.txt_InstalCustomerName = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 346:
+            case 347:
             this.lbl_Instal_CustomerID = ((System.Windows.Controls.Label)(target));
             return;
-            case 347:
+            case 348:
             this.txt_Installemntno = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 348:
+            case 349:
             this.txt_InstallmentRemaining = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 349:
+            case 350:
             this.txt_InstallmentAmount = ((System.Windows.Controls.TextBox)(target));
             
             #line 954 "..\..\CRM_MainForm.xaml"
@@ -4794,7 +4805,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             return;
-            case 350:
+            case 351:
             this.lbl_InstalY_M = ((System.Windows.Controls.Label)(target));
             return;
             }
@@ -4834,7 +4845,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             break;
-            case 306:
+            case 307:
             
             #line 868 "..\..\CRM_MainForm.xaml"
             ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.btndgv_InstEdit_Click);
@@ -4842,7 +4853,7 @@ namespace CRM_User_Interface {
             #line default
             #line hidden
             break;
-            case 319:
+            case 320:
             
             #line 890 "..\..\CRM_MainForm.xaml"
             ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.btndgv_InstCustEdit_Click);

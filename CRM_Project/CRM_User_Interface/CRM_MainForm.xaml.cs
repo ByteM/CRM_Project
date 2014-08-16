@@ -33,7 +33,7 @@ namespace CRM_User_Interface
 
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
         string caption = "Green Future Glob";
-        int cid,I,ID;
+        int cid,I,ID,o,p;
         double y1,m1;
         string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue;
         public Button targetButton;
@@ -3144,15 +3144,15 @@ namespace CRM_User_Interface
         }
 
    private void txtInvoice_Qty_TextChanged(object sender, TextChangedEventArgs e)
-   {double   d=0;
+  {double   d=0;
        if (txtInvoice_Qty.Text == "" )
    {
        txtInvoice_TotalPriceofQty.Text = txtInvoiceActualPrice.Text;
    }
        else if (txtInvoiceActualPrice.Text != "" && txtInvoice_Qty.Text != "")
        {
-           int o = Convert.ToInt32(txtInvoice_AvailabeQty.Text);
-           int p = Convert.ToInt32(txtInvoice_Qty.Text);
+            o = Convert.ToInt32(txtInvoice_AvailabeQty.Text);
+           p = Convert.ToInt32(txtInvoice_Qty.Text);
            if (o >= p)
            {
                double actualprice = Convert.ToDouble(txtInvoiceActualPrice.Text);
@@ -3160,12 +3160,19 @@ namespace CRM_User_Interface
                double tprice = actualprice * q;
                txtInvoice_TotalPriceofQty.Text = tprice.ToString();
            }
+           else
+           {
+               MessageBox.Show("Please Select within the range of Available Quantity");
+               txtInvoice_Qty.Text = "";
+           }
         
      }
        else if (txtInvoice_Qty.Text ==d.ToString ())
        {
            txtInvoice_TotalPriceofQty.Text = txtInvoiceActualPrice.Text;
        }
+       int rem = o - p;
+       txtInvoice_remainingqty.Content = rem.ToString();
      }
 
    private void cmbInvoice_Tax1_DropDownClosed(object sender, EventArgs e)

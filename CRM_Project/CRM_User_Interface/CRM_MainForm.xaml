@@ -706,7 +706,7 @@
 
                                 <ComboBox x:Name="cmbInvoice_Tax1" HorizontalAlignment="Left" Margin="737,30,0,0" VerticalAlignment="Top" Width="85" IsEditable="True" SelectionChanged="cmbInvoice_Tax_SelectionChanged" Height="24" DropDownClosed="cmbInvoice_Tax1_DropDownClosed"/>
                                 <Label x:Name="lblinvoiceSr" Content="1" HorizontalAlignment="Left" Margin="123,0,0,0" VerticalAlignment="Top"/>
-                                <Label Content="Qty" HorizontalAlignment="Left" Margin="624,-51,0,0" VerticalAlignment="Top"/>
+                                <Label x:Name="txtInvoice_remainingqty" Content="Qty" HorizontalAlignment="Left" Margin="624,-51,0,0" VerticalAlignment="Top"/>
 
                             </Grid>
                         </GroupBox>
