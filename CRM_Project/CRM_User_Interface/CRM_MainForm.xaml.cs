@@ -2165,9 +2165,10 @@ namespace CRM_User_Interface
                 txtsalesearchcname.IsEnabled = true;
                 txtSalecustomerno.IsEnabled = true;
                 DGRD_SaleFollowup.IsEnabled = true;
-                cmbsalecustomerftype.IsEnabled = true;
-                DGRD_SaleCustomer.Visibility = Visibility.Hidden ;
-                load_Followup_type();
+                //cmbsalecustomerftype.IsEnabled = true;
+                GRD_FollowupCostomer.Visibility = Visibility;
+                DGRD_SaleFollowup.Visibility = Visibility;
+                //load_Followup_type();
                 FetchallDetails();
 
                 grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Hidden;
@@ -2279,13 +2280,13 @@ namespace CRM_User_Interface
 
 
         }
-        public void load_Followup_type()
-        {
-            cmbsalecustomerftype.Text = "--Select--";
-            cmbsalecustomerftype.Items.Add("Default");
-            cmbsalecustomerftype.Items.Add("Custom");
+        //public void load_Followup_type()
+        //{
+        //    cmbsalecustomerftype.Text = "--Select--";
+        //    cmbsalecustomerftype.Items.Add("Default");
+        //    cmbsalecustomerftype.Items.Add("Custom");
 
-        }
+        //}
         public void loadbyallfield_Followup()
         {//txtsalesearchcname,txtSalecustomerno,cmbsalecustomerftype
             if (txtsalesearchcname.Text != "")
@@ -2297,7 +2298,7 @@ namespace CRM_User_Interface
                     // load_Followup_type();
                     // load_Followup_type();
                 }
-                else if (txtsalesearchcname.Text != "" && txtSalecustomerno.Text != "" && cmbsalecustomerftype.Text == "--Select--" )
+                else if (txtsalesearchcname.Text != "" && txtSalecustomerno.Text != "" )
                 {
                     try
                     {
@@ -2386,12 +2387,12 @@ namespace CRM_User_Interface
 
                       throw;
                   }
-                  finally { con.Close(); load_Followup_type(); }
+                  finally { con.Close(); //load_Followup_type(); }
               }
-              else if (txtsalesearchcname.Text == "" && txtSalecustomerno.Text == "")
-              {
-                  FetchallDetails();
-              }
+              //else if (txtsalesearchcname.Text == "" && txtSalecustomerno.Text == "")
+              //{
+              //    FetchallDetails();
+              //}
           }
       
 
@@ -2402,7 +2403,7 @@ namespace CRM_User_Interface
 
             
                 
-                else if (txtsalesearchcname.Text != "" || txtSalecustomerno.Text == "" || cmbsalecustomerftype.SelectedItem .ToString() != null)
+                else if (txtsalesearchcname.Text != "" || txtSalecustomerno.Text == "" )
                 {
                     try
                     {
@@ -2478,6 +2479,7 @@ namespace CRM_User_Interface
                 }
               
             }
+        }
 
             //if(txtsalesearchcname.Text !="" && txtSalecustomerno.Text !="" && cmbsalecustomerftype.SelectedValue.ToString()=="--Select--")
             //{
@@ -2569,10 +2571,10 @@ namespace CRM_User_Interface
            // }
            // else
            // {
-                if(cmbsalecustomerftype .SelectedValue .ToString()!=null )
-        {
-            fetch_FollowupDetailsbyfollowuptype();
-        }
+        //        if(cmbsalecustomerftype .SelectedValue .ToString()!=null )
+        //{
+        //    fetch_FollowupDetailsbyfollowuptype();
+        //}
            //}
         }
 
@@ -2617,11 +2619,11 @@ namespace CRM_User_Interface
 
         private void rdoSaleOldCustomer1_Checked(object sender, RoutedEventArgs e)
         {
-            txtsalesearchcname.IsEnabled = false;
-            txtSalecustomerno.IsEnabled = false;
-            DGRD_SaleFollowup.IsEnabled = false;
-            cmbsalecustomerftype.IsEnabled = false;
-           // DGRD_SaleCustomer.Visibility = Visibility;
+           // txtsalesearchcname.IsEnabled = false;
+           // txtSalecustomerno.IsEnabled = false;
+           // DGRD_SaleFollowup.IsEnabled = false;
+           // cmbsalecustomerftype.IsEnabled = false;
+           // grd_OldCustomerDetails.Visibility = Visibility;
            
             //load_Followup_type();
 
@@ -4196,6 +4198,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             string ID = (DGRD_SaleOldCustomer.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
             MessageBox.Show(ID);
             // DGRD_SaleFollowup;
+            grd_OldCustomerDetails.Visibility = Visibility.Hidden;
             GRD_Customer_Billing.Visibility = Visibility;
            // CustomerID_fetch();
 
@@ -4236,6 +4239,16 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             }
             finally { con.Close(); }
         }
+
+   private void txtOldCustomer_Search_TextChanged_1(object sender, TextChangedEventArgs e)
+   {
+       OldCustomer_Details();
+   }
+
+   private void txtOlad_CustomerMobile_Search_TextChanged_1(object sender, TextChangedEventArgs e)
+   {
+       OldCustomer_Details();
+   }
 
 
    }
