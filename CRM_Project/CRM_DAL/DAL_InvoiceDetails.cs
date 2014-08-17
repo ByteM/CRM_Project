@@ -85,6 +85,32 @@ namespace CRM_DAL
            }
            finally { con.Close(); }
        }
+       public int Update_QTY(BAL_InvoiceDetails balid)
+       {
+           try
+           {
+
+               con.Open();
+               cmd = new SqlCommand("SP_update_Qty", con);
+               cmd.CommandType = CommandType.StoredProcedure;
+               cmd.Parameters.AddWithValue("@Flag", 1);
+               cmd.Parameters.AddWithValue("@Products123", balid.Products123);
+               cmd.Parameters.AddWithValue("@AvilableQty", balid.AvilableQty);
+               cmd.Parameters.AddWithValue("@SaleQty", balid.SaleQty);
+               cmd.Parameters.AddWithValue("@S_Status", balid.S_Status);
+               cmd.Parameters.AddWithValue("@C_Date", balid.C_Date);
+               int i = cmd.ExecuteNonQuery();
+               return i;
+
+
+           }
+           catch (Exception)
+           {
+
+               throw;
+           }
+           finally { con.Close(); }
+       }
      
     }
 }
