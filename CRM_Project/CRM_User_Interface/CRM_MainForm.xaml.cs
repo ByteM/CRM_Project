@@ -2621,8 +2621,9 @@ namespace CRM_User_Interface
             txtSalecustomerno.IsEnabled = false;
             DGRD_SaleFollowup.IsEnabled = false;
             cmbsalecustomerftype.IsEnabled = false;
-            DGRD_SaleCustomer.Visibility = Visibility;
-            load_Followup_type();
+           // DGRD_SaleCustomer.Visibility = Visibility;
+           
+            //load_Followup_type();
 
             grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Visible;
             OldCustomer_Details();
@@ -3865,7 +3866,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 String str;
                 //con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT  Distinct [ID],[Name],[Mobile_No], [Email_ID],[Address],[Occupation] " +
+                str = "SELECT  Distinct [ID],[Cust_ID],[Name],[Mobile_No], [Email_ID],[Address],[Occupation] " +
                       "FROM [tlb_Customer]  " +
                       "WHERE ";
 
@@ -3885,7 +3886,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
 
                 //if (ds.Tables[0].Rows.Count > 0)
                 //{
-                dgv_OldCustomerDetails.ItemsSource = ds.Tables[0].DefaultView;
+                DGRD_SaleOldCustomer.ItemsSource = ds.Tables[0].DefaultView;
                 //}
             }
             catch (Exception)
@@ -4188,9 +4189,59 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
    {
        Clear_SaveInstallment();
    }
+
+   private void chkisinterested_Checked(object sender, RoutedEventArgs e)
+   {
+       object item = DGRD_SaleOldCustomer.SelectedItem;
+            string ID = (DGRD_SaleOldCustomer.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+            MessageBox.Show(ID);
+            // DGRD_SaleFollowup;
+            GRD_Customer_Billing.Visibility = Visibility;
+           // CustomerID_fetch();
+
+            //txtvalueid.Text = ID;
+            lblfollowupidfetch.Content = ID;
+
+
+            try
+            {
+                con.Open();
+               
+
+                // DataSet ds = new DataSet();
+                DataTable dt = new DataTable();
+                cmd = new SqlCommand("Select Cust_ID, Name ,Mobile_No,Date_Of_Birth,Email_ID,Address,Occupation from tlb_Customer where ID='" + ID + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(dt);
+
+                if (dt.Rows.Count > 0)
+                {
+                    // DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
+                    txtvalueid.Text =dt.Rows [0]["Cust_ID"].ToString ();
+                    txtSalecustomerName.Text = dt.Rows[0]["Name"].ToString();
+                    txtSaleCustomerMobileno.Text = dt.Rows[0]["Mobile_No"].ToString();
+                    dpSaleCustomerDOB.Text = dt.Rows[0]["Date_Of_Birth"].ToString();
+                    txtSaleCustomerEmailID.Text = dt.Rows[0]["Email_ID"].ToString();
+                    txtSaleCustomerAddress.Text = dt.Rows[0]["Address"].ToString();
+                    txtSaleCustomerOccupation.Text = dt.Rows[0]["Occupation"].ToString();
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally { con.Close(); }
+        }
+
+
+   }
    
 
     }
 
-}
+
 
