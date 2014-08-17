@@ -95,8 +95,8 @@ namespace CRM_DAL
                cmd.CommandType = CommandType.StoredProcedure;
                cmd.Parameters.AddWithValue("@Flag", 1);
                cmd.Parameters.AddWithValue("@Products123", balid.Products123);
-               cmd.Parameters.AddWithValue("@AvilableQty", balid.AvilableQty);
-               cmd.Parameters.AddWithValue("@SaleQty", balid.SaleQty);
+              // cmd.Parameters.AddWithValue("@AvilableQty", balid.AvilableQty);
+              // cmd.Parameters.AddWithValue("@SaleQty", balid.SaleQty);
                cmd.Parameters.AddWithValue("@S_Status", balid.S_Status);
                cmd.Parameters.AddWithValue("@C_Date", balid.C_Date);
                int i = cmd.ExecuteNonQuery();

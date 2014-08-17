@@ -3450,8 +3450,8 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             binvd.Flag = 1;
             binvd.Products123 =g;
            // binvd.Bill_No = lblbillno.Content.ToString();
-            binvd.AvilableQty = Convert.ToDouble(txtInvoice_remainingqty.Content);
-            binvd.SaleQty = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
+            //binvd.AvilableQty = Convert.ToDouble(txtInvoice_remainingqty.Content);
+            //binvd.SaleQty = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
             binvd.S_Status = "Active";
             binvd.C_Date = System.DateTime.Now.ToShortDateString();
             dinvd.Update_QTY(binvd);
