@@ -493,7 +493,7 @@
                     <Label Content="Please Select Any One Option :" HorizontalAlignment="Left" Margin="152,10,0,0" VerticalAlignment="Top" Width="310" FontSize="16" FontWeight="Bold" Height="35"/>
                     <RadioButton x:Name="rdosalefollowupcustomer" Content="Follow_up Customer " HorizontalAlignment="Left" Margin="487,20,0,0" VerticalAlignment="Top" Height="20" Width="148" GroupName="Sale_cust" Checked="rdosalefollowupcustomer_Checked"/>
                     <RadioButton x:Name="rdoSaleOldCustomer1" Content="Old Customer" HorizontalAlignment="Left" Margin="665,20,0,0" VerticalAlignment="Top" Height="20" Width="130" GroupName="Sale_cust" Checked="rdoSaleOldCustomer1_Checked"/>
-                    <RadioButton x:Name="rdoSaleNewcustomer" Content="New Customer" HorizontalAlignment="Left" Margin="840,21,0,0" VerticalAlignment="Top" Height="20" Width="130" GroupName="Sale_cust" Checked="rdoSaleNewcustomer_Checked" Grid.ColumnSpan="2"/>
+                    <RadioButton x:Name="rdoSaleNewcustomer" Content="New Customer" HorizontalAlignment="Left" Margin="835,20,0,0" VerticalAlignment="Top" Height="20" Width="130" GroupName="Sale_cust" Checked="rdoSaleNewcustomer_Checked" Grid.ColumnSpan="2"/>
                     <Button x:Name="btnsaleExit" Content="Exit" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.867,0.75" Click="btnsaleExit_Click" Grid.Column="1" />
                     <Grid HorizontalAlignment="Left" Visibility="Hidden" Name="GRD_FollowupCostomer" Height="495" VerticalAlignment="Top" Width="1140" Margin="0,45,0,0" Grid.ColumnSpan="2" Background="#FFF0F0F0">
 
@@ -560,7 +560,7 @@
                         </GroupBox>
                     </Grid>
                 </Grid>
-                <Grid HorizontalAlignment="Left" Name="GRD_Customer_Billing" Height="495" VerticalAlignment="Top"  Visibility="Visible"           Width="1130" Margin="11,65,0,0" Background="#FFF0F0F0" Loaded="GRD_Customer_Billing_Loaded">
+                <Grid HorizontalAlignment="Left" Name="GRD_Customer_Billing" Height="495" VerticalAlignment="Top"  Visibility="Hidden"                Width="1130" Margin="11,65,0,0" Background="#FFF0F0F0" Loaded="GRD_Customer_Billing_Loaded">
 
                     <Grid HorizontalAlignment="Left" Visibility="Visible"  Height="455" VerticalAlignment="Top"  Width="1090" Margin="15,20,0,0" Background="White">
 
@@ -634,7 +634,7 @@
                 </Grid>
 
             </Grid>
-            <Grid HorizontalAlignment="Right" Visibility="Hidden"      Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
+            <Grid HorizontalAlignment="Right" Visibility="Visible"    Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
                 <!--<Grid HorizontalAlignment="Right" Visibility="Visible"    x:Name="Grd_genratebill1" Height="565" Margin="-4,0,4,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
 
 
