@@ -16,6 +16,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Globalization;
 using Microsoft.Win32;
+using System.Windows.Controls.DataVisualization.Charting;
 using CRM_BAL;
 using CRM_DAL;
 
@@ -39,6 +40,10 @@ namespace CRM_User_Interface
         {
             InitializeComponent();
             checkedStuff = new List<string>();
+
+            Chart_Followup();
+
+            LoadColumnChart_FollowUp();
         }
         
         /// <summary>
@@ -2052,7 +2057,7 @@ namespace CRM_User_Interface
         {
             //txtSaleCustID.Text = "";
             //dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
-            //dgvAdm_SaleCustomerDetails.SelectedIndex = 0;
+            //dgvAdm_SaleCustomerDetails.SelectedItem = null;
             SaleCustomer_Details();
         }
 
@@ -4196,6 +4201,50 @@ namespace CRM_User_Interface
         #endregion PrePro Button Event
 
         #endregion PreProcurment Function
+
+        #region ChartFunction
+        int folCount;
+        public void Chart_Followup()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT Count(ID) FROM [tlb_FollowUp] WHERE [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+                
+                folCount = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void LoadColumnChart_FollowUp()
+        {
+            ((ColumnSeries) mcChart.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
+            {
+                new KeyValuePair<string,int>("Walk ins", folCount),
+                //new KeyValuePair<string,int>("CEO", 60),
+                //new KeyValuePair<string,int>("Software Engg.", 40),
+                //new KeyValuePair<string,int>("Team Leader", 20),
+                //new KeyValuePair<string,int>("Project Leader", 10),
+                //new KeyValuePair<string,int>("Developer", 30) 
+            };
+        }
+        #endregion ChartFunction
     }
 }
 
