@@ -1920,6 +1920,16 @@ namespace CRM_User_Interface
                 con.Close();
         }
         //===================code for customer and followup form===========================
+
+        public void loadSourceofEnq()
+        {
+            cmbCSourceofEnq.Text = "Select Source of Enquiry";
+            cmbCSourceofEnq.Items.Add("Newspaper");
+            cmbCSourceofEnq.Items.Add("Friends/Colleagues");
+            cmbCSourceofEnq.Items.Add("Net/Website");
+
+        
+        }
         private void btnCSave_Click(object sender, RoutedEventArgs e)
         {
             if (rdoCCustom.IsChecked == true)
@@ -1940,6 +1950,7 @@ namespace CRM_User_Interface
           //  GRD_Follwupandnew.Visibility = Visibility;
             load_Followup();
            FolloupID_fetch();
+           loadSourceofEnq();
              
         }
         public void AddCustomerFollowup1()
@@ -2123,6 +2134,8 @@ namespace CRM_User_Interface
             rdoBusiness.IsChecked = false;
             rdoCgovt.IsChecked = false;
             rdoCPrivate.IsChecked = false;
+            cmbCSourceofEnq.ItemsSource = null;
+            loadSourceofEnq();
 
 
 
