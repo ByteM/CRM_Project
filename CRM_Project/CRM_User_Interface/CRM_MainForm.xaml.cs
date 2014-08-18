@@ -2160,9 +2160,7 @@ namespace CRM_User_Interface
         //===========================end followup code=========================
         private void rdosalefollowupcustomer_Checked(object sender, RoutedEventArgs e)
         {
-            clear_CustomerFields();
-            if(rdosalefollowupcustomer .IsChecked==true )
-            {
+            clear_CustomerFields();         
                 txtsalesearchcname.IsEnabled = true;
                 txtSalecustomerno.IsEnabled = true;
                 DGRD_SaleFollowup.IsEnabled = true;
@@ -2173,8 +2171,9 @@ namespace CRM_User_Interface
                 FetchallDetails();
 
                 grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Hidden;
+                GRD_Customer_Billing.Visibility = System.Windows.Visibility.Hidden;
                
-            }
+           
         }
 
         private void rdoSaleNewcustomer_Checked(object sender, RoutedEventArgs e)
@@ -2379,8 +2378,11 @@ namespace CRM_User_Interface
             //load_Followup_type();
             GRD_FollowupCostomer.Visibility = Visibility.Hidden;
            
-            grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Visible;
+            grd_OldCustomerDetails.Visibility =Visibility;
             OldCustomer_Details();
+         
+            GRD_Customer_Billing.Visibility = System.Windows.Visibility.Hidden;
+          
         }
 
         private void btnSaleCustomerEdit_Click(object sender, RoutedEventArgs e)
@@ -2719,12 +2721,32 @@ namespace CRM_User_Interface
 
         private void btnInvoice_MainExit_Click(object sender, RoutedEventArgs e)
         {
+            if(rdosalefollowupcustomer.IsChecked ==true)
+            {
+                clearAllAddedProducts();
+                GRD_FollowupCostomer.Visibility = Visibility;
+                Grd_genratebill.Visibility = Visibility.Hidden;
+            }
+            else if(rdoSaleOldCustomer1.IsChecked ==true)
+            {
+                clearAllAddedProducts();
+                Grd_genratebill.Visibility = Visibility.Hidden;
+                 GRD_Customer_Billing.Visibility = Visibility;
+            }
+            else if (rdoSaleNewcustomer.IsChecked == true)
+            {
+                clearAllAddedProducts();
+                Grd_genratebill.Visibility = Visibility.Hidden ;
+                 GRD_Customer_Billing.Visibility = Visibility;
+            }
+            else { 
             Grd_genratebill.Visibility = Visibility.Hidden;
-            GRD_Customer_Billing.Visibility = Visibility.Hidden;
-            grd_OldCustomerDetails.Visibility = Visibility;
-            clearAllAddedProducts();
-            GRD_FollowupCostomer.Visibility = Visibility.Hidden;
-            clear_CustomerFields();
+            }
+           
+           
+           // clearAllAddedProducts();
+          
+            //clear_CustomerFields();
         }
 
         private void cmbInvoice_Tax_SelectionChanged(object sender, SelectionChangedEventArgs e)
