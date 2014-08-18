@@ -32,10 +32,10 @@ namespace CRM_User_Interface
     {
 
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
-        string caption = "Green Future Glob";
+        string caption = "Green Future Glob" ;
         int cid,I,ID,i;
         double y1,m1,o,p;
-        string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue;
+        string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue,occu;
         public Button targetButton;
       
         public CRM_MainForm()
@@ -2160,6 +2160,7 @@ namespace CRM_User_Interface
         //===========================end followup code=========================
         private void rdosalefollowupcustomer_Checked(object sender, RoutedEventArgs e)
         {
+            clear_CustomerFields();
             if(rdosalefollowupcustomer .IsChecked==true )
             {
                 txtsalesearchcname.IsEnabled = true;
@@ -2178,8 +2179,16 @@ namespace CRM_User_Interface
 
         private void rdoSaleNewcustomer_Checked(object sender, RoutedEventArgs e)
         {
+            clear_CustomerFields();
+            DGRD_SaleFollowup.Visibility = Visibility.Hidden;
+            grd_OldCustomerDetails.Visibility = Visibility.Hidden;
             GRD_Customer_Billing.Visibility = Visibility;
             CustomerID_fetch();
+            txtSaleCustomerOccupation.IsEnabled = false;
+            rdoSaleCustomerBusiness.IsEnabled = true;
+            rdoSaleCustomergovt.IsEnabled = true;
+            rdoSaleCustomerPrivate.IsEnabled = true;
+            btnSaleCustomerEditoccu.IsEnabled = false;
 
         }
         public void FetchallDetails()
@@ -2360,6 +2369,7 @@ namespace CRM_User_Interface
 
         private void rdoSaleOldCustomer1_Checked(object sender, RoutedEventArgs e)
         {
+            clear_CustomerFields();
            // txtsalesearchcname.IsEnabled = false;
            // txtSalecustomerno.IsEnabled = false;
            // DGRD_SaleFollowup.IsEnabled = false;
@@ -2438,9 +2448,23 @@ namespace CRM_User_Interface
             }
             finally { con.Close(); }
         }
-
+        public void clear_CustomerFields()
+        {
+            txtvalueid.Text = "";
+            txtSalecustomerName.Text ="";
+            txtSaleCustomerMobileno.Text ="";
+                txtSaleCustomerEmailID.Text ="";
+                txtSaleCustomerAddress.Text ="";
+                    dpSaleCustomerDOB.Text ="";
+                    txtSaleCustomerOccupation.Text ="";
+                        rdoSaleCustomerBusiness.IsChecked  =null;
+                        rdoSaleCustomerPrivate.IsChecked  =null;
+                            rdoSaleCustomergovt.IsChecked  =null;
+                            lblfollowupidfetch.Content = "";
+        }
         private void btnSaleCustomerGenrateBill_Click(object sender, RoutedEventArgs e)
         {
+            clearAllAddedProducts();
             if (rdosalefollowupcustomer.IsChecked ==true )
             {
                 targetButton = btnInvoice_Cash;
@@ -2470,9 +2494,11 @@ namespace CRM_User_Interface
             {
                 Save_NewCustomer();
                 Grd_genratebill.Visibility = Visibility;
+                Save_NewCustomer();
                 // LoadTax();
                 FetchtaxDetails();
                 loadStockProducts();
+                BillID_fetch();
 
             }
             
@@ -2696,6 +2722,9 @@ namespace CRM_User_Interface
             Grd_genratebill.Visibility = Visibility.Hidden;
             GRD_Customer_Billing.Visibility = Visibility.Hidden;
             grd_OldCustomerDetails.Visibility = Visibility;
+            clearAllAddedProducts();
+            GRD_FollowupCostomer.Visibility = Visibility.Hidden;
+            clear_CustomerFields();
         }
 
         private void cmbInvoice_Tax_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2942,6 +2971,9 @@ public void clearAllAddedProducts()
        FetchtaxDetails();
        cmbInvoiceStockProducts.ItemsSource = null;
        loadStockProducts();
+       Dgrd_InvoiceADDProducts.ItemsSource = null;
+       txtInvoice_remainingqty.Content = "";
+       txtInvoice_InvcTotalAmount.Text  = "";
 
 
 
@@ -3061,7 +3093,19 @@ public void Save_NewCustomer()
         balc.Date_Of_Birth = dpSaleCustomerDOB.Text;
         balc.Email_ID = txtSaleCustomerEmailID.Text;
         balc.Address = txtSaleCustomerAddress.Text;
-        balc.Occupation = txtSaleCustomerOccupation.Text;
+        if(rdoSaleCustomerBusiness.IsChecked ==true )
+        {
+            occu="Business";
+        }
+        else if(rdoSaleCustomerPrivate.IsChecked ==true )
+        {
+            occu="Private Employee";
+        }
+        else if (rdoSaleCustomergovt.IsChecked ==true )
+        {
+            occu ="GOVT Employee";
+        }
+        balc.Occupation = occu;
         balc.S_Status = "Active";
         balc.C_Date = System.DateTime.Now.ToShortDateString();
         dalc.Customer_Save_Insert_Update_Delete(balc);
@@ -3126,7 +3170,8 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
     SaveInvoiceDetails();
     Save_CommonBill();
     SaveCash();
-    //updateQuantity();
+    updateQuantity();
+    clear_CustomerFields();
 }
         public void SaveInvoiceDetails()
         {
@@ -3324,6 +3369,8 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             SaveInvoiceDetails();
             Save_CommonBill();
             SaveCheque();
+            updateQuantity();
+            clear_CustomerFields();
         }
         public void SaveCheque()
         {
@@ -3375,6 +3422,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             Save_CommonBill();
             SaveInstallment();
             Clear_SaveInstallment();
+            clear_CustomerFields();
         }
         public void Clear_SaveInstallment()
         {
@@ -4009,19 +4057,27 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
 
    private void GRD_Customer_Billing_Loaded(object sender, RoutedEventArgs e)
    {
+       grd_OldCustomerDetails.Visibility = Visibility.Hidden;
+       GRD_FollowupCostomer.Visibility = Visibility.Hidden;
        if (rdosalefollowupcustomer.IsChecked ==true )
        {
            btnSaleCustomerUpdate.IsEnabled = false;
            btnSaleCustomerDelete.IsEnabled = false;
+           btnSaleNewCustomerSale.IsEnabled = false;
+           btnSaleCustomerEditoccu.IsEnabled = false;
+
 
        }
        else if (rdoSaleOldCustomer1.IsChecked ==true )
        {
-           
+           btnSaleCustomerUpdate.IsEnabled = false;
+           btnSaleCustomerDelete.IsEnabled = false;
+           btnSaleNewCustomerSale.IsEnabled = false;
+           btnSaleCustomerEditoccu.IsEnabled = false;
        }
        else if (rdoSaleNewcustomer.IsChecked==true )
        {
-
+           
        }
    }
 
