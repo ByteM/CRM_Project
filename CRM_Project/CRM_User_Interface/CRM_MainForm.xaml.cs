@@ -3266,16 +3266,21 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
           }
         public void updateQuantity()
         {
-            binvd.Flag = 1;
-            binvd.Products123 =g;
-           // binvd.Bill_No = lblbillno.Content.ToString();
-            binvd.AvilableQty = Convert.ToDouble(txtInvoice_remainingqty.Content);
-            binvd.SaleQty = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
-            binvd.S_Status = "Active";
-            binvd.C_Date = System.DateTime.Now.ToShortDateString();
-            dinvd.Update_QTY(binvd);
-            MessageBox.Show("Quantity updated ");
-
+            for (i = 0; i < dtstat.Rows.Count; i++)
+            {
+                binvd.Flag = 1;
+                binvd.Products123 = g;
+                // binvd.Bill_No = lblbillno.Content.ToString();
+                double d = Convert.ToDouble(txtInvoice_AvailabeQty.Text);
+                double q = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
+                double tq = d - q;
+                binvd.AvilableQty = tq;
+                binvd.SaleQty = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
+                binvd.S_Status = "Active";
+                binvd.C_Date = System.DateTime.Now.ToShortDateString();
+                dinvd.Update_QTY(binvd);
+                MessageBox.Show("Quantity updated ");
+            }
         }
         public void FetchProductsID()
         {

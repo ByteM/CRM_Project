@@ -1,0 +1,31 @@
+USE [DB_CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_update_Qty]    Script Date: 08/18/2014 18:38:16 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[SP_update_Qty]
+	@Flag int=null,
+	@Products123 nvarchar(MAX),
+	@AvilableQty money,
+    @SaleQty  money ,
+    @S_Status nvarchar(MAX),
+    @C_Date nvarchar(MAX)
+AS
+BEGIN
+
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   if(@Flag=1)
+   begin
+  update StockDetails Set AvilableQty=@AvilableQty ,SaleQty=@SaleQty  Where Products123=@Products123  and S_Status=@S_Status
+  end
+END
