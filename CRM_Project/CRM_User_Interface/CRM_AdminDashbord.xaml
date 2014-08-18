@@ -305,7 +305,7 @@
 
                 <cht:Chart Name="mcChart"   Margin="2,1,2,0">
                     <cht:Chart.Series>
-                        <cht:ColumnSeries  ItemsSource="{Binding}" Title="Experience"  IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>
+                        <cht:ColumnSeries Background="Green" ItemsSource="{Binding}" Title="Experience"  IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>
 
 
                     </cht:Chart.Series>

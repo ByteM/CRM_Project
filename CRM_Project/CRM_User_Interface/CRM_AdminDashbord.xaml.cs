@@ -45,6 +45,8 @@ namespace CRM_User_Interface
             Chart_Seals();
             Chart_Procurment();
             Chart_CustomerBase();
+            Chart_HighestSingleProduct();
+            Chart_HighestProduct();
 
             LoadColumnChart_FollowUp();
         }
@@ -4210,6 +4212,9 @@ namespace CRM_User_Interface
         int sealsCount;
         int finalPro;
         int baseCust;
+        int highProduct;
+        int highSingleProduct;
+
         public void Chart_Followup()
         {
             try
@@ -4322,6 +4327,61 @@ namespace CRM_User_Interface
             }
         }
 
+        public void Chart_HighestProduct()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT MAX(Brand_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                highProduct = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_HighestSingleProduct()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT MAX(Model_No_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                highSingleProduct = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
 
         private void LoadColumnChart_FollowUp()
         {
@@ -4330,9 +4390,9 @@ namespace CRM_User_Interface
                 new KeyValuePair<string,int>("Walk ins", folCount),
                 new KeyValuePair<string,int>("Sales", sealsCount),
                 new KeyValuePair<string,int>("Procurements", finalPro),
-                new KeyValuePair<string,int>("Customer Base", baseCust),
-                //new KeyValuePair<string,int>("Project Leader", 10),
-                //new KeyValuePair<string,int>("Developer", 30) 
+                new KeyValuePair<string,int>("Highest Sold Item", highSingleProduct) ,
+                new KeyValuePair<string,int>("Ever Green Top Brand", highProduct),
+                new KeyValuePair<string,int>("Customer Base", baseCust)
             };
         }
 
