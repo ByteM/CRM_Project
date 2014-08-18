@@ -42,6 +42,9 @@ namespace CRM_User_Interface
             checkedStuff = new List<string>();
 
             Chart_Followup();
+            Chart_Seals();
+            Chart_Procurment();
+            Chart_CustomerBase();
 
             LoadColumnChart_FollowUp();
         }
@@ -4204,6 +4207,9 @@ namespace CRM_User_Interface
 
         #region ChartFunction
         int folCount;
+        int sealsCount;
+        int finalPro;
+        int baseCust;
         public void Chart_Followup()
         {
             try
@@ -4232,18 +4238,104 @@ namespace CRM_User_Interface
             }
         }
 
+        public void Chart_Seals()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT Count(ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                sealsCount = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_Procurment()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT Count(ID) FROM [Final_DealerDetails] WHERE [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                finalPro = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_CustomerBase()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT Count(ID) FROM [tlb_Customer] WHERE [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                baseCust = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
         private void LoadColumnChart_FollowUp()
         {
-            ((ColumnSeries) mcChart.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
+            ((ColumnSeries)mcChart.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
             {
                 new KeyValuePair<string,int>("Walk ins", folCount),
-                //new KeyValuePair<string,int>("CEO", 60),
-                //new KeyValuePair<string,int>("Software Engg.", 40),
-                //new KeyValuePair<string,int>("Team Leader", 20),
+                new KeyValuePair<string,int>("Sales", sealsCount),
+                new KeyValuePair<string,int>("Procurements", finalPro),
+                new KeyValuePair<string,int>("Customer Base", baseCust),
                 //new KeyValuePair<string,int>("Project Leader", 10),
                 //new KeyValuePair<string,int>("Developer", 30) 
             };
         }
+
         #endregion ChartFunction
     }
 }
