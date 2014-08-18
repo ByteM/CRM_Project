@@ -21,5 +21,4 @@ C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_BAL\bin\Debug\CRM_B
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_BAL\bin\Debug\CRM_BAL.pdb
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_BAL\obj\Debug\CRM_BAL.dll
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_BAL\obj\Debug\CRM_BAL.pdb
-C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_BAL\obj\Debug\CRM_BAL.csprojResolveAssemblyReference.cache
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_BAL\obj\Debug\CRM_BAL.csprojResolveAssemblyReference.cache

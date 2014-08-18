@@ -33,8 +33,8 @@ namespace CRM_User_Interface
 
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
         string caption = "Green Future Glob";
-        int cid,I,ID,o,p,i;
-        double y1,m1;
+        int cid,I,ID,i;
+        double y1,m1,o,p;
         string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue;
         public Button targetButton;
       
@@ -2165,9 +2165,10 @@ namespace CRM_User_Interface
                 txtsalesearchcname.IsEnabled = true;
                 txtSalecustomerno.IsEnabled = true;
                 DGRD_SaleFollowup.IsEnabled = true;
-                cmbsalecustomerftype.IsEnabled = true;
-                DGRD_SaleCustomer.Visibility = Visibility.Hidden ;
-                load_Followup_type();
+                //cmbsalecustomerftype.IsEnabled = true;
+                GRD_FollowupCostomer.Visibility = Visibility;
+                DGRD_SaleFollowup.Visibility = Visibility;
+                //load_Followup_type();
                 FetchallDetails();
 
                 grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Hidden;
@@ -2177,7 +2178,9 @@ namespace CRM_User_Interface
 
         private void rdoSaleNewcustomer_Checked(object sender, RoutedEventArgs e)
         {
-           
+            GRD_Customer_Billing.Visibility = Visibility;
+            CustomerID_fetch();
+
         }
         public void FetchallDetails()
         {
@@ -2254,21 +2257,34 @@ namespace CRM_User_Interface
 
 
         }
-        public void fetch_FollowupDetailsbyfollowuptype()
+       
+        public void loadbyallfield_Followup()
         {
             try
             {
                 con.Open();
                 DataSet ds = new DataSet();
-                cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Followup_Type LIKE ISNULL ('" + cmbsalecustomerftype.SelectedItem .ToString() + "',Followup_Type) + '%'  and S_Status='Active' ORDER BY Name ASC ", con);
+                string strf = "select ID, Followup_ID , Name , Mobile_No , Date_Of_Birth , Email_ID , Address , Product_Details , Followup_Type , F_Date , C_Date " +
+                    "from tlb_FollowUp " +
+                    "where  ";
+                if (txtsalesearchcname.Text.Trim() != "")
+                {
+                    strf = strf + " Name LIKE ISNULL('" + txtsalesearchcname.Text.Trim() + "',[Name]) + '%' AND ";
+                }
+                if (txtSalecustomerno.Text.Trim() != "")
+                {
+                    strf = strf + " Mobile_No LIKE ISNULL('" + txtSalecustomerno.Text.Trim() + "',[Mobile_No]) + '%' AND ";
+                }
+                strf = strf + " S_Status = 'Active' ORDER BY [Name] ASC ";
+                cmd = new SqlCommand(strf, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 // con.Open();
                 da.Fill(ds);
 
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-                }
+                // if (ds.Tables[0].Rows.Count > 0)
+                // {
+                DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
+                // }
             }
             catch (Exception)
             {
@@ -2278,302 +2294,29 @@ namespace CRM_User_Interface
             finally { con.Close(); }
 
 
-        }
-        public void load_Followup_type()
-        {
-            cmbsalecustomerftype.Text = "--Select--";
-            cmbsalecustomerftype.Items.Add("Default");
-            cmbsalecustomerftype.Items.Add("Custom");
 
         }
-        public void loadbyallfield_Followup()
-        {//txtsalesearchcname,txtSalecustomerno,cmbsalecustomerftype
-            if (txtsalesearchcname.Text != "")
-            {
-                //fetch_FollowupDetails();
-                if (txtsalesearchcname.Text != "" && txtSalecustomerno.Text == "" )//&& cmbsalecustomerftype.Text == "--Select--"
-                {
-                    fetch_FollowupDetails();
-                    // load_Followup_type();
-                    // load_Followup_type();
-                }
-                else if (txtsalesearchcname.Text != "" && txtSalecustomerno.Text != "" && cmbsalecustomerftype.Text == "--Select--" )
-                {
-                    try
-                    {
-                        con.Open();
-                        DataSet ds = new DataSet();
-                        cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Name LIKE ISNULL ('" + txtsalesearchcname.Text.Trim() + "',Name) + '%'  and Mobile_No LIKE ISNULL ('" + txtSalecustomerno.Text.Trim() + "',Mobile_No) + '%' and   S_Status='Active' ORDER BY Name ASC ", con);
-                        SqlDataAdapter da = new SqlDataAdapter(cmd);
-                        // con.Open();
-                        da.Fill(ds);
-
-                        if (ds.Tables[0].Rows.Count > 0)
-                        {
-                            DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Name And Number Not Match ", caption, MessageBoxButton.OK);
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
-                    finally
-                    {
-                        con.Close(); //load_Followup_type();
-                    }
-                }
-
-          else if (txtsalesearchcname.Text == "" && txtSalecustomerno.Text == "")
-          {
-              FetchallDetails();
-                }
-          //else if (txtsalesearchcname.Text != "" || txtSalecustomerno.Text == "" || cmbsalecustomerftype.SelectedValue.ToString() != "")
-          //{
-          //    try
-          //    {
-          //        con.Open();
-          //        DataSet ds = new DataSet();
-          //        cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Followup_Type LIKE ISNULL ('" + cmbsalecustomerftype.SelectedValue.ToString() + "',Followup_Type) + '%'  and Name LIKE ISNULL ('" + txtsalesearchcname.Text.Trim() + "',Name) + '%' and   S_Status='Active' ORDER BY Name ASC ", con);
-          //        SqlDataAdapter da = new SqlDataAdapter(cmd);
-          //        con.Open();
-          //        da.Fill(ds);
-
-          //        if (ds.Tables[0].Rows.Count > 0)
-          //        {
-          //            DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-          //        }
-          //    }
-          //    catch (Exception)
-          //    {
-
-          //        throw;
-          //    }
-          //    finally { con.Close(); load_Followup_type(); }
-          }
-          else if (txtSalecustomerno.Text != "")
-          {
-              if (txtSalecustomerno.Text == "" &&  txtSalecustomerno.Text != "")
-              {
-                  fetch_FollowupDetailsbymobile();
-              }
-              else if (txtSalecustomerno.Text != "" && txtSalecustomerno.Text != "")
-              {
-                  try
-                  {
-                      con.Open();
-                      DataSet ds = new DataSet();
-                      cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Name LIKE ISNULL ('" + txtsalesearchcname.Text.Trim() + "',Name) + '%'  and Mobile_No LIKE ISNULL ('" + txtSalecustomerno.Text.Trim() + "',Mobile_No) + '%' and   S_Status='Active' ORDER BY Name ASC ", con);
-                      SqlDataAdapter da = new SqlDataAdapter(cmd);
-                      // con.Open();
-                      da.Fill(ds);
-
-                      if (ds.Tables[0].Rows.Count > 0)
-                      {
-                          DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-                      }
-                      else
-                      {
-                          MessageBox.Show("Name And Number Not Match ", caption, MessageBoxButton.OK);
-                      }
-                  }
-                  catch (Exception)
-                  {
-
-                      throw;
-                  }
-                  finally { con.Close(); load_Followup_type(); }
-              }
-              else if (txtsalesearchcname.Text == "" && txtSalecustomerno.Text == "")
-              {
-                  FetchallDetails();
-              }
-          }
+            
       
-
-                    else if (txtsalesearchcname.Text == "" && txtSalecustomerno.Text == "")
-                {
-                    FetchallDetails();
-                }
-
-            
-                
-                else if (txtsalesearchcname.Text != "" || txtSalecustomerno.Text == "" || cmbsalecustomerftype.SelectedItem .ToString() != null)
-                {
-                    try
-                    {
-                        con.Open();
-                        DataSet ds = new DataSet();
-                        cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Followup_Type LIKE ISNULL ('" + cmbsalecustomerftype.SelectedItem.ToString() + "',Followup_Type) + '%'  and Name LIKE ISNULL ('" + txtsalesearchcname.Text.Trim() + "',Name) + '%' and   S_Status='Active' ORDER BY Name ASC ", con);
-                        SqlDataAdapter da = new SqlDataAdapter(cmd);
-                        con.Open();
-                        da.Fill(ds);
-
-                        if (ds.Tables[0].Rows.Count > 0)
-                        {
-                            DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Name And Type Not Match ", caption, MessageBoxButton.OK);
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
-                    finally
-                    {
-                        con.Close(); //load_Followup_type();
-                    }
-                }
-            
-                //2nd
-
-                else if (txtSalecustomerno.Text != "")
-                {
-                    if (txtSalecustomerno.Text == "" && txtSalecustomerno.Text != "")
-                    {
-                        fetch_FollowupDetailsbymobile();
-                    }
-                    else if (txtSalecustomerno.Text != "" && txtSalecustomerno.Text != "")
-                    {
-                        try
-                        {
-                            con.Open();
-                            DataSet ds = new DataSet();
-                            cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Name LIKE ISNULL ('" + txtsalesearchcname.Text.Trim() + "',Name) + '%'  and Mobile_No LIKE ISNULL ('" + txtSalecustomerno.Text.Trim() + "',Mobile_No) + '%' and   S_Status='Active' ORDER BY Name ASC ", con);
-                            SqlDataAdapter da = new SqlDataAdapter(cmd);
-                            // con.Open();
-                            da.Fill(ds);
-
-                            if (ds.Tables[0].Rows.Count > 0)
-                            {
-                                DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Name And Number Not Match ", caption, MessageBoxButton.OK);
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-                            throw;
-                        }
-                        finally
-                        {
-                            con.Close();// load_Followup_type();
-                        }
-                    }
-                    else if (txtsalesearchcname.Text == "" && txtSalecustomerno.Text == "")
-                    {
-                        FetchallDetails();
-                    }
-                }
-              
-            }
-
-            //if(txtsalesearchcname.Text !="" && txtSalecustomerno.Text !="" && cmbsalecustomerftype.SelectedValue.ToString()=="--Select--")
-            //{
-               
-
-            //}
-            //else if(txtsalesearchcname.Text =="" || txtSalecustomerno.Text !="" || cmbsalecustomerftype.SelectedValue.ToString()!="--Select--")
-            //{
-            //    try
-            //    {
-            //        con.Open();
-            //        DataSet ds = new DataSet();
-            //        cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Followup_Type LIKE ISNULL ('" + cmbsalecustomerftype.SelectedValue.ToString() + "',Followup_Type) + '%'  and Mobile_No LIKE ISNULL ('" + txtSalecustomerno.Text.Trim() + "',Mobile_No) + '%' and   S_Status='Active' ORDER BY Name ASC ", con);
-            //        SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //        // con.Open();
-            //        da.Fill(ds);
-
-            //        if (ds.Tables[0].Rows.Count > 0)
-            //        {
-            //            DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-            //        }
-            //    }
-            //    catch (Exception)
-            //    {
-
-            //        throw;
-            //    }
-            //    finally { con.Close(); }
-            //}
-            // else if(txtsalesearchcname.Text !="" ||  txtSalecustomerno.Text =="" || cmbsalecustomerftype.SelectedValue.ToString()!="--Select--")
-            //{                                                                                                                                                                                                                                                                        
-            //    try
-            //    {
-            //        con.Open();
-            //        DataSet ds = new DataSet();
-            //        cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Followup_Type LIKE ISNULL ('" + cmbsalecustomerftype.SelectedValue.ToString() + "',Followup_Type) + '%'  and Name LIKE ISNULL ('" + txtsalesearchcname.Text.Trim() + "',Name) + '%' and   S_Status='Active' ORDER BY Name ASC ", con);
-            //        SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //        // con.Open();
-            //        da.Fill(ds);
-
-            //        if (ds.Tables[0].Rows.Count > 0)
-            //        {
-            //            DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-            //        }
-            //    }
-            //    catch (Exception)
-            //    {
-
-            //        throw;
-            //    }
-            //    finally { con.Close(); }
-            // }
-
         public  void txtsalesearchcname_TextChanged(object sender, TextChangedEventArgs e)
         {
-           // if (txtsalesearchcname.Text != "" || txtSalecustomerno.Text == "" || cmbsalecustomerftype.SelectedValue.ToString() == " ")
-         //   {
-               // fetch_FollowupDetails();
-                // load_Followup_type();
-          //  }
-          //  else
-           // {
-               // loadbyallfield_Followup();
+         
             
             loadbyallfield_Followup();
-           // }
+         
         }
 
         private void txtSalecustomerno_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (txtsalesearchcname.Text == "" || txtSalecustomerno.Text != "" || cmbsalecustomerftype.SelectedValue.ToString() == "--Select--")
-            //{ 
-          //  fetch_FollowupDetailsbymobile();
-           // load_Followup_type();
-            //}
-            //else
-            //{
+            
                loadbyallfield_Followup();
-          // }
+         
 
         }
 
         private void cmbsalecustomerftype_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           // if (txtsalesearchcname.Text == "" || txtSalecustomerno.Text != "" || cmbsalecustomerftype.SelectedValue.ToString() == "--Select--")
-           // { 
-           // fetch_FollowupDetailsbyfollowuptype();
-           //// load_Followup_type();
-           // }
-           // else
-           // {
-                if(cmbsalecustomerftype .SelectedValue .ToString()!=null )
-        {
-            fetch_FollowupDetailsbyfollowuptype();
-        }
-           //}
+           
         }
 
         private void txtsalesearchcname_KeyDown(object sender, KeyEventArgs e)
@@ -2617,14 +2360,15 @@ namespace CRM_User_Interface
 
         private void rdoSaleOldCustomer1_Checked(object sender, RoutedEventArgs e)
         {
-            txtsalesearchcname.IsEnabled = false;
-            txtSalecustomerno.IsEnabled = false;
-            DGRD_SaleFollowup.IsEnabled = false;
-            cmbsalecustomerftype.IsEnabled = false;
-           // DGRD_SaleCustomer.Visibility = Visibility;
+           // txtsalesearchcname.IsEnabled = false;
+           // txtSalecustomerno.IsEnabled = false;
+           // DGRD_SaleFollowup.IsEnabled = false;
+           // cmbsalecustomerftype.IsEnabled = false;
+           // grd_OldCustomerDetails.Visibility = Visibility;
            
             //load_Followup_type();
-
+            GRD_FollowupCostomer.Visibility = Visibility.Hidden;
+           
             grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Visible;
             OldCustomer_Details();
         }
@@ -2713,14 +2457,18 @@ namespace CRM_User_Interface
             }
             else if (rdoSaleOldCustomer1.IsChecked ==true )
             {
+               
                 Grd_genratebill.Visibility = Visibility;
+                
                 // LoadTax();
                 FetchtaxDetails();
                 loadStockProducts();
+                BillID_fetch();
 
             }
             else if (rdoSaleNewcustomer.IsChecked ==true )
             {
+                Save_NewCustomer();
                 Grd_genratebill.Visibility = Visibility;
                 // LoadTax();
                 FetchtaxDetails();
@@ -2946,6 +2694,8 @@ namespace CRM_User_Interface
         private void btnInvoice_MainExit_Click(object sender, RoutedEventArgs e)
         {
             Grd_genratebill.Visibility = Visibility.Hidden;
+            GRD_Customer_Billing.Visibility = Visibility.Hidden;
+            grd_OldCustomerDetails.Visibility = Visibility;
         }
 
         private void cmbInvoice_Tax_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -3145,15 +2895,16 @@ namespace CRM_User_Interface
         }
 
    private void txtInvoice_Qty_TextChanged(object sender, TextChangedEventArgs e)
-  {double   d=0;
+  {
+       double   d=0;
        if (txtInvoice_Qty.Text == "" )
    {
        txtInvoice_TotalPriceofQty.Text = txtInvoiceActualPrice.Text;
    }
        else if (txtInvoiceActualPrice.Text != "" && txtInvoice_Qty.Text != "")
        {
-            o = Convert.ToInt32(txtInvoice_AvailabeQty.Text);
-           p = Convert.ToInt32(txtInvoice_Qty.Text);
+           o = Convert.ToDouble (txtInvoice_AvailabeQty.Text);
+           p = Convert.ToDouble(txtInvoice_Qty.Text);
            if (o >= p)
            {
                double actualprice = Convert.ToDouble(txtInvoiceActualPrice.Text);
@@ -3172,7 +2923,7 @@ namespace CRM_User_Interface
        {
            txtInvoice_TotalPriceofQty.Text = txtInvoiceActualPrice.Text;
        }
-       int rem = o - p;
+       double  rem = o - p;
        txtInvoice_remainingqty.Content = rem.ToString();
      }
 
@@ -3305,15 +3056,16 @@ public void Save_NewCustomer()
     {
         balc.Flag = 1;
         balc.Cust_ID = txtvalueid.Text;
-        balc.Name = txtCName.Text;
-        balc.Mobile_No = txtCMobile.Text;
+        balc.Name = txtSalecustomerName.Text;
+        balc.Mobile_No = txtSaleCustomerMobileno.Text;
         balc.Date_Of_Birth = dpSaleCustomerDOB.Text;
-        balc.Email_ID = txtCEmailid.Text;
-        balc.Address = txtCAddress.Text;
+        balc.Email_ID = txtSaleCustomerEmailID.Text;
+        balc.Address = txtSaleCustomerAddress.Text;
         balc.Occupation = txtSaleCustomerOccupation.Text;
+        balc.S_Status = "Active";
         balc.C_Date = System.DateTime.Now.ToShortDateString();
         dalc.Customer_Save_Insert_Update_Delete(balc);
-        dalc.Customer_Save_Insert_Update_Delete(balc);
+      //  dalc.Customer_Save_Insert_Update_Delete(balc);
         MessageBox.Show("New Customer Added Successfully..", caption, MessageBoxButton.OK);
     }
     else if (res == MessageBoxResult.No)
@@ -3450,8 +3202,8 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             binvd.Flag = 1;
             binvd.Products123 =g;
            // binvd.Bill_No = lblbillno.Content.ToString();
-            //binvd.AvilableQty = Convert.ToDouble(txtInvoice_remainingqty.Content);
-            //binvd.SaleQty = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
+            binvd.AvilableQty = Convert.ToDouble(txtInvoice_remainingqty.Content);
+            binvd.SaleQty = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
             binvd.S_Status = "Active";
             binvd.C_Date = System.DateTime.Now.ToShortDateString();
             dinvd.Update_QTY(binvd);
@@ -3525,10 +3277,10 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
 
         private void PaymentMode_Button_Click(object sender, RoutedEventArgs e)
         {
-            if ((sender as Button) == targetButton)
+            if ((sender as Button) == btnInvoice_Cash)
             {
 
-                targetButton.Visibility = Visibility;
+                btnInvoice_Cash.Visibility = Visibility;
                 GRDInvoce_Cash.Visibility = Visibility;
                 pm_c = "Cash";
  txtInvoice_C_InvcTotalAmount.Text = txtInvoice_InvcTotalAmount.Text;
@@ -3876,7 +3628,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 }
                 if (txtOlad_CustomerMobile_Search.Text.Trim() != "")
                 {
-                    str = str + "[Mobile_No] LIKE ISNULL('" + txtOldCustomer_Search.Text.Trim() + "',[Mobile_No]) + '%' AND ";
+                    str = str + "[Mobile_No] LIKE ISNULL('" + txtOlad_CustomerMobile_Search.Text.Trim() + "',[Mobile_No]) + '%' AND ";
                 }
                 str = str + " [S_Status] = 'Active' ORDER BY [Name] ASC ";
                 //str = str + " S_Status = 'Active' ";
@@ -4196,6 +3948,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             string ID = (DGRD_SaleOldCustomer.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
             MessageBox.Show(ID);
             // DGRD_SaleFollowup;
+            grd_OldCustomerDetails.Visibility = Visibility.Hidden;
             GRD_Customer_Billing.Visibility = Visibility;
            // CustomerID_fetch();
 
@@ -4236,6 +3989,41 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             }
             finally { con.Close(); }
         }
+
+   private void txtOldCustomer_Search_TextChanged_1(object sender, TextChangedEventArgs e)
+   {
+       OldCustomer_Details();
+   }
+
+   private void txtOlad_CustomerMobile_Search_TextChanged_1(object sender, TextChangedEventArgs e)
+   {
+       OldCustomer_Details();
+   }
+
+   private void btnsaleRefresh_Click(object sender, RoutedEventArgs e)
+   {
+       txtsalesearchcname.Text = "";
+       txtSalecustomerno.Text = "";
+       FetchallDetails();
+   }
+
+   private void GRD_Customer_Billing_Loaded(object sender, RoutedEventArgs e)
+   {
+       if (rdosalefollowupcustomer.IsChecked ==true )
+       {
+           btnSaleCustomerUpdate.IsEnabled = false;
+           btnSaleCustomerDelete.IsEnabled = false;
+
+       }
+       else if (rdoSaleOldCustomer1.IsChecked ==true )
+       {
+           
+       }
+       else if (rdoSaleNewcustomer.IsChecked==true )
+       {
+
+       }
+   }
 
 
    }
