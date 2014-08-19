@@ -2173,7 +2173,7 @@ namespace CRM_User_Interface
         //===========================end followup code=========================
         private void rdosalefollowupcustomer_Checked(object sender, RoutedEventArgs e)
         {
-            clear_CustomerFields();         
+                clear_CustomerFields();         
                 txtsalesearchcname.IsEnabled = true;
                 txtSalecustomerno.IsEnabled = true;
                 DGRD_SaleFollowup.IsEnabled = true;
@@ -2375,7 +2375,8 @@ namespace CRM_User_Interface
 
         private void smnewwalkin_Click(object sender, RoutedEventArgs e)
         {
-            GRD_Sales.Visibility = Visibility;
+            GRD_Sales.Visibility = System.Windows.Visibility.Visible;
+            FetchallDetails();
            
         }
 

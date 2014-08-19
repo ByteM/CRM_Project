@@ -4397,6 +4397,170 @@ namespace CRM_User_Interface
         }
 
         #endregion ChartFunction
+
+        #region Chart SalesByProducts
+        int salesProCount;
+
+        public void Chart_SalesProducts()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT distinct Count(I.Product_ID) AS [ProductID],B.[Product_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Products] B ON B.[ID]=I.[Product_ID] WHERE I.[S_Status]='Active' Group By B.[Product_Name]";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                Dictionary<string,int> data = new Dictionary<string,int>();
+
+                //salesProCount = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //for (int i = 0; i <= ds.Tables[0].Rows.Count; i++ )
+                foreach(DataRow drv in ds.Tables[0].Rows)
+                {
+                    //salesProCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    string strvalue = Convert.ToString(drv["Product_Name"]);
+                    salesProCount = Convert.ToInt32(drv["ProductID"]);
+                    data.Add(Convert.ToString(strvalue), Convert.ToInt32(salesProCount));
+                    //LoadSales_Products_chart();
+                }
+                ((BarSeries)salesChartByProducts.Series[0]).ItemsSource = data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void LoadSales_Products_chart()
+        {
+            ((BarSeries) salesChartByProducts.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
+            {
+                new KeyValuePair<string,int>("Products", salesProCount),
+                //new KeyValuePair<string,int>("Sales", sealsCount),
+                //new KeyValuePair<string,int>("Procurements", finalPro),
+                //new KeyValuePair<string,int>("Highest Sold Item", highSingleProduct) ,
+                //new KeyValuePair<string,int>("Ever Green Top Brand", highProduct),
+                //new KeyValuePair<string,int>("Customer Base", baseCust)
+            };
+        }
+
+        private void chart_SalesProducts_Click(object sender, RoutedEventArgs e)
+        {
+            grd_SalesByProducts.Visibility = System.Windows.Visibility.Visible;
+
+            Chart_SalesProducts();
+            //LoadSales_Products_chart();
+
+        }
+
+        private void btnChartSales_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_SalesByProducts.Visibility = System.Windows.Visibility.Hidden;
+        }
+        #endregion Chart SalesByProducts
+
+        #region Chart SalesByBrand
+        public void Chart_SalesBrand()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT distinct Count(I.Brand_ID) AS [BrandID],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                Dictionary<string, int> data = new Dictionary<string, int>();
+
+                //salesProCount = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //for (int i = 0; i <= ds.Tables[0].Rows.Count; i++ )
+                foreach (DataRow drv in ds.Tables[0].Rows)
+                {
+                    //salesProCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    string strvalue = Convert.ToString(drv["Brand_Name"]);
+                    int salesBrand = Convert.ToInt32(drv["BrandID"]);
+                    data.Add(Convert.ToString(strvalue), Convert.ToInt32(salesBrand));
+                    //LoadSales_Products_chart();
+                }
+                ((ColumnSeries) salesChartByBrand.Series[0]).ItemsSource = data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void chart_SalesBrand_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ChartSalesByBrand.Visibility = System.Windows.Visibility.Visible;
+            Chart_SalesBrand();
+        }
+
+        private void btnChartDetails_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ChartSalesByBrand.Visibility = System.Windows.Visibility.Hidden;
+        }
+        #endregion Chart SalesByBrand
+
+        public void Chart_SalesProcurmentDuration()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                str = "SELECT  I.C_Date AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                Dictionary<string, string> data = new Dictionary<string, string>();
+
+                //salesProCount = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //for (int i = 0; i <= ds.Tables[0].Rows.Count; i++ )
+                foreach (DataRow drv in ds.Tables[0].Rows)
+                {
+                    //salesProCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    string strvalue = Convert.ToString(drv["Brand_Name"]);
+                    string salesPDu = Convert.ToString(drv["CDate"]);
+                    data.Add(Convert.ToString(strvalue), Convert.ToString(salesPDu));
+                    //LoadSales_Products_chart();
+                }
+                ((BarSeries) salesChartByProcurmentDutaion.Series[0]).ItemsSource = data;
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void salesPRoDuraion_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ChartProcurmentToSale.Visibility = System.Windows.Visibility.Visible;
+            Chart_SalesProcurmentDuration();
+        }
+
     }
 }
 

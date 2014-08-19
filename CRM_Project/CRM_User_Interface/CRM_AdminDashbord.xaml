@@ -163,7 +163,9 @@
                     </MenuItem.Header>
 
                     <MenuItem Header=" Check Status" x:Name="smchkstatusinsurance"/>
-
+                    <MenuItem Header=" Sales Products" x:Name="chart_SalesProducts" Click="chart_SalesProducts_Click"/>
+                    <MenuItem Header=" Sales Brand" x:Name="chart_SalesBrand" Click="chart_SalesBrand_Click" />
+                    <MenuItem Header="Sales Procurement Duration" x:Name="salesPRoDuraion" Click="salesPRoDuraion_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Width="85">
                     <MenuItem.Header>
@@ -1149,6 +1151,32 @@
                     </DataGrid>
                 </Grid>
                 <TextBox x:Name="txtInsurance_InvoiceID" HorizontalAlignment="Left" Height="23" Margin="1020,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
+            </Grid>
+            <Grid x:Name="grd_ChartSalesByBrand" HorizontalAlignment="Left" Visibility="Hidden" Height="563" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF7EDED">
+                <cht:Chart Title="Sales By Brand" Name="salesChartByBrand"   Margin="2,1,2,0">
+                    <cht:Chart.Series>
+                        <cht:ColumnSeries ScrollViewer.HorizontalScrollBarVisibility="Visible" Title="Sales By Brand" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>
+                    </cht:Chart.Series>
+                </cht:Chart>
+                <Button x:Name="btnChartDetails_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1079,3,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnChartDetails_Exit_Click" />
+            </Grid>
+            <Grid x:Name="grd_SalesByProducts" Visibility="Hidden" HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1165" Background="#FFF9F2F2">
+                <cht:Chart Title="Sales By Products" Name="salesChartByProducts"   Margin="2,1,2,0">
+                    <cht:Chart.Series>
+                        <cht:BarSeries ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="Green" ItemsSource="{Binding}" Title="Sale Products" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>
+                    </cht:Chart.Series>
+                </cht:Chart>
+                <Button x:Name="btnChartSales_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,3,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnChartSales_Exit_Click"/>
+            </Grid>
+            <Grid x:Name="grd_ChartProcurmentToSale" HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+                <Button x:Name="btn_ChatProSaleDuration_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1084,1,0,0" VerticalAlignment="Top" Width="75" Height="29"/>
+                <Grid HorizontalAlignment="Left" Height="521" Margin="15,34,0,0" VerticalAlignment="Top" Width="1130" Background="White">
+                    <cht:Chart Title="Procurment Sales Duration" Name="salesChartByProcurmentDutaion"   Margin="2,1,2,0">
+                        <cht:Chart.Series>
+                            <cht:BarSeries ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="Green" ItemsSource="{Binding}" Title="Sales Duration" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>
+                        </cht:Chart.Series>
+                    </cht:Chart>
+                </Grid>
             </Grid>
 
         </Grid>

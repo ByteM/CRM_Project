@@ -445,7 +445,7 @@
                         </StackPanel>-->
                 </Grid>
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" Name="GRD_Follwupandnew"  Visibility="Visible"  VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" >
+            <Grid HorizontalAlignment="Left" Height="565" Margin="20,66,0,0" Name="GRD_Follwupandnew"  Visibility="Hidden"  VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" >
                 <Grid HorizontalAlignment="Left" Height="540" Name="grd_addfollowupandwalkin" Margin="160,15,0,0" VerticalAlignment="Top" Width="835" Background="White">
                     <Label Content="Follow up Details" HorizontalAlignment="Left" Margin="409,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" />
                     <Label Content="Follow_up ID :" HorizontalAlignment="Left" Margin="95,47,0,0" VerticalAlignment="Top" Width="90"/>
@@ -483,10 +483,8 @@
 
                 </Grid>
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Hidden"           VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
-
-
-
+            
+            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Visible"  VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <!--<Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales1"  Visibility="Hidden" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">-->
 
                 <Grid HorizontalAlignment="Left" Height="545" Visibility="Visible"  Margin="6,10,0,0" VerticalAlignment="Top" Width="1145" Background="White">
@@ -499,24 +497,24 @@
                     <RadioButton x:Name="rdoSaleOldCustomer1" Content="Old Customer" HorizontalAlignment="Left" Margin="665,20,0,0" VerticalAlignment="Top" Height="20" Width="130" GroupName="Sale_cust" Checked="rdoSaleOldCustomer1_Checked"/>
                     <RadioButton x:Name="rdoSaleNewcustomer" Content="New Customer" HorizontalAlignment="Left" Margin="835,20,0,0" VerticalAlignment="Top" Height="20" Width="130" GroupName="Sale_cust" Checked="rdoSaleNewcustomer_Checked" Grid.ColumnSpan="2"/>
                     <Button x:Name="btnsaleExit" Content="Exit" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.867,0.75" Click="btnsaleExit_Click" Grid.Column="1" />
-                    <Grid HorizontalAlignment="Left" Visibility="Hidden" Name="GRD_FollowupCostomer" Height="495" VerticalAlignment="Top" Width="1140" Margin="0,45,0,0" Grid.ColumnSpan="2" Background="#FFF0F0F0">
+                    <Grid HorizontalAlignment="Left" Visibility="Visible" Name="GRD_FollowupCostomer" Height="495" VerticalAlignment="Top" Width="1140" Margin="0,45,0,0" Grid.ColumnSpan="2" Background="#FFF0F0F0">
 
 
                         <DataGrid x:Name="DGRD_SaleFollowup" Visibility="Visible"   HorizontalAlignment="Left" IsReadOnly="False" Margin="5,80,0,-10" VerticalAlignment="Top" Height="425" Width="1125" SelectionChanged="DataGrid_SelectionChanged" IsEnabled="False" AutoGenerateColumns="False" SelectedCellsChanged="DGRD_SaleFollowup_SelectedCellsChanged" MouseDoubleClick="DGRD_SaleFollowup_MouseDoubleClick">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Width="30" x:Name="grdid" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />
-                                <DataGridTextColumn Header="Followup_ID" Width="100" x:Name="grdfid" SortMemberPath="VisitorName" Binding="{Binding Followup_ID, Mode=TwoWay}" />
-                                <DataGridTextColumn Header="Name" x:Name="grdName" Width="120" SortMemberPath="MobileNo" Binding="{Binding Name, Mode=TwoWay}" />
+                                <DataGridTextColumn Header="FID" Width="0" x:Name="grdfid" SortMemberPath="VisitorName" Binding="{Binding Followup_ID, Mode=TwoWay}" />
+                                <DataGridTextColumn Header="Name" x:Name="grdName" Width="200" SortMemberPath="MobileNo" Binding="{Binding Name, Mode=TwoWay}" />
                                 <DataGridTextColumn Header="Mobile_No" Width="100"  x:Name="grdmobile" SortMemberPath="PhoneNo" Binding="{Binding Mobile_No, Mode=TwoWay}" />
-                                <DataGridTextColumn Header="Date_Of_Birth" Width="100" x:Name="grddob" SortMemberPath="VisitorAddress" Binding="{Binding Date_Of_Birth, Mode=TwoWay}" />
-                                <DataGridTextColumn Header="Email_ID" x:Name="grdeid" Width="100" SortMemberPath="AvgBuget" Binding="{Binding Email_ID, Mode=TwoWay}" />
-                                <DataGridTextColumn Header="Address" x:Name="grdaddress" Width="100" SortMemberPath="AvgBuget" Binding="{Binding Address, Mode=TwoWay}" />
+                                <DataGridTextColumn Header="Date_Of_Birth" Width="80" x:Name="grddob" SortMemberPath="VisitorAddress" Binding="{Binding Date_Of_Birth, Mode=TwoWay}" />
+                                <DataGridTextColumn Header="Email_ID" x:Name="grdeid" Width="130" SortMemberPath="AvgBuget" Binding="{Binding Email_ID, Mode=TwoWay}" />
+                                <DataGridTextColumn Header="Address" x:Name="grdaddress" Width="130" SortMemberPath="AvgBuget" Binding="{Binding Address, Mode=TwoWay}" />
                                 <DataGridTextColumn Header="Product_Details" x:Name="grdprodetails" Width="100" SortMemberPath="AvgBuget" Binding="{Binding Product_Details, Mode=TwoWay}" />
                                 <DataGridTextColumn Header="Followup_Type" x:Name="grdfollowuptype" Width="100" SortMemberPath="AvgBuget" Binding="{Binding Followup_Type, Mode=TwoWay}" />
-                                <DataGridTextColumn Header="F_Date" x:Name="grdfdate" SortMemberPath="AvgBuget" Width="100" Binding="{Binding F_Date, Mode=TwoWay}" />
-                                <DataGridTextColumn Header="Issude_Date" x:Name="grdcdate" Width="100" SortMemberPath="AvgBuget" Binding="{Binding C_Date, Mode=TwoWay}" />
+                                <DataGridTextColumn Header="F_Date" x:Name="grdfdate" SortMemberPath="AvgBuget" Width="80" Binding="{Binding F_Date, Mode=TwoWay}" />
+                                <DataGridTextColumn Header="Issude_Date" x:Name="grdcdate" Width="82" SortMemberPath="AvgBuget" Binding="{Binding C_Date, Mode=TwoWay}" />
                                 <!--<DataGridCheckBoxColumn Header="IsInterested" x:Name="isInterested" SortMemberPath="IsInterested" Binding="{Binding IsInterested, Mode=TwoWay}" />-->
-                                <DataGridTemplateColumn Header="IsInterested" x:Name="isInterested" >
+                                <DataGridTemplateColumn Header="IsInterested" Width="70" x:Name="isInterested" >
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <CheckBox Checked="CheckBox_Checked" Name="chkisinterested" />
