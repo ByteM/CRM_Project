@@ -47,6 +47,7 @@ namespace CRM_User_Interface
             Chart_CustomerBase();
             Chart_HighestSingleProduct();
             Chart_HighestProduct();
+            Chart_BestEnquerySource();
 
             LoadColumnChart_FollowUp();
         }
@@ -4214,6 +4215,8 @@ namespace CRM_User_Interface
         int baseCust;
         int highProduct;
         int highSingleProduct;
+        string highSourceNPR;
+        int abc;
 
         public void Chart_Followup()
         {
@@ -4383,6 +4386,34 @@ namespace CRM_User_Interface
             }
         }
 
+        public void Chart_BestEnquerySource()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                str = "SELECT MAX(SourceOfEnquiry) FROM [tlb_Customer] WHERE [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                highSourceNPR = Convert.ToString(cmd.ExecuteScalar());
+                //abc = Convert.ToInt32(highSourceNPR);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
         private void LoadColumnChart_FollowUp()
         {
             ((ColumnSeries)mcChart.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
@@ -4392,7 +4423,9 @@ namespace CRM_User_Interface
                 new KeyValuePair<string,int>("Procurements", finalPro),
                 new KeyValuePair<string,int>("Highest Sold Item", highSingleProduct) ,
                 new KeyValuePair<string,int>("Ever Green Top Brand", highProduct),
+                //new KeyValuePair<string,int>("Best Enquiry Source", abc),
                 new KeyValuePair<string,int>("Customer Base", baseCust)
+                
             };
         }
 
@@ -4561,6 +4594,293 @@ namespace CRM_User_Interface
             Chart_SalesProcurmentDuration();
         }
 
+        private void btnSourceOfEnquery_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ChartSourceOfEnquery.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        #region SourceOfEnquiry Finction
+        int sourceIncCount;
+        int sourceIncCountPos;
+        int sourceIncCountRef;
+        int sourceIncCountFC;
+        int sourceIncCountNW;
+        int sourceIncCountN;
+
+        public void Chart_SourceOfEnqueiry()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                str = "SELECT Count(SourceOfEnquiry) FROM [tlb_Customer] WHERE [SourceOfEnquiry]='Newspaper' AND [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+                
+                sourceIncCount = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_SourceOfEnqueiry_Poster()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                str = "SELECT Count(SourceOfEnquiry) FROM [tlb_Customer] WHERE [SourceOfEnquiry]='Poster' AND [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                sourceIncCountPos = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_SourceOfEnqueiry_Reference()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                str = "SELECT Count(SourceOfEnquiry) FROM [tlb_Customer] WHERE [SourceOfEnquiry]='Reference' AND [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                sourceIncCountRef = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_SourceOfEnqueiry_FriendsColleagues()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                str = "SELECT Count(SourceOfEnquiry) FROM [tlb_Customer] WHERE [SourceOfEnquiry]='Friends / Colleagues' AND [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                sourceIncCountFC = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_SourceOfEnqueiry_NetWebsite()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                str = "SELECT Count(SourceOfEnquiry) FROM [tlb_Customer] WHERE [SourceOfEnquiry]='Net / Website' AND [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                sourceIncCountNW = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_SourceOfEnqueiry_Non()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                str = "SELECT Count(SourceOfEnquiry) FROM [tlb_Customer] WHERE [SourceOfEnquiry]='Non' AND [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                sourceIncCountN = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        private void LoadColumnChart_SourceOfEnqeiry()
+        {
+            ((ColumnSeries)salesChartSourceOfEnquery.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
+            {
+                new KeyValuePair<string,int>("Newspaper", sourceIncCount),
+                new KeyValuePair<string,int>("Poster", sourceIncCountPos),
+                new KeyValuePair<string,int>("Friends/Colleagues", sourceIncCountFC),
+                new KeyValuePair<string,int>("Net/Website", sourceIncCountNW),
+                new KeyValuePair<string,int>("Reference", sourceIncCountRef),
+                new KeyValuePair<string,int>("Non", sourceIncCountN)
+            };
+        }
+
+        private void grd_ChartSourceOfEnquery_Loaded(object sender, RoutedEventArgs e)
+        {
+            Chart_SourceOfEnqueiry();
+            Chart_SourceOfEnqueiry_Poster();
+            Chart_SourceOfEnqueiry_FriendsColleagues();
+            Chart_SourceOfEnqueiry_NetWebsite();
+            Chart_SourceOfEnqueiry_Reference();
+            Chart_SourceOfEnqueiry_Non();
+
+            LoadColumnChart_SourceOfEnqeiry();
+        }
+
+        private void chart_SourceOfEnquiry_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ChartSourceOfEnquery.Visibility = System.Windows.Visibility.Visible;
+        }
+        #endregion SourceOfEnquiry Finction
+
+        #region LaadAndSalesEmployee Details
+        private void btnSalesByEmp_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ChartSalesByEmployee.Visibility = System.Windows.Visibility.Hidden;
+        }
+               
+        public void Chart_SalesByEmployee()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT distinct Count(I.EmployeeID) AS [EmployeeID],B.[EmployeeName] FROM [tlb_Customer] I INNER JOIN [tbl_Employee] B ON B.[ID]=I.[EmployeeID] WHERE I.[S_Status]='Active' Group By B.[EmployeeName]";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                Dictionary<string, string> data = new Dictionary<string, string>();
+
+                //salesProCount = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //for (int i = 0; i <= ds.Tables[0].Rows.Count; i++ )
+                foreach (DataRow drv in ds.Tables[0].Rows)
+                {
+                    //salesProCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    string strvalue = Convert.ToString(drv["EmployeeName"]);
+                    string salesEmp = Convert.ToString(drv["EmployeeID"]);
+                    data.Add(Convert.ToString(strvalue), Convert.ToString(salesEmp));
+                    //LoadSales_Products_chart();
+                }
+                ((PieSeries)salesChartSalesByEmployee.Series[0]).ItemsSource = data;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void grd_ChartSalesByEmployee_Loaded(object sender, RoutedEventArgs e)
+        {
+            Chart_SalesByEmployee();
+        }
+
+        private void chart_LeadSalesEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ChartSalesByEmployee.Visibility = System.Windows.Visibility.Visible;
+        }
+        #endregion LaadAndSalesEmployee Details
+
+        #region ProgressDetails Function
+        private void btnProgressDetails_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ProgressDetails.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void LoadColumnChart_FollowUp_ProcessDetails()
+        {
+            ((AreaSeries)salesChartProgressDetails.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
+            {
+                new KeyValuePair<string,int>("Walk Ins", folCount),
+                new KeyValuePair<string,int>("Sales", sealsCount),
+                //new KeyValuePair<string,int>("Procurements", finalPro),
+                //new KeyValuePair<string,int>("Highest Sold Item", highSingleProduct) ,
+                //new KeyValuePair<string,int>("Ever Green Top Brand", highProduct),
+                //new KeyValuePair<string,int>("Customer Base", baseCust)
+            };
+        }
+
+        private void grd_ProgressDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+            Chart_Followup();
+            Chart_Seals();
+            LoadColumnChart_FollowUp_ProcessDetails();
+        }
+
+        private void chart_ProgressDetails_Click(object sender, RoutedEventArgs e)
+        {
+            grd_ProgressDetails.Visibility = System.Windows.Visibility.Visible;
+        }
+        #endregion ProgressDetails Function
     }
 }
 

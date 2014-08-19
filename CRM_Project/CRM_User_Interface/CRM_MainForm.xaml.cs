@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Globalization;
-
+using System.Windows.Controls.DataVisualization.Charting;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -43,6 +43,17 @@ namespace CRM_User_Interface
             InitializeComponent();
            
           DateTime  s =Convert .ToDateTime ( System.DateTime.Now.ToShortDateString());
+
+          Chart_Followup();
+          Chart_Seals();
+          Chart_Procurment();
+          Chart_CustomerBase();
+          Chart_HighestSingleProduct();
+          Chart_HighestProduct();
+          Chart_BestEnquerySource();
+
+          LoadColumnChart_FollowUp();
+
             //Load_Domain();
             checkedStuff = new List<string>();
             PREPROCUREMENTid();
@@ -2192,9 +2203,9 @@ namespace CRM_User_Interface
         private void rdoSaleNewcustomer_Checked(object sender, RoutedEventArgs e)
         {
             clear_CustomerFields();
-            DGRD_SaleFollowup.Visibility = Visibility.Hidden;
-            grd_OldCustomerDetails.Visibility = Visibility.Hidden;
-            GRD_Customer_Billing.Visibility = Visibility;
+            DGRD_SaleFollowup.Visibility = System.Windows.Visibility.Hidden;
+            grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Hidden;
+            GRD_Customer_Billing.Visibility = System.Windows.Visibility.Visible;
             CustomerID_fetch();
             txtSaleCustomerOccupation.IsEnabled = false;
             rdoSaleCustomerBusiness.IsEnabled = true;
@@ -2203,6 +2214,7 @@ namespace CRM_User_Interface
             btnSaleCustomerEditoccu.IsEnabled = false;
 
         }
+       
         public void FetchallDetails()
         {
             try
@@ -2228,11 +2240,12 @@ namespace CRM_User_Interface
           
 
         }
+        
         public void fetch_FollowupDetails()
         {
             try
             {
-  con.Open();
+                con.Open();
                 DataSet ds = new DataSet();
                 cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where Name LIKE ISNULL ('" + txtsalesearchcname.Text + "',Name) + '%'  and S_Status='Active' ORDER BY Name ASC ", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -2253,6 +2266,7 @@ namespace CRM_User_Interface
           
 
         }
+       
         public void fetch_FollowupDetailsbymobile()
         {
             try
@@ -2464,6 +2478,7 @@ namespace CRM_User_Interface
             }
             finally { con.Close(); }
         }
+       
         public void clear_CustomerFields()
         {
             txtvalueid.Text = "";
@@ -2478,6 +2493,7 @@ namespace CRM_User_Interface
                             rdoSaleCustomergovt.IsChecked  =null;
                             lblfollowupidfetch.Content = "";
         }
+        
         private void btnSaleCustomerGenrateBill_Click(object sender, RoutedEventArgs e)
         {
             clearAllAddedProducts();
@@ -2486,7 +2502,7 @@ namespace CRM_User_Interface
                 targetButton = btnInvoice_Cash;
                 Save_FollowupCustomer();
                 UpdateFollowupStatus();
-                Grd_genratebill.Visibility = Visibility;
+                Grd_genratebill.Visibility = System.Windows.Visibility.Visible;
                 loadStockProducts();
                 FetchtaxDetails();
                 BillID_fetch();
@@ -2508,9 +2524,12 @@ namespace CRM_User_Interface
             }
             else if (rdoSaleNewcustomer.IsChecked ==true )
             {
+                if (NewCustomer_Validation() == true)
+                    return;
+
                 Save_NewCustomer();
-                Grd_genratebill.Visibility = Visibility;
-                Save_NewCustomer();
+                Grd_genratebill.Visibility = System.Windows.Visibility.Visible;
+                //Save_NewCustomer();
                 // LoadTax();
                 FetchtaxDetails();
                 loadStockProducts();
@@ -2600,6 +2619,7 @@ namespace CRM_User_Interface
             }
 
         }
+        
         public void loadyear()
         {
             cmdInvoice_InstalYear.Text = "---Select---";
@@ -2610,6 +2630,18 @@ namespace CRM_User_Interface
             cmdInvoice_InstalYear.Items.Add("5 Year");
 
         }
+
+        public void SourceOfEnquiry()
+        {
+            cmbSourceOfEnquery.Text = "---Select---";
+            cmbSourceOfEnquery.Items.Add("Newspaper");
+            cmbSourceOfEnquery.Items.Add("Poster");
+            cmbSourceOfEnquery.Items.Add("Reference");
+            cmbSourceOfEnquery.Items.Add("Friends / Colleagues");
+            cmbSourceOfEnquery.Items.Add("Net / Website");
+            cmbSourceOfEnquery.Items.Add("Non");
+        }
+
         public void loadMonth()
         {
             cmdInvoice_InstalMonth.Text = "---Select---";
@@ -3123,6 +3155,7 @@ public void Save_NewCustomer()
     if (res == MessageBoxResult.Yes)
     {
         balc.Flag = 1;
+        balc.Employee_ID = cmbCustomer_EmployeeName.SelectedValue.GetHashCode();
         balc.Cust_ID = txtvalueid.Text;
         balc.Name = txtSalecustomerName.Text;
         balc.Mobile_No = txtSaleCustomerMobileno.Text;
@@ -3142,6 +3175,7 @@ public void Save_NewCustomer()
             occu ="GOVT Employee";
         }
         balc.Occupation = occu;
+        balc.Source_OF_Enquiry = cmbSourceOfEnquery.Text;
         balc.S_Status = "Active";
         balc.C_Date = System.DateTime.Now.ToShortDateString();
         dalc.Customer_Save_Insert_Update_Delete(balc);
@@ -4120,13 +4154,290 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
        {
            
        }
+       SourceOfEnquiry();
+       Load_EmployeeDetails();
    }
 
+   public void Load_EmployeeDetails()
+   {
+       //  cmbInstall_CustID.Text = "--Select--";
+       string q = "SELECT ID ,EmployeeName FROM tbl_Employee ";
+       cmd = new SqlCommand(q, con);
+       // DataTable dt = new DataTable();
+       DataSet ds = new DataSet();
+       SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+       adp.Fill(ds);
+       if (ds.Tables[0].Rows.Count > 0)
+       {
+           cmbCustomer_EmployeeName.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+           cmbCustomer_EmployeeName.ItemsSource = ds.Tables[0].DefaultView;
+           cmbCustomer_EmployeeName.DisplayMemberPath = ds.Tables[0].Columns["EmployeeName"].ToString();
+       }
+   }
+
+   public bool NewCustomer_Validation()
+   {
+       bool result = false;
+       if(cmbCustomer_EmployeeName.SelectedItem == null)
+       {
+           result = true;
+           MessageBox.Show("Please Select Employee Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+       }
+       else if (txtSalecustomerName.Text == "")
+       {
+           result = true;
+           MessageBox.Show("Please Enter Customer Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+       }
+       else if (txtSaleCustomerMobileno.Text == "")
+       {
+           result = true;
+           MessageBox.Show("Please Enter Customer Mobile No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+       }
+       else if (txtSaleCustomerAddress.Text == "")
+       {
+           result = true;
+           MessageBox.Show("Please Enter Customer Address", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+       }
+       else if (dpSaleCustomerDOB.Text == "")
+       {
+           result = true;
+           MessageBox.Show("Please Select Customer Date of Birth", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+       }
+       else if (cmbSourceOfEnquery.SelectedItem == null)
+       {
+           result = true;
+           MessageBox.Show("Please Select Source Of Enquiry", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+       }
+       return result;
+   }
+
+   #region ChartFunction
+   int folCount;
+   int sealsCount;
+   int finalPro;
+   int baseCust;
+   int highProduct;
+   int highSingleProduct;
+   string highSourceNPR;
+   int abc;
+
+   public void Chart_Followup()
+   {
+       try
+       {
+           String str;
+           con.Open();
+           DataSet ds = new DataSet();
+           str = "SELECT Count(ID) FROM [tlb_FollowUp] WHERE [S_Status]='Active'";
+           SqlCommand cmd = new SqlCommand(str, con);
+           SqlDataAdapter da = new SqlDataAdapter(cmd);
+           da.Fill(ds);
+
+           folCount = Convert.ToInt32(cmd.ExecuteScalar());
+           //if (ds.Tables[0].Rows.Count > 0)
+           //{
+           //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+           //}
+       }
+       catch (Exception)
+       {
+           throw;
+       }
+       finally
+       {
+           con.Close();
+       }
+   }
+
+   public void Chart_Seals()
+   {
+       try
+       {
+           String str;
+           con.Open();
+           DataSet ds = new DataSet();
+           str = "SELECT Count(ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+           SqlCommand cmd = new SqlCommand(str, con);
+           SqlDataAdapter da = new SqlDataAdapter(cmd);
+           da.Fill(ds);
+
+           sealsCount = Convert.ToInt32(cmd.ExecuteScalar());
+           //if (ds.Tables[0].Rows.Count > 0)
+           //{
+           //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+           //}
+       }
+       catch (Exception)
+       {
+           throw;
+       }
+       finally
+       {
+           con.Close();
+       }
+   }
+
+   public void Chart_Procurment()
+   {
+       try
+       {
+           String str;
+           con.Open();
+           DataSet ds = new DataSet();
+           str = "SELECT Count(ID) FROM [Final_DealerDetails] WHERE [S_Status]='Active'";
+           SqlCommand cmd = new SqlCommand(str, con);
+           SqlDataAdapter da = new SqlDataAdapter(cmd);
+           da.Fill(ds);
+
+           finalPro = Convert.ToInt32(cmd.ExecuteScalar());
+           //if (ds.Tables[0].Rows.Count > 0)
+           //{
+           //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+           //}
+       }
+       catch (Exception)
+       {
+           throw;
+       }
+       finally
+       {
+           con.Close();
+       }
+   }
+
+   public void Chart_CustomerBase()
+   {
+       try
+       {
+           String str;
+           con.Open();
+           DataSet ds = new DataSet();
+           str = "SELECT Count(ID) FROM [tlb_Customer] WHERE [S_Status]='Active'";
+           SqlCommand cmd = new SqlCommand(str, con);
+           SqlDataAdapter da = new SqlDataAdapter(cmd);
+           da.Fill(ds);
+
+           baseCust = Convert.ToInt32(cmd.ExecuteScalar());
+           //if (ds.Tables[0].Rows.Count > 0)
+           //{
+           //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+           //}
+       }
+       catch (Exception)
+       {
+           throw;
+       }
+       finally
+       {
+           con.Close();
+       }
+   }
+
+   public void Chart_HighestProduct()
+   {
+       try
+       {
+           String str;
+           con.Open();
+           DataSet ds = new DataSet();
+           str = "SELECT MAX(Brand_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+           SqlCommand cmd = new SqlCommand(str, con);
+           SqlDataAdapter da = new SqlDataAdapter(cmd);
+           da.Fill(ds);
+
+           highProduct = Convert.ToInt32(cmd.ExecuteScalar());
+           //if (ds.Tables[0].Rows.Count > 0)
+           //{
+           //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+           //}
+       }
+       catch (Exception)
+       {
+           throw;
+       }
+       finally
+       {
+           con.Close();
+       }
+   }
+
+   public void Chart_HighestSingleProduct()
+   {
+       try
+       {
+           String str;
+           con.Open();
+           DataSet ds = new DataSet();
+           str = "SELECT MAX(Model_No_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+           SqlCommand cmd = new SqlCommand(str, con);
+           SqlDataAdapter da = new SqlDataAdapter(cmd);
+           da.Fill(ds);
+
+           highSingleProduct = Convert.ToInt32(cmd.ExecuteScalar());
+           //if (ds.Tables[0].Rows.Count > 0)
+           //{
+           //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+           //}
+       }
+       catch (Exception)
+       {
+           throw;
+       }
+       finally
+       {
+           con.Close();
+       }
+   }
+
+   public void Chart_BestEnquerySource()
+   {
+       try
+       {
+           String str;
+           con.Open();
+           DataSet ds = new DataSet();
+           //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+           str = "SELECT MAX(SourceOfEnquiry) FROM [tlb_Customer] WHERE [S_Status]='Active'";
+           SqlCommand cmd = new SqlCommand(str, con);
+           SqlDataAdapter da = new SqlDataAdapter(cmd);
+           da.Fill(ds);
+
+           highSourceNPR = Convert.ToString(cmd.ExecuteScalar());
+           //abc = Convert.ToInt32(highSourceNPR);
+
+       }
+       catch (Exception)
+       {
+           throw;
+       }
+       finally
+       {
+           con.Close();
+       }
+   }
+
+
+   private void LoadColumnChart_FollowUp()
+   {
+       ((ColumnSeries)mcChart.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
+            {
+                new KeyValuePair<string,int>("Walk ins", folCount),
+                new KeyValuePair<string,int>("Sales", sealsCount),
+                new KeyValuePair<string,int>("Procurements", finalPro),
+                new KeyValuePair<string,int>("Highest Sold Item", highSingleProduct) ,
+                new KeyValuePair<string,int>("Ever Green Top Brand", highProduct),
+                //new KeyValuePair<string,int>("Best Enquiry Source", abc),
+                new KeyValuePair<string,int>("Customer Base", baseCust)
+                
+            };
+   }
+
+   #endregion ChartFunction
 
    }
    
-
-    }
+}
 
 
 

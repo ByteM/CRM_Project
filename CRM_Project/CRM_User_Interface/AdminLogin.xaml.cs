@@ -37,7 +37,7 @@ namespace CRM_User_Interface
         private void btna_login_Click(object sender, RoutedEventArgs e)
         {
            CRM_AdminDashbord crm_ad = new CRM_AdminDashbord();
-            crm_ad.Show();
+            crm_ad.ShowDialog();
           
         }
     }

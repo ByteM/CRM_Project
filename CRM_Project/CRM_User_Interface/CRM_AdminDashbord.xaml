@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cht="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="CRM_User_Interface.CRM_AdminDashbord"
+        xmlns:funnal="FunnelChart.MainWindow"
         Title="CRM_Admin_Dashbord" Height="655" Width="1205"  WindowStartupLocation="CenterScreen"  Margin="0,0,0,0" WindowState="Normal"  AllowsTransparency="True" WindowStyle="None"  ShowInTaskbar="False" Background="Transparent">
     <Border BorderBrush="Black" BorderThickness="1" Height="655" VerticalAlignment="Top" CornerRadius="15" Background="Black">
         <Grid Margin="-1,-1,1,-1" >
@@ -165,6 +166,9 @@
                     <MenuItem Header=" Check Status" x:Name="smchkstatusinsurance"/>
                     <MenuItem Header=" Sales Products" x:Name="chart_SalesProducts" Click="chart_SalesProducts_Click"/>
                     <MenuItem Header=" Sales Brand" x:Name="chart_SalesBrand" Click="chart_SalesBrand_Click" />
+                    <MenuItem Header=" Source Of Enquiry" x:Name="chart_SourceOfEnquiry" Click="chart_SourceOfEnquiry_Click"  />
+                    <MenuItem Header=" Lead / Sales Employee" x:Name="chart_LeadSalesEmployee" Click="chart_LeadSalesEmployee_Click"   />
+                    <MenuItem Header="Progress Details" x:Name="chart_ProgressDetails" Click="chart_ProgressDetails_Click"/>
                     <MenuItem Header="Sales Procurement Duration" x:Name="salesPRoDuraion" Click="salesPRoDuraion_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Width="85">
@@ -1168,7 +1172,7 @@
                 </cht:Chart>
                 <Button x:Name="btnChartSales_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,3,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnChartSales_Exit_Click"/>
             </Grid>
-            <Grid x:Name="grd_ChartProcurmentToSale" HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid x:Name="grd_ChartProcurmentToSale" Visibility="Hidden" HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <Button x:Name="btn_ChatProSaleDuration_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1084,1,0,0" VerticalAlignment="Top" Width="75" Height="29"/>
                 <Grid HorizontalAlignment="Left" Height="521" Margin="15,34,0,0" VerticalAlignment="Top" Width="1130" Background="White">
                     <cht:Chart Title="Procurment Sales Duration" Name="salesChartByProcurmentDutaion"   Margin="2,1,2,0">
@@ -1178,7 +1182,34 @@
                     </cht:Chart>
                 </Grid>
             </Grid>
+            <Grid x:Name="grd_ChartSourceOfEnquery" Visibility="Hidden" HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" Loaded="grd_ChartSourceOfEnquery_Loaded">
+                <cht:Chart Title="Source Of Enquiry" Background="White"  Name="salesChartSourceOfEnquery"   Margin="35,35,35,40">
+                    <cht:Chart.Series>
+                        <cht:ColumnSeries ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding}" Title="Enquiry" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>
+                    </cht:Chart.Series>
+                </cht:Chart>
+                <Button x:Name="btnSourceOfEnquery_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1084,2,0,0" VerticalAlignment="Top" Width="75" Height="28" Click="btnSourceOfEnquery_Exit_Click"/>
+            </Grid>
+            <Grid x:Name="grd_ChartSalesByEmployee" Visibility="Hidden" HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" Loaded="grd_ChartSalesByEmployee_Loaded">
+                <Button x:Name="btnSalesByEmp_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1083,2,0,0" VerticalAlignment="Top" Width="75" Height="28" Click="btnSalesByEmp_Exit_Click"/>
+                <cht:Chart Title="Leads By Employee" Background="White"  Name="salesChartLeadsByEmployee"   Margin="9,35,586,40">
+                    <cht:Chart.Series>
+                        <cht:ColumnSeries ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding}" Title="Enquiry" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>
+                    </cht:Chart.Series>
+                </cht:Chart>
+                <cht:Chart Title="Sales By Employee" Background="White"  x:Name="salesChartSalesByEmployee"   Margin="585,35,10,40">
+                    <cht:PieSeries ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding}" Title="Enquiry" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}" IsSelectionEnabled="True"/>
+                </cht:Chart>
 
+            </Grid>
+            <Grid x:Name="grd_ProgressDetails" Visibility="Hidden" HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" Loaded="grd_ProgressDetails_Loaded">
+                <Button x:Name="btnProgressDetails_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1084,1,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="btnProgressDetails_Exit_Click"/>
+                <cht:Chart Title="Process Details" Background="White"  Name="salesChartProgressDetails"   Margin="9,39,10,36">
+                    <cht:Chart.Series>
+                        <cht:AreaSeries ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding}" Title="Progress" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>
+                    </cht:Chart.Series>
+                </cht:Chart>
+            </Grid>
         </Grid>
     </Border>
 </Window>
