@@ -860,7 +860,7 @@
                             <ComboBox x:Name="cmbInstall_CustID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="500,14,0,0" IsEditable="True" IsReadOnly="True" SelectionChanged="cmbInstall_CustID_SelectionChanged"/>
                             <Button x:Name="btnInstall_Refresh" Content="Refresh" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Margin="245,13,0,0" Grid.Column="1"/>
                             <Label Content="Yearly/Monthly :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="707,11,0,0" Grid.ColumnSpan="2"/>
-                            <ComboBox x:Name="cmbInstall_Year_Month" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="75,14,0,0" IsEditable="True" IsReadOnly="True" Grid.Column="1"/>
+                            <ComboBox x:Name="cmbInstall_Year_Month" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="75,14,0,0" IsEditable="True" IsReadOnly="True" Grid.Column="1" SelectionChanged="cmbInstall_Year_Month_SelectionChanged"/>
                         </Grid>
                     </GroupBox>
                     <Label Content="Customer Installment" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="508,0,0,0" FontSize="16" FontWeight="Bold" Width="185"/>
@@ -936,7 +936,7 @@
 
 
                 </Grid>
-                <Grid HorizontalAlignment="Left" Name="GRD_InstallmentProcess" Visibility="Visible"  Width="1105" Margin="24,309,0,0" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Name="GRD_InstallmentProcess" Visibility="Hidden"   Width="1105" Margin="24,309,0,0" Background="#FFF0F0F0">
                     <Grid HorizontalAlignment="Left" Width="1085" Margin="10,10,0,0" Background="White" Height="235" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="294*"/>
