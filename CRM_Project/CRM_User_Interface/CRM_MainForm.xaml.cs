@@ -3670,6 +3670,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             bins.Installment_Date = dpInvoice_Instalpermonth.SelectedDate .ToString();
             bins.S_Status = "Active";
             bins.C_Date = System.DateTime.Now.ToShortDateString();
+            bins.Ins = "Not_Nill";
             dins.Save_Installment(bins);
             MessageBox.Show("Installment Added Succsessfully ");
 
@@ -3707,7 +3708,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         public void Load_InstallmentCustomers()
         {
           //  cmbInstall_CustID.Text = "--Select--";
-            string q = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount ,tlb_MainInstallment.Balance_Amount ,tlb_MainInstallment.Monthly_Amount,tlb_MainInstallment.Installment_Year ,tlb_MainInstallment.Installment_Month ,tlb_MainInstallment.Installment_Date FROM tlb_MainInstallment INNER JOIN tlb_Customer ON tlb_MainInstallment.Customer_ID =tlb_Customer.ID  and tlb_MainInstallment.S_Status='Active'";
+            string q = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount ,tlb_MainInstallment.Balance_Amount ,tlb_MainInstallment.Monthly_Amount,tlb_MainInstallment.Installment_Year ,tlb_MainInstallment.Installment_Month ,tlb_MainInstallment.Installment_Date FROM tlb_MainInstallment INNER JOIN tlb_Customer ON tlb_MainInstallment.Customer_ID =tlb_Customer.ID  and tlb_MainInstallment.S_Status='Active' and tlb_MainInstallment.Ins !='Nill' ";
             cmd = new SqlCommand(q, con);
             // DataTable dt = new DataTable();
             DataSet ds = new DataSet();
@@ -3787,7 +3788,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         {
             con.Open();
             DataSet ds = new DataSet();
-            string load = "  Select ci.ID,c.Cust_ID ,ci.Bill_No ,ci.Total_Price ,ci.Paid_Amount ,ci.Balance_Amount,ci.Monthly_Amount ,ci.Total_Installment_Month ,ci.Current_Installment_No,ci.Remaining_Installments ,ci.Current_Installment_Amount ,ci.CInstallment_Date ,ci.Paid_Unpaid  from tlb_Customer_Installment ci inner join tlb_Customer c ON c.ID = ci.Customer_ID  ";
+            string load = "Select ci.ID,c.Cust_ID ,ci.Bill_No ,ci.Total_Price ,ci.Paid_Amount ,ci.Balance_Amount,ci.Monthly_Amount ,ci.Total_Installment_Month ,ci.Current_Installment_No,ci.Remaining_Installments ,ci.Current_Installment_Amount ,ci.CInstallment_Date ,ci.Paid_Unpaid  from tlb_Customer_Installment ci inner join tlb_Customer c ON c.ID = ci.Customer_ID and c_Ins = 'Not_Nill'  ";
             SqlCommand cmd = new SqlCommand(load, con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(ds);
@@ -3810,7 +3811,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 String str;
                 //con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT  Distinct [ID],[Cust_ID],[Name],[Mobile_No], [Email_ID],[Address],[Occupation] " +
+                str = "SELECT  Distinct [ID],[Cust_ID],[Name],[Mobile_No],[Date_Of_Birth], [Email_ID],[Address],[Occupation] " +
                       "FROM [tlb_Customer]  " +
                       "WHERE ";
 
@@ -3822,7 +3823,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 {
                     str = str + "[Mobile_No] LIKE ISNULL('" + txtOlad_CustomerMobile_Search.Text.Trim() + "',[Mobile_No]) + '%' AND ";
                 }
-                str = str + " [S_Status] = 'Active' ORDER BY [Name] ASC ";
+                str = str + " [S_Status] = 'Active'  ORDER BY [Name] ASC ";
                 //str = str + " S_Status = 'Active' ";
                 SqlCommand cmd = new SqlCommand(str, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -3941,7 +3942,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                int  exist;
                 con.Open();
                 DataTable dt = new DataTable();
-                string chk = "Select Customer_ID from tlb_Customer_Installment where Customer_ID='" + Cust_id + "' and S_Status='Active' ";
+                string chk = "Select Customer_ID from tlb_Customer_Installment where Customer_ID='" + Cust_id + "' and S_Status='Active' and c_Ins ='Not_Nill' ";
                 SqlCommand cmd = new SqlCommand(chk, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
@@ -3968,6 +3969,8 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             Clear_Installmentsgrd();
             DGRD_Installment.ItemsSource = "";
             InstallmentCustomerDetails_LoadData();
+            DGRD_InstallmentCust.ItemsSource = null;
+            Load_InstallmentCustomers();
         }
 
       public void Save_Customer_Installment()
@@ -3989,6 +3992,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 bcins.Paid_Unpaid = "Paid";
                 bcins.S_Status = "Active";
                 bcins.C_Date = System.DateTime.Now.ToShortDateString();
+                bcins.c_Ins = "Not_Nill";
                 dcins.Save_C_Installment(bcins);
                 MessageBox.Show("Installment Added Succsessfully", caption, MessageBoxButton.OK);
             }
@@ -4022,7 +4026,24 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
       {
           Save_Customer_Installment();
           Save_CommonBillNew();
+          if ((txt_InstalBalanceAmount.Text == "0") || (txt_InstalBalanceAmount.Text =="0.00") || (txt_InstalBalanceAmount.Text ==""))
+          {
+              con.Open();
+              string udt = "update  tlb_MainInstallment set Ins='Nill' where  Customer_ID ='" + Cust_id + "'  ";
+              cmd = new SqlCommand(udt, con);
+              cmd.ExecuteNonQuery();
+              con.Close();
+              MessageBox.Show("Data Updated Successfully", caption, MessageBoxButton.OK);
+
+              con.Open();
+              string udtc = "update  tlb_Customer_Installment set c_Ins='Nill' where  Customer_ID ='" + Cust_id + "' and Bill_No='" + lblbillnoInstall.Content.ToString() + "' ";
+              cmd = new SqlCommand(udtc, con);
+              cmd.ExecuteNonQuery();
+              con.Close();
+              MessageBox.Show("Data Updated Successfully", caption, MessageBoxButton.OK);
+          }
           Clear_Installmentsgrd();
+          GRD_InstallmentProcess.Visibility = Visibility.Hidden;
       }
      public void Save_CommonBillNew()
       {
@@ -4588,6 +4609,11 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
    }
 
    private void DGRD_Installment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+   {
+
+   }
+
+   private void cmbInstall_Year_Month_SelectionChanged(object sender, SelectionChangedEventArgs e)
    {
 
    }

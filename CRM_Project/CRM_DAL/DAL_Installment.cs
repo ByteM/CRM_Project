@@ -34,6 +34,7 @@ namespace CRM_DAL
                cmd.Parameters.AddWithValue("@Installment_Date", bins.Installment_Date);
                cmd.Parameters.AddWithValue("@S_Status", bins.S_Status);
                cmd.Parameters.AddWithValue("@C_Date", bins.C_Date);
+               cmd.Parameters.AddWithValue("@Ins",bins.Ins);
                int i = cmd.ExecuteNonQuery();
                return i;
 

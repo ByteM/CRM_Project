@@ -23,5 +23,6 @@ public string CInstallment_Date { get; set; }
 public string Paid_Unpaid { get; set; }
 public string S_Status { get; set; }
 public string C_Date { get; set; }
+public string c_Ins { get; set; }
     }
 }

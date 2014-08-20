@@ -37,6 +37,7 @@ namespace CRM_DAL
                 cmd.Parameters.AddWithValue("@Paid_Unpaid", bCins.Paid_Unpaid);
                 cmd.Parameters.AddWithValue("@S_Status", bCins.S_Status);
                 cmd.Parameters.AddWithValue("@C_Date", bCins.C_Date);
+                cmd.Parameters.AddWithValue("@c_Ins", bCins.c_Ins);
                 int i = cmd.ExecuteNonQuery();
                 return i;
 
