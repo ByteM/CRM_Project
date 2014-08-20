@@ -1209,7 +1209,40 @@
                     </cht:Chart.Series>
                 </cht:Chart>
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="564" Margin="21,66,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0"/>
+            <Grid x:Name="grd_CheckDetails" HorizontalAlignment="Left" Height="563" Margin="21,67,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0" Loaded="grd_CheckDetails_Loaded">
+                <Button x:Name="btnCheckCustomer_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1083,1,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnCheckCustomer_Exit_Click"/>
+                <Label Content="Cheque Details" HorizontalAlignment="Left" Margin="2,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
+                <Grid HorizontalAlignment="Left" Height="517" Margin="9,36,0,0" VerticalAlignment="Top" Width="1140" Background="White">
+                    <GroupBox Header="Search" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" Height="60" Width="1130" BorderBrush="#FF121F9C"/>
+                    <Grid HorizontalAlignment="Left" Height="37" Margin="11,20,0,0" VerticalAlignment="Top" Width="1119" Background="White">
+                        <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="453,6,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Date:" HorizontalAlignment="Left" Margin="20,6,0,0" VerticalAlignment="Top"/>
+                        <DatePicker x:Name="dtpFrom_ChequeSearch" HorizontalAlignment="Left" Margin="105,7,0,0" VerticalAlignment="Top" Width="129" SelectedDateChanged="dtpFrom_ChequeSearch_SelectedDateChanged"/>
+                        <Label Content="From" HorizontalAlignment="Left" Margin="61,6,0,0" VerticalAlignment="Top"/>
+                        <DatePicker x:Name="dtpTo_ChequeSearch" HorizontalAlignment="Left" Margin="274,7,0,0" VerticalAlignment="Top" Width="129" SelectedDateChanged="dtpTo_ChequeSearch_SelectedDateChanged"/>
+                        <Label Content="To" HorizontalAlignment="Left" Margin="241,6,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="btnCheckCustomer_Refresh" Content="Refersh" HorizontalAlignment="Left" Margin="887,7,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnCheckCustomer_Refresh_Click"/>
+                        <Button x:Name="btnCheckCustomer_ChequeClear" Content="Cheque Clear" HorizontalAlignment="Left" Margin="983,7,0,0" VerticalAlignment="Top" Width="93" Height="25" Click="btnCheckCustomer_ChequeClear_Click"/>
+                    </Grid>
+                    <TextBox x:Name="txtCustomerName_Cheque_Search" HorizontalAlignment="Left" Height="23" Margin="572,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextChanged="txtCustomerName_Cheque_Search_TextChanged"/>
+                    <DataGrid x:Name="dgv_ChequeDetails" HorizontalAlignment="Left" Margin="5,67,0,0" VerticalAlignment="Top" Height="445" Width="1130" AutoGenerateColumns="False" SelectedCellsChanged="dgv_ChequeDetails_SelectedCellsChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Width="10"  x:Name="grdChequeID" Visibility="Visible" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Bill No" Width="125"  x:Name="grdChequeBill_No" SortMemberPath="Bill_No" Binding="{Binding Bill_No, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Customer Name" Width="200"  x:Name="grdCheque_Name" SortMemberPath="Name" Binding="{Binding Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Mobile No" Width="125"  x:Name="grdCheque_MobileNo" SortMemberPath="Mobile_No" Binding="{Binding Mobile_No, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Total Amt" Width="125"  x:Name="grdCheque_TotalAmt" SortMemberPath="Total_Price" Binding="{Binding Total_Price, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Cheque Amt" Width="125"  x:Name="grdCheque_Amt" SortMemberPath="Cheque_Amount" Binding="{Binding Cheque_Amount, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Cheque No" Width="150"  x:Name="grdCheque_No" SortMemberPath="Cheque_No" Binding="{Binding Cheque_No, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Cheque Date" Width="80"  x:Name="grdChequeDate" SortMemberPath="Cheque_Date" Binding="{Binding Cheque_Date, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Bank Name" Width="175"  x:Name="grdCheque_Bank_Name" SortMemberPath="Cheque_Bank_Name" Binding="{Binding Cheque_Bank_Name, Mode=TwoWay}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+                <TextBox x:Name="txtChequeID" HorizontalAlignment="Left" Height="23" Margin="833,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"/>
+                <DatePicker x:Name="dtpChequeDate" HorizontalAlignment="Left" Margin="663,4,0,0" VerticalAlignment="Top" Width="129"/>
+                <TextBox x:Name="txtChequeNo" HorizontalAlignment="Left" Height="23" Margin="885,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"/>
+            </Grid>
         </Grid>
     </Border>
 </Window>

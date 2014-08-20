@@ -2257,8 +2257,7 @@ namespace CRM_User_Interface
                 con.Close();
             }
         }
-
-
+        
         //----------add product
         #region AddProduct Function
         #region AddPro Fun
@@ -5012,6 +5011,157 @@ namespace CRM_User_Interface
         }
         #endregion ProgressDetails Function
         #endregion ChartFunction
+
+        private void btnCheckCustomer_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_CheckDetails.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        public void GetData_ChequeDetails()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT P.[ID],P.[Customer_ID],P.[Bill_No],P.[Total_Price],P.[Cheque_Amount],P.[Cheque_No],P.[Cheque_Date],P.[Cheque_Bank_Name] " +
+                      ",C.[Name],C.[Mobile_No] " +
+                      "FROM [tlb_Cheque] P " +
+                      "INNER JOIN [tlb_Customer] C ON C.[ID] = P.[Customer_ID] " +
+                      "WHERE ";
+                if ((dtpFrom_ChequeSearch.SelectedDate != null) && (dtpTo_ChequeSearch.SelectedDate != null))
+                {
+                    DateTime StartDate = Convert.ToDateTime(dtpFrom_ChequeSearch.Text.Trim() + " 00:00:00.000");
+                    DateTime EndDate = Convert.ToDateTime(dtpTo_ChequeSearch.Text.Trim() + " 23:59:59.999");
+                    str = str + "P.[Cheque_Date] Between '" + StartDate + "' AND '" + EndDate + "'  AND ";
+                }
+
+                if (txtCustomerName_Cheque_Search.Text.Trim() != "")
+                {
+                    str = str + "C.[Name] LIKE ISNULL('" + txtCustomerName_Cheque_Search.Text.Trim() + "',C.[Name]) + '%' AND ";
+                }
+
+                str = str + " P.[S_Status] = 'Active' ORDER BY P.[Cheque_Date] ASC ";
+                //str = str + " S_Status = 'Active' ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgv_ChequeDetails.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void grd_CheckDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetData_ChequeDetails();
+        }
+
+        private void txtCustomerName_Cheque_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GetData_ChequeDetails();
+        }
+
+        private void dtpFrom_ChequeSearch_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetData_ChequeDetails();
+        }
+
+        private void dtpTo_ChequeSearch_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetData_ChequeDetails();
+        }
+
+        private void btnCheckCustomer_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            txtCustomerName_Cheque_Search.Text = "";
+            dtpFrom_ChequeSearch.Text = "";
+            dtpTo_ChequeSearch.Text = "";
+            GetData_ChequeDetails();
+        }
+
+        private void btnCheckCustomer_ChequeClear_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Do you want to Clear Cheque No.- \n" + txtChequeNo.Text.Trim() + "", caption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            if (result == MessageBoxResult.Yes)
+            {
+                if (dtpChequeDate.SelectedDate <= DateTime.Now)
+                {
+                    //ChequeClear();
+                    //Cal_BalanceAmt();
+                    //if (Convert.ToDouble(txtbalanceAmt.Text.Trim()) == Convert.ToDouble(0))
+                    //{
+                    //    Update_InstallmentPayment_IsPaid();
+                    //}
+                    //Update_SuspenseAccount_IsBounceClear();
+                    //Update_InstallmentPayment_NotPaidClear();
+                    MessageBox.Show("Clear Cheque", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Can Not Clear Cheque Before Date", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                //GetData();
+                //CalTotalAmount();
+            }
+            else
+            {
+                MessageBox.Show("Error ..!", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+
+        private void dgv_ChequeDetails_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Cheque_FillData();
+        }
+
+        public void Cheque_FillData()
+        {
+            try
+            {
+                var id1 = (DataRowView)dgv_ChequeDetails.SelectedItem; //get specific ID from          DataGrid after click on Edit button in DataGrid   
+                PK_ID = Convert.ToInt32(id1.Row["ID"].ToString());
+                con.Open();
+                //string sqlquery = "SELECT * FROM tbl_DealerEntry where Id='" + PK_ID + "' ";
+
+                string sqlquery = "SELECT [ID],[Cheque_Date],[Cheque_No] FROM [tlb_Cheque] WHERE [ID]='" + PK_ID + "' ";
+
+                SqlCommand cmd = new SqlCommand(sqlquery, con);
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    txtChequeID.Text = dt.Rows[0]["ID"].ToString();
+                    dtpChequeDate.SelectedDate = Convert.ToDateTime(dt.Rows[0]["Cheque_Date"].ToString());
+                    txtChequeNo.Text = dt.Rows[0]["Cheque_No"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
     }
 }
 
