@@ -31,6 +31,7 @@ namespace CRM_DAL
                 cmd.Parameters.AddWithValue("@Address", bc.Address);
                 cmd.Parameters.AddWithValue("@Occupation", bc.Occupation);
                 cmd.Parameters.AddWithValue("@SourceOfEnquiry", bc.Source_OF_Enquiry);
+                cmd.Parameters.AddWithValue("@SourceEnqID", bc.SourceEnqID);
                 cmd.Parameters.AddWithValue("@S_Status", bc.S_Status);
                 cmd.Parameters.AddWithValue("@C_Date", bc.C_Date);
                 int i = cmd.ExecuteNonQuery();

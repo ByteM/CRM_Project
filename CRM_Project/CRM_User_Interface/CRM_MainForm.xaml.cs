@@ -65,10 +65,10 @@ namespace CRM_User_Interface
         SqlDataReader dr;
         BAL_AddProduct baddprd = new BAL_AddProduct();
         DAL_AddProduct dalprd = new DAL_AddProduct();
-        string maincked,CName;
+        string maincked,CName,soe;
         string bpg, cid1;
         int fetcdoc, Cust_id;
-        int exist;
+        int exist,vsoe;
         List<string> checkedStuff;
         static DataTable dtstat = new DataTable();
         double MA;
@@ -3130,6 +3130,7 @@ public void Save_FollowupCustomer()
     if (res ==MessageBoxResult.Yes  )
     {
         balc.Flag = 1;
+        balc.Employee_ID = cmbCustomer_EmployeeName.SelectedValue.GetHashCode();
         balc.Cust_ID = txtvalueid.Text;
         balc.Name = txtSalecustomerName.Text;
         balc.Mobile_No = txtSaleCustomerMobileno.Text;
@@ -3137,6 +3138,38 @@ public void Save_FollowupCustomer()
         balc.Email_ID = txtSaleCustomerEmailID.Text;
         balc.Address = txtSaleCustomerAddress.Text;
         balc.Occupation = txtSaleCustomerOccupation.Text;
+        balc.Source_OF_Enquiry = cmbSourceOfEnquery.Text;
+        soe = cmbSourceOfEnquery.SelectedValue.ToString();
+        if (soe == "Newspaper")
+        {
+            vsoe = 1;
+        }
+        else if (soe == "Poster")
+        {
+            vsoe = 2;
+        }
+        else if (soe == "Reference")
+        {
+            vsoe = 3;
+
+        }
+        else if (soe == "Friends / Colleagues")
+        {
+            vsoe = 3;
+
+        }
+        else if (soe == "Net / Website")
+        {
+            vsoe = 4;
+
+        }
+        else if (soe == "Non")
+        {
+            vsoe = 5;
+
+        }
+
+        balc.SourceEnqID = vsoe;
         balc.S_Status = "Active";
         balc.C_Date = System.DateTime.Now.ToShortDateString();
         dalc.Customer_Save_Insert_Update_Delete(balc);
@@ -3175,7 +3208,38 @@ public void Save_NewCustomer()
             occu ="GOVT Employee";
         }
         balc.Occupation = occu;
-        balc.Source_OF_Enquiry = cmbSourceOfEnquery.Text;
+        balc.Source_OF_Enquiry = cmbSourceOfEnquery.SelectedValue .ToString ();
+        soe=cmbSourceOfEnquery.SelectedValue .ToString ();
+        if (soe == "Newspaper")
+        {
+            vsoe = 1;
+        }
+        else if (soe == "Poster")
+        {
+            vsoe = 2;
+        }
+        else if (soe == "Reference")
+        {
+            vsoe = 3;
+
+        }
+        else if (soe == "Friends / Colleagues")
+        {
+            vsoe = 3;
+
+        }
+        else if (soe == "Net / Website")
+        {
+            vsoe = 4;
+
+        }
+        else if (soe == "Non")
+        {
+            vsoe = 5;
+
+        }
+
+        balc.SourceEnqID = vsoe;
         balc.S_Status = "Active";
         balc.C_Date = System.DateTime.Now.ToShortDateString();
         dalc.Customer_Save_Insert_Update_Delete(balc);
@@ -3242,6 +3306,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
     SaveCash();
     updateQuantity();
     clear_CustomerFields();
+    clearAllAddedProducts();
 }
         public void SaveInvoiceDetails()
         {
@@ -3446,6 +3511,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             SaveCheque();
             updateQuantity();
             clear_CustomerFields();
+            clearAllAddedProducts();
         }
         public void SaveCheque()
         {
@@ -3498,6 +3564,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             SaveInstallment();
             Clear_SaveInstallment();
             clear_CustomerFields();
+            clearAllAddedProducts();
         }
         public void Clear_SaveInstallment()
         {
@@ -3959,8 +4026,11 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
       {
           binvd.Flag = 1;
           binvd.Customer_ID = Cust_id;
-          binvd.Bill_No = lblbillno.Content.ToString();
+          binvd.Bill_No = lblbillnoInstall.Content.ToString();
           binvd.Payment_Mode = "Installment_Nos";
+          binvd.Total_Price =Convert .ToDouble ( txt_InstalTotalAmount.Text);
+          binvd.Paid_Amount = Convert.ToDouble(txt_InstalPaidAmount.Text);
+          binvd.Balance_Amount = Convert.ToDouble(txt_InstalBalanceAmount.Text);
           binvd.S_Status = "Active";
           binvd.C_Date = System.DateTime.Now.ToShortDateString();
           dinvd.CommonBillNo_Save(binvd);
@@ -4013,7 +4083,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
               double BA1 = Convert.ToDouble((DGRD_Installment.SelectedCells[5].Column.GetCellContent(item) as TextBlock).Text);
              // double MA1 = Convert.ToDouble((DGRD_Installment.SelectedCells[6].Column.GetCellContent(item) as TextBlock).Text);
              // string tinsno = (DGRD_Installment.SelectedCells[7].Column.GetCellContent(item) as TextBlock).Text;
-              string cino=(DGRD_Installment.SelectedCells[6].Column.GetCellContent(item) as TextBlock).Text;
+              int cino=Convert .ToInt32 ( (DGRD_Installment.SelectedCells[6].Column.GetCellContent(item) as TextBlock).Text);
                 string rino=(DGRD_Installment.SelectedCells[7].Column.GetCellContent(item) as TextBlock).Text;
                 string cinamt=(DGRD_Installment.SelectedCells[8].Column.GetCellContent(item) as TextBlock).Text;
                 string cinod=(DGRD_Installment.SelectedCells[9].Column.GetCellContent(item) as TextBlock).Text;
@@ -4028,9 +4098,10 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 txt_InstalPaidAmount.Text = PA1.ToString();
                 txt_InstalBalanceAmount.Text = BA1.ToString();
                 txtInstalAmountPermonth.Text = MA.ToString();
-
-                txt_Installemntno.Text = cino + 1;
+               cino = cino + 1;
                 int r = Convert.ToInt32(rino);
+                txt_Installemntno.Text = cino.ToString ();
+               
                 rino = (r- 1).ToString ();
               txt_InstallmentRemaining.Text = rino;
           }
@@ -4434,6 +4505,16 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
    }
 
    #endregion ChartFunction
+
+   private void btnSaleCustomerExit_Click(object sender, RoutedEventArgs e)
+   {
+       GRD_Customer_Billing.Visibility = Visibility.Hidden;
+   }
+
+   private void DGRD_Installment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+   {
+
+   }
 
    }
    

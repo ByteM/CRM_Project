@@ -24,6 +24,7 @@ namespace CRM_BAL
        public string Payment_Mode { get; set; }
 
        public string Source_OF_Enquiry { get; set; }
+       public int SourceEnqID { get; set; }
 
        //public string Bill_No { get; set; }
        public string S_Status { get; set; }

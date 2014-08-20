@@ -492,7 +492,7 @@
                 </Grid>
             </Grid>
 
-            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Hidden"  VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Visible"   VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <!--<Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales1"  Visibility="Hidden" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">-->
 
                 <Grid HorizontalAlignment="Left" Height="545" Visibility="Visible"  Margin="6,10,0,0" VerticalAlignment="Top" Width="1145" Background="White">
@@ -570,7 +570,7 @@
                         </GroupBox>
                     </Grid>
                 </Grid>
-                <Grid HorizontalAlignment="Left" Name="GRD_Customer_Billing" Height="509" VerticalAlignment="Top"  Visibility="Hidden" Width="1130" Margin="16,56,0,0" Background="#FFF0F0F0" Loaded="GRD_Customer_Billing_Loaded">
+                <Grid HorizontalAlignment="Left" Name="GRD_Customer_Billing" Height="509" VerticalAlignment="Top"  Visibility="Hidden"  Width="1130" Margin="16,56,0,0" Background="#FFF0F0F0" Loaded="GRD_Customer_Billing_Loaded">
 
                     <Grid HorizontalAlignment="Left" Visibility="Visible"  Height="455" VerticalAlignment="Top"  Width="1090" Margin="15,20,0,0" Background="White">
 
@@ -604,9 +604,10 @@
                         <ComboBox x:Name="cmbSourceOfEnquery" HorizontalAlignment="Left" Margin="225,311,0,0" VerticalAlignment="Top" Width="200" IsEditable="True" IsReadOnly="True"/>
                         <Label Content="Employee Name:" HorizontalAlignment="Left" Margin="90,41,0,0" VerticalAlignment="Top" Width="120"/>
                         <ComboBox x:Name="cmbCustomer_EmployeeName" HorizontalAlignment="Left" Margin="225,44,0,0" VerticalAlignment="Top" Width="360" IsEditable="True" IsReadOnly="True"/>
+                        <Button x:Name="btnSaleCustomerExit" Content="Edit" HorizontalAlignment="Left" Margin="841,294,0,0" VerticalAlignment="Top" Width="89" Height="23" FontSize="14" Click="btnSaleCustomerExit_Click"/>
                     </Grid>
                 </Grid>
-                <Grid x:Name="grd_OldCustomerDetails" Visibility="Hidden"  HorizontalAlignment="Left" Height="510" Margin="10,55,0,0" VerticalAlignment="Top" Width="1140" Background="White">
+                <Grid x:Name="grd_OldCustomerDetails" Visibility="Hidden" HorizontalAlignment="Left" Height="510" Margin="10,55,0,0" VerticalAlignment="Top" Width="1140" Background="White">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0*"/>
@@ -648,7 +649,7 @@
                 </Grid>
 
             </Grid>
-            <Grid HorizontalAlignment="Right" Visibility="Hidden"       Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
+            <Grid HorizontalAlignment="Right" Visibility="Hidden" Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
                 <!--<Grid HorizontalAlignment="Right" Visibility="Visible"    x:Name="Grd_genratebill1" Height="565" Margin="-4,0,4,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
 
 
@@ -840,7 +841,7 @@
 
 
 
-            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Hidden"    Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Visible"     Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
 
                 <Grid HorizontalAlignment="Left" Height="535" VerticalAlignment="Top" Width="1130" Margin="10,15,0,0" Background="White">
                     <Grid.ColumnDefinitions>
@@ -885,7 +886,7 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid HorizontalAlignment="Left" Visibility="Visible"  Name="DGRD_Installment" Margin="12,317,0,0" VerticalAlignment="Top" Height="215" AutoGenerateColumns="False" Width="1108">
+                    <DataGrid HorizontalAlignment="Left" Visibility="Visible"  Name="DGRD_Installment" Margin="12,317,0,0" VerticalAlignment="Top" Height="215" AutoGenerateColumns="False" Width="1108" SelectionChanged="DGRD_Installment_SelectionChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Width="30"  x:Name="grdC_ID1" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />
                             <DataGridTextColumn Header="Customer ID" Width="100" x:Name="grdCInstCID1" SortMemberPath="Cust_ID" Binding="{Binding Cust_ID, Mode=TwoWay}"/>
@@ -935,7 +936,7 @@
 
 
                 </Grid>
-                <Grid HorizontalAlignment="Left" Name="GRD_InstallmentProcess" Visibility="Hidden"    Width="1105" Margin="24,309,0,0" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Name="GRD_InstallmentProcess" Visibility="Hidden" Width="1105" Margin="24,309,0,0" Background="#FFF0F0F0">
                     <Grid HorizontalAlignment="Left" Width="1085" Margin="10,10,0,0" Background="White" Height="235" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="294*"/>

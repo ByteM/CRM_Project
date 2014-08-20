@@ -46,7 +46,7 @@ namespace CRM_User_Interface
             Chart_Procurment();
             Chart_CustomerBase();
             Chart_HighestSingleProduct();
-            Chart_HighestProduct();
+           Chart_HighestProduct();
             Chart_BestEnquerySource();
 
             LoadColumnChart_FollowUp();
