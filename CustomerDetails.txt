@@ -1,0 +1,61 @@
+Create Table tlb_Customer
+(
+ID int Identity(1,1) constraint CId primary key(ID) not null,
+EmployeeID int CONSTRAINT fktlb_Customer FOREIGN KEY REFERENCES tbl_Employee NOT NULL,
+Cust_ID nvarchar(MAX) not null,
+Name nvarchar(MAX) not null,
+Mobile_No nvarchar(MAX) not null,
+Date_Of_Birth nvarchar(MAX) not null,
+Email_ID nvarchar(MAX) not null,
+Address nvarchar(MAX) not null,
+Occupation nvarchar(MAX) not null,
+SourceOfEnquiry nvarchar(MAX) not null,
+S_Status nvarchar(MAX) not null,
+C_Date nvarchar(MAX) not null,
+)
+
+Drop Table tlb_Customer
+Select * from tlb_Customer
+Truncate Table tlb_Customer
+
+
+
+SP===========
+
+USE [DB_CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_Customer]    Script Date: 20-08-2014 11:49:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[SP_Customer]
+	@Flag int=null,
+	@EmployeeID int=null,
+	@Cust_ID nvarchar(MAX) ,
+@Name nvarchar(MAX),
+@Mobile_No nvarchar(MAX) ,
+@Date_Of_Birth nvarchar(MAX) ,
+@Email_ID nvarchar(MAX) ,
+@Address nvarchar(MAX),
+@Occupation nvarchar(MAX) ,
+@SourceOfEnquiry nvarchar(MAX),
+@S_Status nvarchar(MAX) ,
+@C_Date nvarchar(MAX)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	if(@Flag =1)
+	begin
+	insert into  tlb_Customer (EmployeeID,Cust_ID,Name,Mobile_No,Date_of_Birth,Email_ID,Address,Occupation,SourceOfEnquiry,S_Status,C_Date) values (@EmployeeID,@Cust_ID  ,@Name ,@Mobile_No ,@Date_Of_Birth ,@Email_ID ,@Address ,@Occupation,@SourceOfEnquiry,@S_Status ,@C_Date)
+	end 
+END
