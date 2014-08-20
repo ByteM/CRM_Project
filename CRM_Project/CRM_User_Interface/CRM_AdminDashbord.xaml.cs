@@ -2062,7 +2062,23 @@ namespace CRM_User_Interface
         private void txtAdm_SaleCustDetails_Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             //txtSaleCustID.Text = "";
-            //dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
+
+            //var grid = dgvAdm_SaleCustomerDetails;
+            //if (grid.SelectedIndex >= 0)
+            //{
+            //    for (int i = 0; i <= grid.SelectedItems.Count; i++)
+            //    {
+            //        grid.Items.Remove(grid.SelectedItems[i]);
+            //    };
+            //}
+
+            //if (dgvAdm_SaleCustomerDetails.SelectedItem != null)
+            //{
+            //    ((DataRowView)(dgvAdm_SaleCustomerDetails.SelectedItem)).Row.Delete();
+            //}
+
+            DataGridCellInfo cell = dgvAdm_SaleCustomerDetails.SelectedCells[0];
+            dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
             //dgvAdm_SaleCustomerDetails.SelectedItem = null;
             SaleCustomer_Details();
         }
@@ -4217,6 +4233,8 @@ namespace CRM_User_Interface
         int highSingleProduct;
         string highSourceNPR;
         int abc;
+        int checkhighSinglePro;
+        int CChighProduct;
 
         public void Chart_Followup()
         {
@@ -4330,19 +4348,83 @@ namespace CRM_User_Interface
             }
         }
 
-        public void Chart_HighestProduct()
+        public void Chart_Check_HighestProduct()
         {
             try
             {
                 String str;
                 con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT MAX(Brand_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+                str = "SELECT Count(Brand_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
                 SqlCommand cmd = new SqlCommand(str, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(ds);
 
-                highProduct = Convert.ToInt32(cmd.ExecuteScalar());
+                CChighProduct = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_HighestProduct()
+        {
+            try
+            {
+                Chart_Check_HighestProduct();
+                if(CChighProduct > 0)
+                {
+                    String str;
+                    con.Open();
+                    DataSet ds = new DataSet();
+                    str = "SELECT MAX(Brand_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+                    SqlCommand cmd = new SqlCommand(str, con);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+
+                    highProduct = Convert.ToInt32(cmd.ExecuteScalar());
+                    //if (ds.Tables[0].Rows.Count > 0)
+                    //{
+                    //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                    //}
+                }
+                else
+                {
+                    highProduct = 0;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void Chart_Check_HighestSingleProduct()
+        {
+            try
+            {
+                String str;
+                con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT Count(Model_No_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                checkhighSinglePro = Convert.ToInt32(cmd.ExecuteScalar());
                 //if (ds.Tables[0].Rows.Count > 0)
                 //{
                 //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
@@ -4362,19 +4444,28 @@ namespace CRM_User_Interface
         {
             try
             {
-                String str;
-                con.Open();
-                DataSet ds = new DataSet();
-                str = "SELECT MAX(Model_No_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
-                SqlCommand cmd = new SqlCommand(str, con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
+                Chart_Check_HighestSingleProduct();
+                if(checkhighSinglePro > 0)
+                {
+                    String str;
+                    con.Open();
+                    DataSet ds = new DataSet();
+                    str = "SELECT MAX(Model_No_ID) FROM [tlb_InvoiceDetails] WHERE [S_Status]='Active'";
+                    SqlCommand cmd = new SqlCommand(str, con);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
 
-                highSingleProduct = Convert.ToInt32(cmd.ExecuteScalar());
-                //if (ds.Tables[0].Rows.Count > 0)
-                //{
-                //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
-                //}
+                    highSingleProduct = Convert.ToInt32(cmd.ExecuteScalar());
+                    //if (ds.Tables[0].Rows.Count > 0)
+                    //{
+                    //dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                    //}
+                }
+                else
+                {
+                    highSingleProduct = 0;
+                }
+                
             }
             catch (Exception)
             {
