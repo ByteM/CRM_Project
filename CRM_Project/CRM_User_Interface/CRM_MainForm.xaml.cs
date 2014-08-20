@@ -3788,7 +3788,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         {
             con.Open();
             DataSet ds = new DataSet();
-            string load = "  Select ci.ID,c.Cust_ID ,ci.Bill_No ,ci.Total_Price ,ci.Paid_Amount ,ci.Balance_Amount,ci.Monthly_Amount ,ci.Total_Installment_Month ,ci.Current_Installment_No,ci.Remaining_Installments ,ci.Current_Installment_Amount ,ci.CInstallment_Date ,ci.Paid_Unpaid  from tlb_Customer_Installment ci inner join tlb_Customer c ON c.ID = ci.Customer_ID  ";
+            string load = "  Select ci.ID,c.Cust_ID ,ci.Bill_No ,ci.Total_Price ,ci.Paid_Amount ,ci.Balance_Amount,ci.Monthly_Amount ,ci.Total_Installment_Month ,ci.Current_Installment_No,ci.Remaining_Installments ,ci.Current_Installment_Amount ,ci.CInstallment_Date ,ci.Paid_Unpaid  from tlb_Customer_Installment ci inner join tlb_Customer c ON c.ID = ci.Customer_ID and c_Ins='Not_Nill'  ";
             SqlCommand cmd = new SqlCommand(load, con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(ds);
@@ -3990,6 +3990,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 bcins.Paid_Unpaid = "Paid";
                 bcins.S_Status = "Active";
                 bcins.C_Date = System.DateTime.Now.ToShortDateString();
+                bcins.c_Ins = "Not_Nill";
                 dcins.Save_C_Installment(bcins);
                 MessageBox.Show("Installment Added Succsessfully", caption, MessageBoxButton.OK);
             }
