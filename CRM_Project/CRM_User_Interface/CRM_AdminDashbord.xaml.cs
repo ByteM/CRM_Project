@@ -28,6 +28,7 @@ namespace CRM_User_Interface
     /// </summary>
     public partial class CRM_AdminDashbord : Window
     {
+        #region Global Veriable
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
         public SqlConnection con = new SqlConnection(ConfigurationSettings.AppSettings["ConstCRM"].ToString());
         SqlCommand cmd;
@@ -35,7 +36,9 @@ namespace CRM_User_Interface
         string caption = "Green Future Glob";
 
         static int PK_ID;
+        #endregion Global Veriable
 
+        #region Load Event
         public CRM_AdminDashbord()
         {
             InitializeComponent();
@@ -51,6 +54,7 @@ namespace CRM_User_Interface
 
             LoadColumnChart_FollowUp();
         }
+        #endregion Load Event
         
         /// <summary>
         /// Add Products
@@ -4225,16 +4229,18 @@ namespace CRM_User_Interface
         #endregion PreProcurment Function
 
         #region ChartFunction
+        #region ChartFollowUp
         int folCount;
         int sealsCount;
         int finalPro;
         int baseCust;
         int highProduct;
         int highSingleProduct;
-        string highSourceNPR;
+        int highSourceNPR;
         int abc;
         int checkhighSinglePro;
         int CChighProduct;
+        
 
         public void Chart_Followup()
         {
@@ -4477,7 +4483,7 @@ namespace CRM_User_Interface
             }
         }
 
-        public void Chart_BestEnquerySource()
+        public void Chart_Check_BestEnquerySource()
         {
             try
             {
@@ -4485,12 +4491,12 @@ namespace CRM_User_Interface
                 con.Open();
                 DataSet ds = new DataSet();
                 //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
-                str = "SELECT MAX(SourceOfEnquiry) FROM [tlb_Customer] WHERE [S_Status]='Active'";
+                str = "SELECT Count(SourceEnqID) AS [SourceEnqID] FROM [tlb_Customer] WHERE [S_Status]='Active'";
                 SqlCommand cmd = new SqlCommand(str, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(ds);
 
-                highSourceNPR = Convert.ToString(cmd.ExecuteScalar());
+                abc = Convert.ToInt32(cmd.ExecuteScalar());
                 //abc = Convert.ToInt32(highSourceNPR);
 
             }
@@ -4504,7 +4510,41 @@ namespace CRM_User_Interface
             }
         }
 
+        public void Chart_BestEnquerySource()
+        {
+            try
+            {
+                Chart_Check_BestEnquerySource();
 
+                if(abc > 0)
+                {
+                    String str;
+                    con.Open();
+                    DataSet ds = new DataSet();
+                    //str = "SELECT distinct Count(I.C_Date) AS [CDate],B.[Brand_Name] FROM [tlb_InvoiceDetails] I INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] WHERE I.[S_Status]='Active' Group By B.[Brand_Name]";
+                    str = "SELECT MAX(SourceEnqID) AS [SourceEnqID] FROM [tlb_Customer] WHERE [S_Status]='Active'";
+                    SqlCommand cmd = new SqlCommand(str, con);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+
+                    highSourceNPR = Convert.ToInt32(cmd.ExecuteScalar());
+                    //abc = Convert.ToInt32(highSourceNPR);
+                }
+                else
+                {
+                    highSourceNPR = 0;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        
         private void LoadColumnChart_FollowUp()
         {
             ((ColumnSeries)mcChart.Series[0]).ItemsSource = new KeyValuePair<string, int>[]
@@ -4514,13 +4554,12 @@ namespace CRM_User_Interface
                 new KeyValuePair<string,int>("Procurements", finalPro),
                 new KeyValuePair<string,int>("Highest Sold Item", highSingleProduct) ,
                 new KeyValuePair<string,int>("Ever Green Top Brand", highProduct),
-                //new KeyValuePair<string,int>("Best Enquiry Source", abc),
+                new KeyValuePair<string,int>("Best Enquiry Source", highSourceNPR),
                 new KeyValuePair<string,int>("Customer Base", baseCust)
                 
             };
         }
-
-        #endregion ChartFunction
+        #endregion ChartFollowUp
 
         #region Chart SalesByProducts
         int salesProCount;
@@ -4972,6 +5011,7 @@ namespace CRM_User_Interface
             grd_ProgressDetails.Visibility = System.Windows.Visibility.Visible;
         }
         #endregion ProgressDetails Function
+        #endregion ChartFunction
     }
 }
 
