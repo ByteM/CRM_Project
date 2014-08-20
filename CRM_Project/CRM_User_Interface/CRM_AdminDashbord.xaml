@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cht="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="CRM_User_Interface.CRM_AdminDashbord"
-        xmlns:funnal="FunnelChart.MainWindow"
         Title="CRM_Admin_Dashbord" Height="655" Width="1205"  WindowStartupLocation="CenterScreen"  Margin="0,0,0,0" WindowState="Normal"  AllowsTransparency="True" WindowStyle="None"  ShowInTaskbar="False" Background="Transparent">
     <Border BorderBrush="Black" BorderThickness="1" Height="655" VerticalAlignment="Top" CornerRadius="15" Background="Black">
         <Grid Margin="-1,-1,1,-1" >

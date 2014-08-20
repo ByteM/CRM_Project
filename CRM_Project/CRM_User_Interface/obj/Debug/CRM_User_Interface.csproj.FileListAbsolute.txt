@@ -201,3 +201,5 @@ C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interf
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\frmInsurance.g.cs
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
 C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\WPFToolkit.dll
+C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.pdb
+C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\WPFToolkit.pdb
