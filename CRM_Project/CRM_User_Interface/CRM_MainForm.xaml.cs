@@ -3670,6 +3670,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             bins.Installment_Date = dpInvoice_Instalpermonth.SelectedDate .ToString();
             bins.S_Status = "Active";
             bins.C_Date = System.DateTime.Now.ToShortDateString();
+            bins.Ins = "Not_Nill";
             dins.Save_Installment(bins);
             MessageBox.Show("Installment Added Succsessfully ");
 
@@ -3707,7 +3708,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         public void Load_InstallmentCustomers()
         {
           //  cmbInstall_CustID.Text = "--Select--";
-            string q = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount ,tlb_MainInstallment.Balance_Amount ,tlb_MainInstallment.Monthly_Amount,tlb_MainInstallment.Installment_Year ,tlb_MainInstallment.Installment_Month ,tlb_MainInstallment.Installment_Date FROM tlb_MainInstallment INNER JOIN tlb_Customer ON tlb_MainInstallment.Customer_ID =tlb_Customer.ID  and tlb_MainInstallment.S_Status='Active'";
+            string q = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount ,tlb_MainInstallment.Balance_Amount ,tlb_MainInstallment.Monthly_Amount,tlb_MainInstallment.Installment_Year ,tlb_MainInstallment.Installment_Month ,tlb_MainInstallment.Installment_Date FROM tlb_MainInstallment INNER JOIN tlb_Customer ON tlb_MainInstallment.Customer_ID =tlb_Customer.ID  and tlb_MainInstallment.S_Status='Active' and tlb_MainInstallment.Ins='NULL' ";
             cmd = new SqlCommand(q, con);
             // DataTable dt = new DataTable();
             DataSet ds = new DataSet();
@@ -3810,7 +3811,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 String str;
                 //con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT  Distinct [ID],[Cust_ID],[Name],[Mobile_No], [Email_ID],[Address],[Occupation] " +
+                str = "SELECT  Distinct [ID],[Cust_ID],[Name],[Mobile_No],[Date_Of_Birth], [Email_ID],[Address],[Occupation] " +
                       "FROM [tlb_Customer]  " +
                       "WHERE ";
 
@@ -3822,7 +3823,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                 {
                     str = str + "[Mobile_No] LIKE ISNULL('" + txtOlad_CustomerMobile_Search.Text.Trim() + "',[Mobile_No]) + '%' AND ";
                 }
-                str = str + " [S_Status] = 'Active' ORDER BY [Name] ASC ";
+                str = str + " [S_Status] = 'Active'  ORDER BY [Name] ASC ";
                 //str = str + " S_Status = 'Active' ";
                 SqlCommand cmd = new SqlCommand(str, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
