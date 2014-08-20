@@ -1209,6 +1209,7 @@
                     </cht:Chart.Series>
                 </cht:Chart>
             </Grid>
+            <Grid HorizontalAlignment="Left" Height="564" Margin="21,66,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0"/>
         </Grid>
     </Border>
 </Window>
