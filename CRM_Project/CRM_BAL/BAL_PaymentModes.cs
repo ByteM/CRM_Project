@@ -23,6 +23,7 @@ namespace CRM_BAL
        public string Cheque_No { get; set; }
        public string Cheque_Date { get; set; }
         public string Cheque_Bank_Name{get;set;}
+        public string IsClear { get; set; }
 
        
 

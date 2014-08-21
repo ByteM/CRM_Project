@@ -896,7 +896,7 @@
                 </Grid>
                 <TextBox x:Name="txtSaleCustID" HorizontalAlignment="Left" Height="23" Margin="770,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Visibility="Hidden"/>
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="565" Visibility="Hidden" x:Name="grd_U_AddProducts" Margin="20,65,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" Loaded="grd_U_AddProducts_Loaded">
+            <Grid HorizontalAlignment="Left" Height="565" Visibility="Hidden" x:Name="grd_U_AddProducts" Margin="20,65,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" Loaded="grd_U_AddProducts_Loaded" d:IsLocked="True">
                 <Grid x:Name="grdMainFormGrid" Height="430" Margin="150,75,85,0" VerticalAlignment="Top" Background="White">
                     <Label Content="Domain :" HorizontalAlignment="Left" Margin="49,29,0,0" VerticalAlignment="Top" Width="130"/>
                     <Label Content="Products :" HorizontalAlignment="Left" Margin="49,60,0,0" VerticalAlignment="Top" Width="130"/>
@@ -1046,7 +1046,7 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid HorizontalAlignment="Left" Visibility="Hidden"  x:Name="GRD_NewProcurement" Height="563" Margin="21,67,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Visibility="Visible"   x:Name="GRD_NewProcurement" Height="563" Margin="21,67,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0">
                 <Grid HorizontalAlignment="Left" Height="530" Margin="70,20,0,0" VerticalAlignment="Top" Width="1035" Background="White" >
                     <!--<ComboBox x:Name="cmbPre_Pro_Salename" HorizontalAlignment="Left" Margin="315,50,0,0" VerticalAlignment="Top" Width="414" IsEditable="True"/>-->
 
