@@ -255,3 +255,5 @@ C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.Properties.Resources.resources
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.csproj.GenerateResource.Cache
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.exe.manifest
+C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\FrmDefaultSMS.baml
+C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\FrmDefaultSMS.g.cs

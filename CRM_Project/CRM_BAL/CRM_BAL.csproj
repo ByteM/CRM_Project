@@ -44,6 +44,8 @@
     <Compile Include="BAL_Customer.cs" />
     <Compile Include="BAL_C_Installment.cs" />
     <Compile Include="BAL_DealerEntry.cs" />
+    <Compile Include="BAL_DefaultMessage.cs" />
+    <Compile Include="BAL_DefaultSMS.cs" />
     <Compile Include="BAL_EmployeeEntry.cs" />
     <Compile Include="BAL_FinalDealer.cs" />
     <Compile Include="BAL_Followup.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="BAL_StockDetails.cs" />
     <Compile Include="BAL_Tax.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Class2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

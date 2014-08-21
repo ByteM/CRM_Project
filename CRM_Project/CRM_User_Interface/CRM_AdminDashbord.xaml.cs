@@ -5522,8 +5522,14 @@ namespace CRM_User_Interface
             }
         }
         #endregion Insurance Event
+
         #endregion Insurance Function
 
+        private void smdmessages_Click(object sender, RoutedEventArgs e)
+        {
+            FrmDefaultSMS obj = new FrmDefaultSMS();
+            obj.ShowDialog();
+        }
     }
 }
 

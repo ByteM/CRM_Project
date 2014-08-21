@@ -66,6 +66,9 @@
     </ApplicationDefinition>
     <Compile Include="DateDiff.cs" />
     <Compile Include="DateDifference.cs" />
+    <Compile Include="FrmDefaultSMS.xaml.cs">
+      <DependentUpon>FrmDefaultSMS.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmInsurance.xaml.cs">
       <DependentUpon>frmInsurance.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmCRM_EmpDetailsEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmDefaultSMS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
