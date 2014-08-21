@@ -59,6 +59,7 @@ namespace CRM_DAL
                cmd.Parameters.AddWithValue("@Cheque_No", bpm.Cheque_No);
                cmd.Parameters.AddWithValue("@Cheque_Date", bpm.Cheque_Date);
                cmd.Parameters.AddWithValue("@Cheque_Bank_Name", bpm.Cheque_Bank_Name);
+               cmd.Parameters.AddWithValue("@IsClear", bpm.IsClear);
                cmd.Parameters.AddWithValue("@S_Status", bpm.S_Status);
                cmd.Parameters.AddWithValue("@C_Date", bpm.C_Date);
                int i = cmd.ExecuteNonQuery();

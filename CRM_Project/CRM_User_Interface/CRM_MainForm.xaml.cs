@@ -1460,86 +1460,150 @@ namespace CRM_User_Interface
             catch { throw; }
             finally { con.Close(); }
         }
+        public bool PrePro_Validation()
+        {
+            bool result = false;
+            if (cmbPre_Pro_Salename.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Dealer Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreDomain.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Domain Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreProduct.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreBrand.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Brand", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPrePCategory.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Product Category", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreModel.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Model No", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmd_PreColor.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Color", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtPrice.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Price", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (txtQuantity.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Enter Quantity", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreFollowup.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Followup", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if (cmbPreInsurance.SelectedItem == null)
+            {
+                result = true;
+                MessageBox.Show("Please Select Insurance", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            return result;
+        }
         private void btnPro_Save_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (PrePro_Validation() == true)
             {
-
-                bpreproc.Flag = 1;
-                bpreproc.DealerID  = cmbPre_Pro_Salename.SelectedValue .GetHashCode(); //txtsalername.Text;
-               
-               //bpreproc.Phone_Id = txtprephone .Text ;
-                bpreproc.Domain_ID = Convert.ToInt32(cmbPreDomain .SelectedValue.GetHashCode());
-                bpreproc.Product_ID = Convert.ToInt32(cmbPreProduct .SelectedValue.GetHashCode());
-                bpreproc.Brand_ID = Convert.ToInt32(cmbPreBrand.SelectedValue.GetHashCode());
-                bpreproc.P_Category = Convert.ToInt32(cmbPrePCategory.SelectedValue.GetHashCode());
-                bpreproc.Model_No_ID = Convert.ToInt32(cmbPreModel .SelectedValue.GetHashCode());
-                bpreproc.Color_ID = Convert.ToInt32(cmd_PreColor.SelectedValue.GetHashCode());
-
-                bpreproc.Procurment_Price = Convert .ToDouble (txtPrice .Text);
-                bpreproc.Quantity = Convert.ToDouble(txtQuantity.Text);
-                bpreproc.Total_Amount = Convert.ToDouble(txtTotalPrice.Text);
-                bpreproc.Net_Amount = Convert.ToDouble(txtNetAmount.Text);
-                bpreproc.Round_Off = Convert.ToDouble(txtpreroundoff .Text);
-            //    for (int i = 0; i < 5;i++ )
-            //    { 
-            //        if (chkidproof.IsChecked == true)
-            //        {
-            //            maincked = "ID Proof";
-            //        }
-              
-            //    if(chkaddressproof  .IsChecked ==true )
-            //    {
-            //        maincked = "Address Proof";
-            //    }
-            //        string concate += ","+item maincked;
-            //}
-                string checkList = string.Join(",", checkedStuff.ToArray());
-                if (checkList == null)
-                { bpreproc.Reg_Document = "No"; }
-                else if (checkList != null)
+                return;
+                try
                 {
-                    bpreproc.Reg_Document = checkList;
+
+                    bpreproc.Flag = 1;
+                    bpreproc.DealerID = cmbPre_Pro_Salename.SelectedValue.GetHashCode(); //txtsalername.Text;
+
+                    //bpreproc.Phone_Id = txtprephone .Text ;
+                    bpreproc.Domain_ID = Convert.ToInt32(cmbPreDomain.SelectedValue.GetHashCode());
+                    bpreproc.Product_ID = Convert.ToInt32(cmbPreProduct.SelectedValue.GetHashCode());
+                    bpreproc.Brand_ID = Convert.ToInt32(cmbPreBrand.SelectedValue.GetHashCode());
+                    bpreproc.P_Category = Convert.ToInt32(cmbPrePCategory.SelectedValue.GetHashCode());
+                    bpreproc.Model_No_ID = Convert.ToInt32(cmbPreModel.SelectedValue.GetHashCode());
+                    bpreproc.Color_ID = Convert.ToInt32(cmd_PreColor.SelectedValue.GetHashCode());
+
+                    bpreproc.Procurment_Price = Convert.ToDouble(txtPrice.Text);
+                    bpreproc.Quantity = Convert.ToDouble(txtQuantity.Text);
+                    bpreproc.Total_Amount = Convert.ToDouble(txtTotalPrice.Text);
+                    bpreproc.Net_Amount = Convert.ToDouble(txtNetAmount.Text);
+                    bpreproc.Round_Off = Convert.ToDouble(txtpreroundoff.Text);
+                    //    for (int i = 0; i < 5;i++ )
+                    //    { 
+                    //        if (chkidproof.IsChecked == true)
+                    //        {
+                    //            maincked = "ID Proof";
+                    //        }
+
+                    //    if(chkaddressproof  .IsChecked ==true )
+                    //    {
+                    //        maincked = "Address Proof";
+                    //    }
+                    //        string concate += ","+item maincked;
+                    //}
+                    string checkList = string.Join(",", checkedStuff.ToArray());
+                    if (checkList == null)
+                    { bpreproc.Reg_Document = "No"; }
+                    else if (checkList != null)
+                    {
+                        bpreproc.Reg_Document = checkList;
+                    }
+
+                    bpreproc.Have_Insurance = cmbPreInsurance.SelectedValue.ToString();
+                    string a = (txtPreWarranty.Text) + "" + (cmbPreWarrantyYM.SelectedItem.ToString());
+                    bpreproc.Warranty = a;
+                    bpreproc.re_ferb_cost = Convert.ToDouble(txtPreFerbcost.Text);
+                    bpreproc.Follow_up = cmbPreFollowup.SelectedValue.ToString();
+                    bpreproc.Narration = txtnarration.Text;
+                    bpreproc.S_Status = "Active";
+                    bpreproc.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                    dpreproc.Pre_Procurement_Save_Insert_Update_Delete(bpreproc);
+                    MessageBox.Show("Data Save Successfully");
+                    txtP_Narration.Text = txtnarration.Text;
+                    txtP_Price.Text = "";
+                    clearallPreProcurement();
+                    PREPROCUREMENTid();
+                    Fetch_Pre_Domain();
+
+
+                    //baddprd.Flag = 1;
+                    //baddprd.Domain_Name = cmbP_domain.SelectedValue.ToString ();
+                    //baddprd.Product_Name = cmbP_Product.SelectedValue.ToString();
+                    //baddprd.Brand_Name = cmbP_Brand.SelectedValue.ToString();
+                    //baddprd.Product_Category = cmbP_PCategory.SelectedValue.ToString();
+                    //baddprd.Model_No = cmbP_ModelNo.SelectedValue.ToString();
+                    //baddprd.Color = cmbP_Color.SelectedValue.ToString();
+                    //baddprd.Narration = txtP_Narration.Text;
+                    //baddprd.Price = Convert.ToDouble(txtP_Price.Text);
+                    //baddprd.S_Status = "Active";
+                    //baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                    //dalprd.Save_Insert_Update_Delete(baddprd);
+                    //MessageBox.Show("Data Save Successfully");
+                    //txtP_Narration.Text = "";
+                    //txtP_Price.Text = "";
+                    // Load_Domain();
                 }
-               
-                bpreproc.Have_Insurance = cmbPreInsurance .SelectedValue .ToString ();
-                string a=(txtPreWarranty .Text )+""+(cmbPreWarrantyYM .SelectedItem .ToString ());
-                bpreproc.Warranty = a;
-                bpreproc.re_ferb_cost =Convert .ToDouble ( txtPreFerbcost.Text);
-                bpreproc.Follow_up = cmbPreFollowup.SelectedValue.ToString();
-                bpreproc.Narration = txtnarration.Text;
-                bpreproc.S_Status = "Active";
-                bpreproc.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
-                dpreproc.Pre_Procurement_Save_Insert_Update_Delete(bpreproc);
-                MessageBox.Show("Data Save Successfully");
-                txtP_Narration.Text = txtnarration .Text ;
-                txtP_Price.Text = "";
-                clearallPreProcurement();
-                PREPROCUREMENTid();
-                Fetch_Pre_Domain();
+                catch (Exception)
+                {
 
-
-                //baddprd.Flag = 1;
-                //baddprd.Domain_Name = cmbP_domain.SelectedValue.ToString ();
-                //baddprd.Product_Name = cmbP_Product.SelectedValue.ToString();
-                //baddprd.Brand_Name = cmbP_Brand.SelectedValue.ToString();
-                //baddprd.Product_Category = cmbP_PCategory.SelectedValue.ToString();
-                //baddprd.Model_No = cmbP_ModelNo.SelectedValue.ToString();
-                //baddprd.Color = cmbP_Color.SelectedValue.ToString();
-                //baddprd.Narration = txtP_Narration.Text;
-                //baddprd.Price = Convert.ToDouble(txtP_Price.Text);
-                //baddprd.S_Status = "Active";
-                //baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
-                //dalprd.Save_Insert_Update_Delete(baddprd);
-                //MessageBox.Show("Data Save Successfully");
-                //txtP_Narration.Text = "";
-                //txtP_Price.Text = "";
-                // Load_Domain();
-            }
-            catch (Exception)
-            {
-
-                throw;
+                    throw;
+                }
             }
         }
         public void fetch_Documents()
@@ -1892,7 +1956,7 @@ namespace CRM_User_Interface
             //chkNodoc.IsChecked = false;
            // chkAddress__Proof.IsChecked = false;
            // chketc.IsChecked = false;
-           // chkForm16.IsChecked = false;
+           // chkForm16.IsChecked = null;
             chkNODOCS.IsEnabled = false;
             chkPANCARD .IsEnabled = false;
             chkPASSPORT.IsEnabled = false;
@@ -3068,67 +3132,93 @@ public void clearAllAddedProducts()
    // txtInvoice_InvcTotalAmount.Text = "";
 
 }
-   private void btninvoice_addProduct_Click(object sender, RoutedEventArgs e)
-   {
-       if (dtstat.Rows.Count == 0)
-       {
-           dtstat.Columns.Add("SrNo");
+        public bool Invoic_Add_Validation()
+        {
+            bool res = false;
+            if (cmbInvoice_Tax1.SelectedValue  == "")
+            {
+                res = true;
+                MessageBox.Show("Please Select TAX ", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else 
+            if (txtInvoice_Qty.Text =="")
+            {
+                res = true;
+                MessageBox.Show("Please Insert Quantity ", caption,MessageBoxButton .OK , MessageBoxImage.Error );
 
-           dtstat.Columns.Add("Products");
-      
-           dtstat.Columns.Add("RatePer_Product");
-           dtstat.Columns.Add("Qty");
-           dtstat.Columns.Add("Total_Price");
-           dtstat.Columns.Add("Tax Name");
-           dtstat.Columns.Add("Taxes %");
-           dtstat.Columns.Add("SubTotal");
-           dtstat.Columns.Add("availqty") ;
-          // dtstat.Columns["availqty"].Visible = false;
-       }
+            }
+            else if (cmbInvoiceStockProducts.SelectedValue =="")
+            {
+                res = true;
+                MessageBox.Show("Please Select Products ", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return res;
+        }
+        private void btninvoice_addProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (Invoic_Add_Validation() == true)
+                return;
 
-       DataRow dr = dtstat.NewRow();
-       dr["SrNo"] = lblinvoiceSr.Content;
-       dr["Products"] = cmbInvoiceStockProducts .Text ;
-       dr["RatePer_Product"] = txtInvoiceActualPrice .Text;
-       dr["Qty"] = txtInvoice_Qty .Text;
-        
-       dr["Total_Price"] = txtInvoice_TotalPriceofQty .Text;
-       dr["Tax Name"] = cmbInvoice_Tax1.Text ;
-       dr["Taxes %"] = cmbInvoice_Tax1.SelectedValue.ToString();
-     
-       dr["SubTotal"] = txtInvoice_SubToatal .Text;
-       dr["availqty"] = txtInvoice_AvailabeQty.Text;
-     //  availqty =Convert .ToDouble ( txtInvoice_AvailabeQty.Text);
-       dtstat.Rows.Add(dr);
+                if (dtstat.Rows.Count == 0)
+                {
+                    dtstat.Columns.Add("SrNo");
 
-       lblinvoiceSr.Content = (Convert.ToInt32(lblinvoiceSr.Content ) + 1).ToString();
-      // txtProduct.Text = "";
-      // cmb1();
-       //cmb2();
-       //cmbtShortCode.SelectedIndex = 1;
-       //txtQty.Text = "";
-      // txtRateAndUnit.Text = "";
-       //txtSubTotal.Text = "";
-      
-       Dgrd_InvoiceADDProducts.ItemsSource = dtstat.DefaultView;
-       Dgrd_InvoiceADDProducts.Columns[8].Visibility = Visibility.Hidden;
-      // Dgrd_InvoiceADDProducts.Columns[0].Visibility = Visibility.Hidden;
+                    dtstat.Columns.Add("Products");
 
-       if (dtstat.Rows.Count > 0)
-       {
-           double invamt = 0.00;
-           foreach (DataRow drow in dtstat.Rows)
-           {
+                    dtstat.Columns.Add("RatePer_Product");
+                    dtstat.Columns.Add("Qty");
+                    dtstat.Columns.Add("Total_Price");
+                    dtstat.Columns.Add("Tax Name");
+                    dtstat.Columns.Add("Taxes %");
+                    dtstat.Columns.Add("SubTotal");
+                    dtstat.Columns.Add("availqty");
+                    // dtstat.Columns["availqty"].Visible = false;
+                }
 
-               invamt += Convert.ToDouble(drow["SubTotal"].ToString());
-           }
+                DataRow dr = dtstat.NewRow();
+                dr["SrNo"] = lblinvoiceSr.Content;
+                dr["Products"] = cmbInvoiceStockProducts.Text;
+                dr["RatePer_Product"] = txtInvoiceActualPrice.Text;
+                dr["Qty"] = txtInvoice_Qty.Text;
 
-           txtInvoice_InvcTotalAmount.Text = Convert.ToString(invamt);
+                dr["Total_Price"] = txtInvoice_TotalPriceofQty.Text;
+                dr["Tax Name"] = cmbInvoice_Tax1.Text;
+                dr["Taxes %"] = cmbInvoice_Tax1.SelectedValue.ToString();
 
-       }
-       clearAddText();
+                dr["SubTotal"] = txtInvoice_SubToatal.Text;
+                dr["availqty"] = txtInvoice_AvailabeQty.Text;
+                //  availqty =Convert .ToDouble ( txtInvoice_AvailabeQty.Text);
+                dtstat.Rows.Add(dr);
+
+                lblinvoiceSr.Content = (Convert.ToInt32(lblinvoiceSr.Content) + 1).ToString();
+                // txtProduct.Text = "";
+                // cmb1();
+                //cmb2();
+                //cmbtShortCode.SelectedIndex = 1;
+                //txtQty.Text = "";
+                // txtRateAndUnit.Text = "";
+                //txtSubTotal.Text = "";
+
+                Dgrd_InvoiceADDProducts.ItemsSource = dtstat.DefaultView;
+                Dgrd_InvoiceADDProducts.Columns[8].Visibility = Visibility.Hidden;
+                // Dgrd_InvoiceADDProducts.Columns[0].Visibility = Visibility.Hidden;
+
+                if (dtstat.Rows.Count > 0)
+                {
+                    double invamt = 0.00;
+                    foreach (DataRow drow in dtstat.Rows)
+                    {
+
+                        invamt += Convert.ToDouble(drow["SubTotal"].ToString());
+                    }
+
+                    txtInvoice_InvcTotalAmount.Text = Convert.ToString(invamt);
+
+                }
+                clearAddText();
+
             
-   }
+        }
 
    private void cmbInvoiceStockProducts_DropDownClosed(object sender, EventArgs e)
    {
@@ -3552,6 +3642,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             balpm.Cheque_No = btnInvoice_CH_chequeno.Text;
             balpm.Cheque_Date  =dpInvoice_CH_ChequeDate .SelectedDate .ToString ();
             balpm.Cheque_Bank_Name = cmbInvoic_CH_BankName.Text;
+            balpm.IsClear = "Active";
             balpm.S_Status = "Active";
             balpm.C_Date = System.DateTime.Now.ToShortDateString();
             dalpm.Save_Cheque(balpm);
