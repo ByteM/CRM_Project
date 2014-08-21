@@ -34,7 +34,7 @@ namespace CRM_User_Interface
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
         string caption = "Green Future Glob" ;
         int cid,I,ID,i;
-        double y1,m1,o,p;
+        double y1,m1,o,p,availqty;
         string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue,occu;
         public Button targetButton;
       
@@ -2591,11 +2591,15 @@ namespace CRM_User_Interface
 
         private void rdo_Invoice_Yearlyinstallment_Checked(object sender, RoutedEventArgs e)
         {
+           
             if (rdo_Invoice_Yearlyinstallment.IsChecked == true)
             {
-                rdo_Invoice_Yearlyinstallment.IsEnabled = true;
-                //  rdoInvoice_rdo_Invoice_Monthlyinstallment.IsEnabled = false ;
+                cmdInvoice_InstalYear.Visibility = Visibility;
                 loadyear();
+                cmdInvoice_InstalMonth.Visibility = Visibility.Hidden;
+               // rdo_Invoice_Yearlyinstallment. = true;
+                //  rdoInvoice_rdo_Invoice_Monthlyinstallment.IsEnabled = false ;
+               
             }
             else if (rdo_Invoice_Yearlyinstallment.IsChecked == false )
             {
@@ -2609,8 +2613,8 @@ namespace CRM_User_Interface
         {
             if (rdoInvoice_rdo_Invoice_Monthlyinstallment.IsChecked ==true )
             {
-            rdoInvoice_rdo_Invoice_Monthlyinstallment.IsEnabled = true;
-           // rdo_Invoice_Yearlyinstallment.IsEnabled = false ;
+                cmdInvoice_InstalMonth.Visibility = Visibility;
+            cmdInvoice_InstalYear.Visibility = Visibility.Hidden ;
             loadMonth();
             }
             else if(rdoInvoice_rdo_Invoice_Monthlyinstallment.IsChecked ==false )
@@ -3048,6 +3052,22 @@ public void clearAllAddedProducts()
 
 
    }
+        public void clearAddText()
+{
+    txtInvoice_AvailabeQty.Text = "";
+    txtInvoice_Qty.Text = "";
+    txtInvoiceActualPrice.Text = "";
+    txtInvoice_TotalPriceofQty.Text = "";
+    txtInvoice_SubToatal.Text = "";
+    cmbInvoice_Tax1.ItemsSource = null;
+    FetchtaxDetails();
+    cmbInvoiceStockProducts.ItemsSource = null;
+    loadStockProducts();
+   // Dgrd_InvoiceADDProducts.ItemsSource = null;
+    txtInvoice_remainingqty.Content = "";
+   // txtInvoice_InvcTotalAmount.Text = "";
+
+}
    private void btninvoice_addProduct_Click(object sender, RoutedEventArgs e)
    {
        if (dtstat.Rows.Count == 0)
@@ -3062,6 +3082,8 @@ public void clearAllAddedProducts()
            dtstat.Columns.Add("Tax Name");
            dtstat.Columns.Add("Taxes %");
            dtstat.Columns.Add("SubTotal");
+           dtstat.Columns.Add("availqty") ;
+          // dtstat.Columns["availqty"].Visible = false;
        }
 
        DataRow dr = dtstat.NewRow();
@@ -3069,12 +3091,14 @@ public void clearAllAddedProducts()
        dr["Products"] = cmbInvoiceStockProducts .Text ;
        dr["RatePer_Product"] = txtInvoiceActualPrice .Text;
        dr["Qty"] = txtInvoice_Qty .Text;
+        
        dr["Total_Price"] = txtInvoice_TotalPriceofQty .Text;
        dr["Tax Name"] = cmbInvoice_Tax1.Text ;
        dr["Taxes %"] = cmbInvoice_Tax1.SelectedValue.ToString();
      
        dr["SubTotal"] = txtInvoice_SubToatal .Text;
-
+       dr["availqty"] = txtInvoice_AvailabeQty.Text;
+     //  availqty =Convert .ToDouble ( txtInvoice_AvailabeQty.Text);
        dtstat.Rows.Add(dr);
 
        lblinvoiceSr.Content = (Convert.ToInt32(lblinvoiceSr.Content ) + 1).ToString();
@@ -3087,6 +3111,7 @@ public void clearAllAddedProducts()
        //txtSubTotal.Text = "";
       
        Dgrd_InvoiceADDProducts.ItemsSource = dtstat.DefaultView;
+       Dgrd_InvoiceADDProducts.Columns[8].Visibility = Visibility.Hidden;
       // Dgrd_InvoiceADDProducts.Columns[0].Visibility = Visibility.Hidden;
 
        if (dtstat.Rows.Count > 0)
@@ -3101,7 +3126,7 @@ public void clearAllAddedProducts()
            txtInvoice_InvcTotalAmount.Text = Convert.ToString(invamt);
 
        }
-
+       clearAddText();
             
    }
 
@@ -3385,8 +3410,8 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             {
                 binvd.Flag = 1;
                 binvd.Products123 = g;
-                // binvd.Bill_No = lblbillno.Content.ToString();
-                double d = Convert.ToDouble(txtInvoice_AvailabeQty.Text);
+                 binvd.Bill_No = lblbillno.Content.ToString();
+               double d = Convert.ToDouble(dtstat .Rows [i]["availqty"].ToString ());
                 double q = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
                 double tq = d - q;
                 binvd.AvilableQty = tq;
@@ -3511,9 +3536,11 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             SaveInvoiceDetails();
             Save_CommonBill();
             SaveCheque();
-            updateQuantity();
+           // updateQuantity();
             clear_CustomerFields();
             clearAllAddedProducts();
+            clear_AllCheque();
+
         }
         public void SaveCheque()
         {
@@ -3538,16 +3565,20 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             {
                 con.Open();
                 DataSet ds = new DataSet();
-                cmd = new SqlCommand("select Cheque_Bank_Name from tlb_Cheque  where S_Status='Active'", con);
+                cmd = new SqlCommand("select Distinct ID,Cheque_Bank_Name from tlb_Cheque  where S_Status='Active'", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
                 // con.Open();
                 da.Fill(ds);
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-
-                    cmbInvoic_CH_BankName .ItemsSource = ds.Tables[0].DefaultView;
-                    cmbInvoic_CH_BankName.DisplayMemberPath = ds.Tables["Cheque_Bank_Name"].ToString();
+                    cmbInvoic_CH_BankName.ItemsSource = ds.Tables[0].DefaultView;
+                    cmbInvoic_CH_BankName.DisplayMemberPath = ds.Tables[0].Columns["Cheque_Bank_Name"].ToString();
+                    cmbInvoic_CH_BankName.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                   // cmbInvoic_CH_BankName.SelectedValuePath = dt.Rows[0]["ID"].GetHashCode;
+                   // cmbInvoic_CH_BankName.ItemsSource = dt.DefaultView;
+                    //cmbInvoic_CH_BankName.DisplayMemberPath  = dt.Rows[0]["Cheque_Bank_Name"].ToString();
                 }
             }
             catch (Exception)
@@ -3567,6 +3598,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             Clear_SaveInstallment();
             clear_CustomerFields();
             clearAllAddedProducts();
+           
         }
         public void Clear_SaveInstallment()
         {
@@ -3575,7 +3607,10 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             txtInvoice_InstalBalanceAmount.Text = "";
             txtInvoice_InstalAmountPermonth.Text = "";
             dpInvoice_Instalpermonth.Text = "";
-           // rdo_Invoice_Yearlyinstallment
+            rdo_Invoice_Yearlyinstallment.IsChecked = false;
+            rdoInvoice_rdo_Invoice_Monthlyinstallment.IsChecked = false;
+            cmdInvoice_InstalYear.Visibility = Visibility .Hidden ;
+            cmdInvoice_InstalMonth.Visibility = Visibility.Hidden;
         }
         public void SaveInstallment()
         {
@@ -4618,6 +4653,24 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
 
    }
 
+   private void btnInvoice_CH_Clear_Click(object sender, RoutedEventArgs e)
+   {
+       clear_AllCheque();
+   }
+public void clear_AllCheque()
+   {
+       btnInvoice_CH_InvcTAmount.Text = "";
+       btnInvoice_CH_chequeno.Text = "";
+       btnInvoice_CH_Amount.Text = "";
+       dpInvoice_CH_ChequeDate.Text = "";
+    cmbInvoic_CH_BankName.ItemsSource =null;
+    FetchBankName();
+   }
+
+private void cmbInvoic_CH_BankName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+{
+
+}
    }
    
 }
