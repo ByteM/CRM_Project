@@ -1209,7 +1209,7 @@
                     </cht:Chart.Series>
                 </cht:Chart>
             </Grid>
-            <Grid x:Name="grd_CheckDetails" HorizontalAlignment="Left" Height="563" Margin="21,67,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0" Loaded="grd_CheckDetails_Loaded">
+            <Grid x:Name="grd_CheckDetails" Visibility="Hidden" HorizontalAlignment="Left" Height="563" Margin="21,66,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0" Loaded="grd_CheckDetails_Loaded">
                 <Button x:Name="btnCheckCustomer_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1083,1,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnCheckCustomer_Exit_Click"/>
                 <Label Content="Cheque Details" HorizontalAlignment="Left" Margin="2,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
                 <Grid HorizontalAlignment="Left" Height="517" Margin="9,36,0,0" VerticalAlignment="Top" Width="1140" Background="White">
