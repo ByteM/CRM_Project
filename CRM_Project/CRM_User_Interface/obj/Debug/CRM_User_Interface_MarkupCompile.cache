@@ -4,17 +4,26 @@
 winexe
 C#
 .cs
-C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\
+C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\
 CRM_User_Interface
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\App.xaml
 14877467670
 1-9177176
 19-1263558558
 2168323778
 Add Product\Add_Products.xaml;ADD_Tax.xaml;AdminLogin.xaml;Admin_Dashbord.xaml;CRM_AdminDashbord.xaml;CRM_MainDashbord.xaml;CRM_MainForm.xaml;CSS.xaml;frmCRM_DealerDetailsEdit.xaml;frmCRM_EmpDetailsEdit.xaml;FrmDefaultSMS.xaml;MainWindow.xaml;CRM_Main_Login.xaml;frmInsurance.xaml;
+=======
+C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\App.xaml
+14-1762376750
+1-9177176
+201881551995
+21-782606722
+Add Product\Add_Products.xaml;ADD_Tax.xaml;AdminLogin.xaml;Admin_Dashbord.xaml;CRM_AdminDashbord.xaml;CRM_MainDashbord.xaml;CRM_MainForm.xaml;CSS.xaml;frmCRM_DealerDetailsEdit.xaml;frmCRM_EmpDetailsEdit.xaml;frmCustomerBirthdayAlert.xaml;MainWindow.xaml;CRM_Main_Login.xaml;frmInsurance.xaml;
+>>>>>>> origin/master
 
 False
 

@@ -206,6 +206,10 @@ C:\Users\Dexter\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface_Content.g.cs
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\CRM_User_Interface.exe.manifest
 C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.exe.manifest
+<<<<<<< HEAD
+C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\frmCustomerBirthdayAlert.baml
+C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\frmCustomerBirthdayAlert.g.cs
+=======
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\CRM_User_Interface.exe.config
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.csproj.ResolveComReference.cache
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.exe
@@ -255,5 +259,11 @@ C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.Properties.Resources.resources
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.csproj.GenerateResource.Cache
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\CRM_User_Interface.exe.manifest
+<<<<<<< HEAD
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\FrmDefaultSMS.baml
 C:\Users\Dexter\Documents\GitHub\CRM\CRM_Project\CRM_Project\CRM_User_Interface\obj\Debug\FrmDefaultSMS.g.cs
+=======
+>>>>>>> origin/master
+C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.pdb
+C:\Users\Nazia Tabassum\Documents\GitHub\CRM_Project\CRM_Project\CRM_User_Interface\bin\Debug\WPFToolkit.pdb
+>>>>>>> origin/master

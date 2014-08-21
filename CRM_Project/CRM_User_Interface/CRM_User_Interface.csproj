@@ -64,10 +64,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="APIClient.cs" />
     <Compile Include="DateDiff.cs" />
     <Compile Include="DateDifference.cs" />
+<<<<<<< HEAD
     <Compile Include="FrmDefaultSMS.xaml.cs">
       <DependentUpon>FrmDefaultSMS.xaml</DependentUpon>
+=======
+    <Compile Include="frmCustomerBirthdayAlert.xaml.cs">
+      <DependentUpon>frmCustomerBirthdayAlert.xaml</DependentUpon>
+>>>>>>> origin/master
     </Compile>
     <Compile Include="frmInsurance.xaml.cs">
       <DependentUpon>frmInsurance.xaml</DependentUpon>
@@ -112,7 +118,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
     <Page Include="FrmDefaultSMS.xaml">
+=======
+    <Page Include="frmCustomerBirthdayAlert.xaml">
+>>>>>>> origin/master
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
