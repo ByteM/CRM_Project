@@ -68,6 +68,12 @@ namespace CRM_User_Interface
         BAL_Pre_Procurement bpreproc = new BAL_Pre_Procurement();
         DAL_Pre_Procurement dpreproc = new DAL_Pre_Procurement();
 
+        /// <summary>
+        /// Check Update
+        /// </summary>
+        BAL_CheckClearUpdate bcheckUp = new BAL_CheckClearUpdate();
+        DAL_CheckClearUpdate dcheckUp = new DAL_CheckClearUpdate();
+
         BAL_EmployeeEntry bempetr = new BAL_EmployeeEntry();
         DAL_EmployeeEntry dempetr = new DAL_EmployeeEntry();
         BAL_DealerEntry bdealeretr = new BAL_DealerEntry();
@@ -5012,9 +5018,17 @@ namespace CRM_User_Interface
         #endregion ProgressDetails Function
         #endregion ChartFunction
 
-        private void btnCheckCustomer_Exit_Click(object sender, RoutedEventArgs e)
+        #region Cheque Function
+        #region ChequeClear Fun
+        public bool CheckClear_Validation()
         {
-            grd_CheckDetails.Visibility = System.Windows.Visibility.Hidden;
+            bool result = false;
+            if (txtChequeID.Text == "")
+            {
+                result = true;
+                MessageBox.Show("Please Select Check", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            return result;
         }
 
         public void GetData_ChequeDetails()
@@ -5041,12 +5055,12 @@ namespace CRM_User_Interface
                     str = str + "C.[Name] LIKE ISNULL('" + txtCustomerName_Cheque_Search.Text.Trim() + "',C.[Name]) + '%' AND ";
                 }
 
-                str = str + " P.[S_Status] = 'Active' ORDER BY P.[Cheque_Date] ASC ";
+                str = str + " P.[IsClear] = 'Active' ORDER BY P.[Cheque_Date] ASC ";
                 //str = str + " S_Status = 'Active' ";
                 SqlCommand cmd = new SqlCommand(str, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(ds);
-
+                
                 //if (ds.Tables[0].Rows.Count > 0)
                 //{
                 dgv_ChequeDetails.ItemsSource = ds.Tables[0].DefaultView;
@@ -5060,74 +5074,6 @@ namespace CRM_User_Interface
             {
                 con.Close();
             }
-        }
-
-        private void grd_CheckDetails_Loaded(object sender, RoutedEventArgs e)
-        {
-            GetData_ChequeDetails();
-        }
-
-        private void txtCustomerName_Cheque_Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            GetData_ChequeDetails();
-        }
-
-        private void dtpFrom_ChequeSearch_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            GetData_ChequeDetails();
-        }
-
-        private void dtpTo_ChequeSearch_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            GetData_ChequeDetails();
-        }
-
-        private void btnCheckCustomer_Refresh_Click(object sender, RoutedEventArgs e)
-        {
-            txtCustomerName_Cheque_Search.Text = "";
-            dtpFrom_ChequeSearch.Text = "";
-            dtpTo_ChequeSearch.Text = "";
-            GetData_ChequeDetails();
-        }
-
-        private void btnCheckCustomer_ChequeClear_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show("Do you want to Clear Cheque No.- \n" + txtChequeNo.Text.Trim() + "", caption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (result == MessageBoxResult.No)
-            {
-                return;
-            }
-            if (result == MessageBoxResult.Yes)
-            {
-                if (dtpChequeDate.SelectedDate <= DateTime.Now)
-                {
-                    //ChequeClear();
-                    //Cal_BalanceAmt();
-                    //if (Convert.ToDouble(txtbalanceAmt.Text.Trim()) == Convert.ToDouble(0))
-                    //{
-                    //    Update_InstallmentPayment_IsPaid();
-                    //}
-                    //Update_SuspenseAccount_IsBounceClear();
-                    //Update_InstallmentPayment_NotPaidClear();
-                    MessageBox.Show("Clear Cheque", caption, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Can Not Clear Cheque Before Date", caption, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                //GetData();
-                //CalTotalAmount();
-            }
-            else
-            {
-                MessageBox.Show("Error ..!", caption, MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-        }
-
-        private void dgv_ChequeDetails_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            Cheque_FillData();
         }
 
         public void Cheque_FillData()
@@ -5161,6 +5107,117 @@ namespace CRM_User_Interface
                 con.Close();
             }
         }
+
+        public void ChequeClear()
+        {
+            bcheckUp.Flag = 1;
+            bcheckUp.CheckID = Convert.ToInt32(txtChequeID.Text);
+            bcheckUp.IsClear = "DeActive";
+            dcheckUp.CheckUpdate_Insert_Update_Delete(bcheckUp);
+            MessageBox.Show("Cheque Clear Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        #endregion ChequeClear Fun
+
+        #region Cheque Load Event
+        private void grd_CheckDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetData_ChequeDetails();
+            
+        }
+        #endregion Cheque Load Event
+
+        #region Cheque Button Event
+        private void btnCheckCustomer_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_CheckDetails.Visibility = System.Windows.Visibility.Hidden;
+            dtpChequeDate.Text = "";
+            txtChequeID.Text = "";
+            txtChequeNo.Text = "";
+        }
+
+        private void btnCheckCustomer_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+           // GetData_ChequeDetails();
+            txtCustomerName_Cheque_Search.Text = "";
+            dtpFrom_ChequeSearch.Text = "";
+            dtpTo_ChequeSearch.Text = "";
+            dtpChequeDate.Text = "";
+            txtChequeID.Text = "";
+            txtChequeNo.Text = "";
+        }
+
+        private void btnCheckCustomer_ChequeClear_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckClear_Validation() == true)
+                return;
+
+            var result = MessageBox.Show("Do you want to Clear Cheque No.- \n" + txtChequeNo.Text.Trim() + "", caption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            if (result == MessageBoxResult.Yes)
+            {
+                if (dtpChequeDate.SelectedDate <= DateTime.Now)
+                {
+                    ChequeClear();
+
+                    //Cal_BalanceAmt();
+                    //if (Convert.ToDouble(txtbalanceAmt.Text.Trim()) == Convert.ToDouble(0))
+                    //{
+                    //    Update_InstallmentPayment_IsPaid();
+                    //}
+                    //Update_SuspenseAccount_IsBounceClear();
+                    //Update_InstallmentPayment_NotPaidClear();
+                    //MessageBox.Show("Clear Cheque", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Can Not Clear Cheque Before Date", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                //GetData();
+                //CalTotalAmount();
+                
+            }
+            else
+            {
+                MessageBox.Show("Error ..!", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            dtpChequeDate.Text = "";
+            txtChequeID.Text = "";
+            txtChequeNo.Text = "";
+            //dgv_ChequeDetails.UnselectAllCells();
+            //GetData_ChequeDetails();
+        }
+        #endregion Cheque Button Event
+
+        #region Cheque Event
+        private void dgv_ChequeDetails_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Cheque_FillData();
+        }
+
+        private void txtCustomerName_Cheque_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GetData_ChequeDetails();
+        }
+
+        private void dtpFrom_ChequeSearch_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetData_ChequeDetails();
+        }
+
+        private void dtpTo_ChequeSearch_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetData_ChequeDetails();
+        }
+        #endregion Cheque Event
+
+        #endregion Cheque Function
+
+
 
     }
 }
