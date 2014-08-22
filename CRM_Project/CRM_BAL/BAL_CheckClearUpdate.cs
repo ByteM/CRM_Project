@@ -15,6 +15,6 @@ namespace CRM_BAL
 
         public int CheckID { get; set; }
 
-
+        public string IsClear { get; set; }
     }
 }
