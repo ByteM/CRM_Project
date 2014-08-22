@@ -698,12 +698,12 @@
                             <ColumnDefinition Width="0*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="Invoice.." HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,8,0,0" FontSize="16" FontWeight="Bold" Width="115" Grid.ColumnSpan="2"/>
+                        <Label Content="Invoice.." HorizontalAlignment="Left" VerticalAlignment="Top" Margin="404,8,0,0" FontSize="16" FontWeight="Bold" Width="115" Grid.ColumnSpan="2"/>
                         <GroupBox x:Name="grpaddproducts1" Header="Add Products" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="1120" Height="285" Grid.ColumnSpan="2">
                             <Grid HorizontalAlignment="Left" Margin="0,5,-2,-2" Width="1110">
                                 <Label Content="Products :" HorizontalAlignment="Left" Margin="42,1,0,0" VerticalAlignment="Top"/>
                                 <Label Content="Available Qty :" HorizontalAlignment="Left" Margin="342,-1,0,0" VerticalAlignment="Top"/>
-                                <Label Content="Tax" HorizontalAlignment="Left" Margin="762,1,0,0" VerticalAlignment="Top"/>
+                                <Label Content="Tax" HorizontalAlignment="Left" Margin="794,1,0,0" VerticalAlignment="Top"/>
                                 <Label Content="Sub Total" HorizontalAlignment="Left" Margin="846,1,0,0" VerticalAlignment="Top"/>
                                 <ComboBox x:Name="cmbInvoiceStockProducts" HorizontalAlignment="Left" Margin="9,31,0,0" VerticalAlignment="Top" Width="330" SelectionChanged="ComboBox_SelectionChanged" IsEditable="True" DropDownClosed="cmbInvoiceStockProducts_DropDownClosed"/>
                                 <Label Content="Qty" HorizontalAlignment="Left" Margin="564,1,0,0" VerticalAlignment="Top"/>
@@ -722,7 +722,8 @@
 
                                 <ComboBox x:Name="cmbInvoice_Tax1" HorizontalAlignment="Left" Margin="737,30,0,0" VerticalAlignment="Top" Width="85" IsEditable="True" SelectionChanged="cmbInvoice_Tax_SelectionChanged" Height="24" DropDownClosed="cmbInvoice_Tax1_DropDownClosed"/>
                                 <Label x:Name="lblinvoiceSr" Content="1" HorizontalAlignment="Left" Margin="123,0,0,0" VerticalAlignment="Top"/>
-                                <Label x:Name="txtInvoice_remainingqty" Content="Qty" HorizontalAlignment="Left" Margin="624,-51,0,0" VerticalAlignment="Top"/>
+                                <Label x:Name="txtInvoice_remainingqty" Content="Qty" HorizontalAlignment="Left" Margin="566,-19,0,0" VerticalAlignment="Top"/>
+                                <ComboBox x:Name="cmbInvoiceEmployeename" HorizontalAlignment="Left" Margin="694,-41,0,0" VerticalAlignment="Top" Width="330" SelectionChanged="ComboBox_SelectionChanged" IsEditable="True" DropDownClosed="cmbInvoiceStockProducts_DropDownClosed"/>
 
                             </Grid>
                         </GroupBox>
@@ -777,7 +778,7 @@
                             <Label x:Name="___No_Name_txtInvoice_C_Invoiceno" Content="Invoice No " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="48,12,0,0"/>
 
                         </Grid>
-                        <Grid HorizontalAlignment="Left"  Name="GRDInvoice_Cheque" Visibility="Visible"  Height="200" Margin="370,338,0,0" VerticalAlignment="Top" Width="740" Background="#FFF0F0F0" Grid.ColumnSpan="2">
+                        <Grid HorizontalAlignment="Left"  Name="GRDInvoice_Cheque" Visibility="Hidden"   Height="200" Margin="370,338,0,0" VerticalAlignment="Top" Width="740" Background="#FFF0F0F0" Grid.ColumnSpan="2">
                             <Label Content="Cheque" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="336,7,0,0" FontWeight="Bold" FontSize="14"/>
                             <Label Content="Invoice Total Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,44,0,0" FontSize="14" Width="170"/>
                             <Label Content="Cheque No :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,35,0,0" FontSize="14" Width="110"/>
@@ -798,7 +799,7 @@
                         <Grid x:Name="GRDInvoice_Finance" Visibility="Hidden"    HorizontalAlignment="Left" Height="220" VerticalAlignment="Top" Width="655" Margin="380,305,0,0" Background="#FFF0F0F0" Grid.ColumnSpan="2">
 
                         </Grid>
-                        <Grid x:Name="GRDInvoice_Installment" Visibility="Hidden"     HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="715" Margin="380,255,0,0" Background="#FFD8F2D6" Grid.ColumnSpan="2">
+                        <Grid x:Name="GRDInvoice_Installment" Visibility="Visible"      HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="715" Margin="380,255,0,0" Background="#FFD8F2D6" Grid.ColumnSpan="2">
 
                             <Label Content="Installment" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,-1,0,0" FontSize="14" FontWeight="Bold"/>
                             <Label Content="Invoice Total Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0"/>
@@ -823,7 +824,7 @@
 
                         </Grid>
                         <Button x:Name="btnInvoice_MainExit" Grid.ColumnSpan="2" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1055,5,0,0" Click="btnInvoice_MainExit_Click"/>
-                        <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Margin="754,20,0,0" Height="26" Width="40">
+                        <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Margin="764,62,0,0" Height="26" Width="40">
                             <Hyperlink NavigateUri="ADD_Tax.xaml" Click="Hyperlink_Click" >TAX</Hyperlink>
                         </TextBlock>
                         <TextBox x:Name="txtd" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="35" Margin="19,6,0,0"/>
@@ -834,6 +835,7 @@
                         <TextBox x:Name="txtC" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="35" Margin="249,6,0,0"/>
                         <TextBox x:Name="txtid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" Margin="299,6,0,0"/>
                         <Label x:Name="lblbillno" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="359,6,0,0" FontSize="16" FontWeight="Bold" Width="115" Grid.ColumnSpan="2"/>
+                        <Label Content="Employee Name :" HorizontalAlignment="Left" Margin="600,8,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     </Grid>
 
                 </Grid>

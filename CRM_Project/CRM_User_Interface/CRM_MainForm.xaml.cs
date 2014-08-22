@@ -3619,9 +3619,35 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
 
             }
         }
-
+        public bool cash_Validation()
+        {
+            bool rc = false;
+            if(btnInvoice_CH_Amount.Text =="")
+            {
+                rc = true;
+                MessageBox.Show("Please Inter Cheque Amount ", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (btnInvoice_CH_chequeno.Text =="")
+            {
+                rc = true;
+                MessageBox.Show("Please Inter Cheque Number ", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (dpInvoice_CH_ChequeDate.Text == "")
+            {
+                rc = true;
+                MessageBox.Show("Please Select Date ", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (cmbInvoic_CH_BankName.SelectedItem == "")
+            {
+                rc = true;
+                MessageBox.Show("Please Select Bank Name ", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return rc;
+        }
         private void btnInvoice_CH_SaveandPrint_Click(object sender, RoutedEventArgs e)
         {
+            if (cash_Validation() == true)
+                return;
             FetchCustomerID();
             SaveInvoiceDetails();
             Save_CommonBill();
@@ -3634,6 +3660,8 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         }
         public void SaveCheque()
         {
+            if (cash_Validation() == true)
+                return;
             balpm.Flag = 1;
             balpm.Customer_ID = I;
             balpm.Bill_No = lblbillno.Content.ToString();
@@ -3679,9 +3707,35 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             }
             finally { con.Close(); }
         }
+        public bool Installment_Validation()
+        {
+            bool inst = false;
+            if(txtInvoice_InstalPaidAmount.Text =="")
+            {
+                inst =true ;
+                MessageBox.Show("Please Enter Paid Amount", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (dpInvoice_Instalpermonth.Text == "")
+            { inst =true ;
+            MessageBox.Show("Please Select Date", caption, MessageBoxButton.OK, MessageBoxImage.Error);
 
+            }
+            // else if(rdo_Invoice_Yearlyinstallment. =="")
+            //{ inst =true ;
+            //MessageBox.Show("Please Enter Paid Amount", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+
+            //}
+            // else if(dpInvoice_Instalpermonth.Text =="")
+            //{ inst =true ;
+            //MessageBox.Show("Please Enter Paid Amount", caption, MessageBoxButton.OK, MessageBoxImage.Error);
+
+            //}
+            return inst;
+        }
         private void btnInvoice_InstalSaveandPrint_Click(object sender, RoutedEventArgs e)
         {
+            if (Installment_Validation() == true)
+                return;
             FetchCustomerID();
             SaveInvoiceDetails();
             Save_CommonBill();
