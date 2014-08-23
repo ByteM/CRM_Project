@@ -51,13 +51,13 @@ namespace CRM_User_Interface
         {
             this.Close();
         }
-
+        string SET_YEAR;
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 string FPInsurance;
-                string SET_YEAR;
+                
 
                 binsuranceEntry.Flag = 1;
                 binsuranceEntry.CustomerID = Convert.ToInt32(txtCustomerID.Text);
@@ -73,21 +73,23 @@ namespace CRM_User_Interface
                 binsuranceEntry.IntervalMonthY = cmbInterval.Text;
                 binsuranceEntry.IntervalAmount = Convert.ToDouble(txtIntervalTotalAmt.Text);
 
-                string STRTODAYDATE = Convert.ToString(dtpDate.SelectedDate);
-                string time = Convert.ToString(dtpDate.SelectedDate);
+                string STRTODAYDATE = Convert.ToString(txtDate.Text);
+                
+                //string time = Convert.ToString(dtpDate.SelectedDate);
                 string[] STRVAL = STRTODAYDATE.Split('-');
                 string STR_DATE1 = STRVAL[0];
                 string STR_MONTH = STRVAL[1];
                 string STR_YEAR = STRVAL[2];
                 if(cmbValidity.SelectedItem.Equals("Year"))
                 {
-                    string vlYear,vlNo,addNY;
-                    vlYear = Convert.ToString(STR_YEAR);
-                    vlNo = Convert.ToString(txtValidity.Text);
+                    int vlYear,vlNo,addNY;
+                    vlYear = Convert.ToInt32(STR_YEAR);
+                    vlNo = Convert.ToInt32(txtValidity.Text);
                     addNY = vlYear + vlNo;
                     SET_YEAR = Convert.ToString(addNY);
                 }
-                SET_YEAR = STRVAL[3];
+                
+               
                 string DATE = STR_DATE1 + "-" + STR_MONTH + "-" + SET_YEAR;
                 dtpInstallmentDate.Text = DATE;
 
@@ -425,6 +427,11 @@ namespace CRM_User_Interface
             double Months = Years * 12;
             double Days = Convert.ToDouble(ts.TotalDays); 
 
+        }
+
+        private void dtpDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            txtDate.Text = dtpDate.Text;
         }
     }
 }
