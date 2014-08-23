@@ -4116,7 +4116,7 @@ namespace CRM_User_Interface
 
             while (dr.Read())
             {
-                txtPrice.Text = dr["Price"].ToString();
+                txtPrice4.Text = dr["Price"].ToString();
             }
             con.Close();
         }
@@ -5215,9 +5215,14 @@ namespace CRM_User_Interface
         }
         #endregion Cheque Event
 
+        private void smCheckDetails_Click(object sender, RoutedEventArgs e)
+        {
+            grd_CheckDetails.Visibility = System.Windows.Visibility.Visible;
+        }
+
         #endregion Cheque Function
 
-
+        
 
     }
 }

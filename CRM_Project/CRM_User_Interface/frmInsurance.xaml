@@ -41,7 +41,8 @@
                     <Label Content="ProductName" HorizontalAlignment="Left" Margin="32,119,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="lblProductName" Content="ProductName" HorizontalAlignment="Left" Margin="164,118,0,0" VerticalAlignment="Top" Width="301"/>
                 </Grid>
-                <TextBox x:Name="txtInsuranceID" HorizontalAlignment="Left" Height="23" Margin="505,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31"/>
+                <TextBox x:Name="txtInsuranceID" HorizontalAlignment="Left" Height="23" Margin="454,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31"/>
+                <TextBox x:Name="txtCustomerID" HorizontalAlignment="Left" Height="23" Margin="501,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31"/>
             </Grid>
         </Grid>
     </Border>
