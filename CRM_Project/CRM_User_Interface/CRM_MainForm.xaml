@@ -50,7 +50,7 @@
                     <MenuItem Name="smaddfolloup" Header="Follow_up " Click="smaddfolloup_Click"/>
                     <MenuItem  x:Name="smnewwalkin" Header="Open New Walk-In" Click="smnewwalkin_Click"/>
                     <MenuItem Header="Installment" x:Name="smaddinstallment" Click="smaddinstallment_Click"/>
-                    <MenuItem Header=" View Walkins" x:Name="smviewwalkin"/>
+                    <MenuItem Header=" View Walkins" x:Name="smviewwalkin" Click="smviewwalkin_Click"/>
                     <MenuItem Header=" View Sales" x:Name="smviewsale"/>
                     <MenuItem Header=" View Reports" x:Name="smviewreports"/>
                     <MenuItem Header=" Import/Export" x:Name="smiport_export"/>
@@ -454,7 +454,7 @@
                         </StackPanel>-->
                 </Grid>
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="565" Margin="20,66,0,0" Name="GRD_Follwupandnew"  Visibility="Hidden"  VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" >
+            <Grid HorizontalAlignment="Left" Height="565" Margin="20,66,0,0" Name="GRD_Follwupandnew"  Visibility="Hidden"    VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" >
                 <Grid HorizontalAlignment="Left" Height="540" Name="grd_addfollowupandwalkin" Margin="160,15,0,0" VerticalAlignment="Top" Width="835" Background="White">
                     <Label Content="Follow up Details" HorizontalAlignment="Left" Margin="409,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" />
                     <Label Content="Follow_up ID :" HorizontalAlignment="Left" Margin="95,47,0,0" VerticalAlignment="Top" Width="90"/>
@@ -493,7 +493,7 @@
                 </Grid>
             </Grid>
 
-            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Hidden"      VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Hidden"              VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <!--<Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales1"  Visibility="Hidden" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">-->
 
                 <Grid HorizontalAlignment="Left" Height="545" Visibility="Visible"  Margin="6,10,0,0" VerticalAlignment="Top" Width="1145" Background="White">
@@ -509,7 +509,7 @@
                     <Grid HorizontalAlignment="Left" Visibility="Visible" Name="GRD_FollowupCostomer" Height="495" VerticalAlignment="Top" Width="1135" Margin="5,45,0,0" Grid.ColumnSpan="2" Background="#FFF0F0F0">
 
 
-                        <DataGrid x:Name="DGRD_SaleFollowup" Visibility="Visible"   HorizontalAlignment="Left" IsReadOnly="False" Margin="5,80,0,-10" VerticalAlignment="Top" Height="425" Width="1125" SelectionChanged="DataGrid_SelectionChanged" IsEnabled="False" AutoGenerateColumns="False" SelectedCellsChanged="DGRD_SaleFollowup_SelectedCellsChanged" MouseDoubleClick="DGRD_SaleFollowup_MouseDoubleClick">
+                        <DataGrid x:Name="DGRD_SaleFollowup" Visibility="Visible"   HorizontalAlignment="Left" IsReadOnly="False" Margin="5,80,0,0" VerticalAlignment="Top" Height="410" Width="1125" SelectionChanged="DataGrid_SelectionChanged" IsEnabled="False" AutoGenerateColumns="False" SelectedCellsChanged="DGRD_SaleFollowup_SelectedCellsChanged" MouseDoubleClick="DGRD_SaleFollowup_MouseDoubleClick">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Width="30" x:Name="grdid" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />
                                 <DataGridTextColumn Header="FID" Width="0" x:Name="grdfid" SortMemberPath="VisitorName" Binding="{Binding Followup_ID, Mode=TwoWay}" />
@@ -650,7 +650,7 @@
                 </Grid>
 
             </Grid>
-            <Grid HorizontalAlignment="Right" Visibility="Visible"  Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
+            <Grid HorizontalAlignment="Right" Visibility="Hidden"  Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
                 <!--<Grid HorizontalAlignment="Right" Visibility="Visible"    x:Name="Grd_genratebill1" Height="565" Margin="-4,0,4,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
 
 
@@ -799,7 +799,7 @@
                         <Grid x:Name="GRDInvoice_Finance" Visibility="Hidden"    HorizontalAlignment="Left" Height="220" VerticalAlignment="Top" Width="655" Margin="380,305,0,0" Background="#FFF0F0F0" Grid.ColumnSpan="2">
 
                         </Grid>
-                        <Grid x:Name="GRDInvoice_Installment" Visibility="Visible"      HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="715" Margin="380,255,0,0" Background="#FFD8F2D6" Grid.ColumnSpan="2">
+                        <Grid x:Name="GRDInvoice_Installment" Visibility="Hidden"      HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="715" Margin="380,255,0,0" Background="#FFD8F2D6" Grid.ColumnSpan="2">
 
                             <Label Content="Installment" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,-1,0,0" FontSize="14" FontWeight="Bold"/>
                             <Label Content="Invoice Total Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0"/>
@@ -975,6 +975,55 @@
                 </Grid>
 
 
+            </Grid>
+            <Grid HorizontalAlignment="Left" Height="565" Name="Grd_View_Walkins" Visibility="Visible"  Margin="23,65,0,0" VerticalAlignment="Top" Width="1157" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Width="1140" Margin="7,15,0,5" Background="White">
+                    <GroupBox Header="Search Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1130" Margin="5,30,0,0" Height="115">
+                        <Grid HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="1120" Margin="0,0,-2,0">
+                            <Label Content="Please Select Option :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,4,0,0"/>
+                            <RadioButton x:Name="rdo_ViewWalkinsAll" Content="All" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="236,12,0,0" GroupName="walkins" Width="65" Checked="rdo_ViewWalkinsAll_Checked"/>
+                            <RadioButton x:Name="rdo_ViewWalkinsName" Content="By Name and Number" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="331,12,0,0" GroupName="walkins" Height="20" Width="155" Checked="rdo_ViewWalkinsName_Checked"/>
+                            <RadioButton x:Name="rdo_View_WalkinsDate" Content="By Dates" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="515,12,0,0" GroupName="walkins" Height="20" Width="74" Checked="rdo_View_WalkinsDate_Checked"/>
+                            <Label Content="Enter Name :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,32,0,0" Width="96"/>
+                            <Label Content="Enter Number :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="473,38,0,0"/>
+                            <Label Content="From Date :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,63,0,0"/>
+                            <Label Content="To Date :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="473,65,0,0"/>
+                            <TextBox x:Name="txt_View_walkinName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" Margin="122,37,0,0" IsEnabled="False" TextChanged="txt_View_walkinName_TextChanged"/>
+                            <TextBox x:Name="txt_View_walkinNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Margin="594,37,0,0" IsEnabled="False" TextChanged="txt_View_walkinNumber_TextChanged"/>
+                            <DatePicker x:Name="dp_View_walkinFromdate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,67,0,0" Width="290" IsEnabled="False" TextInput="dp_View_walkinFromdate_TextInput"/>
+                            <DatePicker x:Name="dp_View_walkinTodate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="594,66,0,0" Width="290" IsEnabled="False"/>
+                            <Button x:Name="btn_View_walkinSearch" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="919,39,0,0" IsEnabled="False"  />
+                            <Button x:Name="btn_View_walkinRefresh" Content="Refresh" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1007,39,0,0" IsEnabled="False" Click="btn_View_walkinRefresh_Click"  />
+                            <Button x:Name="btn_view_walkinPrint" Content="Print" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Margin="934,66,0,0" Click="btn_view_walkinExit_Click"/>
+                        </Grid>
+                    </GroupBox>
+                    <Label Content="View Walk-ins" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="520,-1,0,0"/>
+                    <Button x:Name="btn_view_walkinExit" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1060,5,0,0" Click="btn_view_walkinExit_Click"/>
+                    <DataGrid HorizontalAlignment="Left" AutoGenerateColumns="False" Name="GRD_View_Walkin" VerticalAlignment="Top" Margin="8,150,0,0" Height="395" Width="1127">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Width="30" x:Name="grdidvw" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="FID" Width="120" x:Name="grdfidvw" SortMemberPath="VisitorName" Binding="{Binding Followup_ID, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Name" x:Name="grdNamevw" Width="150" SortMemberPath="MobileNo" Binding="{Binding Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Mobile_No" Width="100"  x:Name="grdmobilevw" SortMemberPath="PhoneNo" Binding="{Binding Mobile_No, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Date_Of_Birth" Width="90" x:Name="grddobvw" SortMemberPath="VisitorAddress" Binding="{Binding Date_Of_Birth, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Email_ID" x:Name="grdeidvw" Width="130" SortMemberPath="AvgBuget" Binding="{Binding Email_ID, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Address" x:Name="grdaddressvw" Width="127" SortMemberPath="AvgBuget" Binding="{Binding Address, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Product_Details" x:Name="grdprodetailsvw" Width="100" SortMemberPath="AvgBuget" Binding="{Binding Product_Details, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Followup_Type" x:Name="grdfollowuptypevw" Width="100" SortMemberPath="AvgBuget" Binding="{Binding Followup_Type, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="F_Date" x:Name="grdfdatevw" SortMemberPath="AvgBuget" Width="90" Binding="{Binding F_Date, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Issude_Date" x:Name="grdcdatevw" Width="82" SortMemberPath="AvgBuget" Binding="{Binding C_Date, Mode=TwoWay}" />
+                            <!--<DataGridCheckBoxColumn Header="IsInterested" x:Name="isInterested" SortMemberPath="IsInterested" Binding="{Binding IsInterested, Mode=TwoWay}" />-->
+                            <!--<DataGridTemplateColumn Header="IsInterested" Width="70" x:Name="isInterestedvw" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Checked="CheckBox_Checked" Name="chkisinterested" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </Grid>
             </Grid>
 
 

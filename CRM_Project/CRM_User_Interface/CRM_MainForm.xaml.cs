@@ -4816,6 +4816,224 @@ private void cmbInvoic_CH_BankName_SelectionChanged(object sender, SelectionChan
 {
 
 }
+
+private void rdo_ViewWalkinsAll_Checked(object sender, RoutedEventArgs e)
+{
+    if(rdo_ViewWalkinsAll .IsChecked ==true )
+    {
+        clear_VW();
+        dp_View_walkinTodate.IsEnabled = false;
+        dp_View_walkinFromdate.IsEnabled = false;
+        btn_View_walkinRefresh.IsEnabled = false;
+        btn_View_walkinSearch.IsEnabled = false;
+        txt_View_walkinName.IsEnabled = false;
+        txt_View_walkinNumber.IsEnabled = false;
+        FetchallDetailsofFollowupwalkins();
+    }
+}
+
+private void rdo_ViewWalkinsName_Checked(object sender, RoutedEventArgs e)
+{
+    if (rdo_ViewWalkinsName.IsChecked==true )
+    {
+        clear_VW();
+        txt_View_walkinName.IsEnabled = true ;
+        txt_View_walkinNumber.IsEnabled = true ;
+        dp_View_walkinTodate.IsEnabled = false;
+        dp_View_walkinFromdate.IsEnabled = false;
+        btn_View_walkinRefresh.IsEnabled = true ;
+        btn_View_walkinSearch.IsEnabled = true ;
+        FetchallDetailsofFollowupwalkins();
+
+    }
+}
+
+private void rdo_View_WalkinsDate_Checked(object sender, RoutedEventArgs e)
+{
+    if (rdo_View_WalkinsDate.IsChecked ==true )
+    {
+        clear_VW();
+        txt_View_walkinName.IsEnabled = false ;
+        txt_View_walkinNumber.IsEnabled = false ;
+        dp_View_walkinTodate.IsEnabled = true ;
+        dp_View_walkinFromdate.IsEnabled = true ;
+        btn_View_walkinRefresh.IsEnabled = true;
+        btn_View_walkinSearch.IsEnabled = true;
+        FetchallDetailsofFollowupwalkins();
+    }
+}
+
+private void btn_view_walkinExit_Click(object sender, RoutedEventArgs e)
+{
+    Grd_View_Walkins.Visibility = Visibility.Hidden ;
+}
+
+private void smviewwalkin_Click(object sender, RoutedEventArgs e)
+{
+    Grd_View_Walkins.Visibility = Visibility;
+    if (rdo_ViewWalkinsAll.IsChecked == true)
+    {
+        FetchallDetailsofFollowupwalkins();
+    }
+    else if (rdo_ViewWalkinsName.IsChecked == true)
+    {
+        txt_View_walkinName.IsEnabled = true;
+        txt_View_walkinNumber.IsEnabled = true;
+        dp_View_walkinTodate.IsEnabled = false;
+        dp_View_walkinFromdate.IsEnabled = false;
+        btn_View_walkinRefresh.IsEnabled = true;
+        btn_View_walkinSearch.IsEnabled = true;
+        FetchallDetailsofFollowupwalkins();
+    }
+    else if (rdo_View_WalkinsDate.IsChecked == true)
+    {
+        txt_View_walkinName.IsEnabled = false;
+        txt_View_walkinNumber.IsEnabled = false;
+        dp_View_walkinTodate.IsEnabled = true;
+        dp_View_walkinFromdate.IsEnabled = true;
+        btn_View_walkinRefresh.IsEnabled = true;
+        btn_View_walkinSearch.IsEnabled = true;
+        FetchallDetailsofFollowupwalkins();
+    }
+   
+}
+public void FetchallDetailsofFollowupwalkins()
+{
+    try
+    {
+        con.Open();
+        DataSet ds = new DataSet();
+        cmd = new SqlCommand("select ID, Followup_ID,Name,Mobile_No,Date_Of_Birth,Email_ID,Address,Product_Details,Followup_Type,F_Date,C_Date from tlb_FollowUp  where  S_Status='Active'", con);
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        // con.Open();
+        da.Fill(ds);
+
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            GRD_View_Walkin.ItemsSource = ds.Tables[0].DefaultView;
+        }
+    }
+    catch (Exception)
+    {
+
+        throw;
+    }
+    finally { con.Close(); }
+
+
+}
+
+private void txt_View_walkinName_TextChanged(object sender, TextChangedEventArgs e)
+{
+    loadbynamenno_Followupvw();
+}
+
+private void txt_View_walkinNumber_TextChanged(object sender, TextChangedEventArgs e)
+{
+    loadbynamenno_Followupvw();
+}
+public void loadbynamenno_Followupvw()
+{
+    try
+    {
+        con.Open();
+        DataSet ds = new DataSet();
+        string strf = "select ID, Followup_ID , Name , Mobile_No , Date_Of_Birth , Email_ID , Address , Product_Details , Followup_Type , F_Date , C_Date " +
+            "from tlb_FollowUp " +
+            "where  ";
+        if (txt_View_walkinName.Text.Trim() != "")
+        {
+            strf = strf + " Name LIKE ISNULL('" + txt_View_walkinName.Text.Trim() + "',[Name]) + '%' AND ";
+        }
+        if (txt_View_walkinNumber.Text.Trim() != "")
+        {
+            strf = strf + " Mobile_No LIKE ISNULL('" + txt_View_walkinNumber.Text.Trim() + "',[Mobile_No]) + '%' AND ";
+        }
+        strf = strf + " S_Status = 'Active' ORDER BY [Name] ASC ";
+        cmd = new SqlCommand(strf, con);
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        // con.Open();
+        da.Fill(ds);
+
+        // if (ds.Tables[0].Rows.Count > 0)
+        // {
+        GRD_View_Walkin.ItemsSource = ds.Tables[0].DefaultView;
+        // }
+    }
+    catch (Exception)
+    {
+
+        throw;
+    }
+    finally { con.Close(); }
+}
+        public void clear_VW()
+{
+    txt_View_walkinName.Text = "";
+    txt_View_walkinNumber.Text = "";
+    dp_View_walkinTodate.Text = "";
+    dp_View_walkinFromdate.Text = "";
+   
+}
+
+        private void btn_View_walkinRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            if( btn_View_walkinRefresh.IsEnabled == true)
+            {
+                if(rdo_ViewWalkinsName.IsChecked == true)
+                {
+                    txt_View_walkinName.Text = "";
+                    txt_View_walkinNumber.Text = "";
+
+                }
+                else if (rdo_View_WalkinsDate.IsChecked == true)
+                {
+                    dp_View_walkinTodate.Text = "";
+                    dp_View_walkinFromdate.Text = "";
+                }
+            }
+        }
+        public void fetchByDate_VW()
+        {
+            try
+            {
+                con.Open();
+                DataSet ds = new DataSet();
+                string strf = "select ID, Followup_ID , Name , Mobile_No , Date_Of_Birth , Email_ID , Address , Product_Details , Followup_Type , F_Date , C_Date " +
+                    "from tlb_FollowUp " +
+                    "where  ";
+                if (dp_View_walkinFromdate.Text.Trim() != "")
+                {
+                    strf = strf + " C_Date LIKE ISNULL('" + dp_View_walkinFromdate.Text.Trim() + "',[C_Date]) + '%' AND ";
+                }
+                if (dp_View_walkinTodate.Text.Trim() != "")
+                {
+                    strf = strf + " C_Date LIKE ISNULL('" + dp_View_walkinTodate.Text.Trim() + "',[C_Date]) + '%' AND ";
+                }
+                strf = strf + " S_Status = 'Active' ORDER BY [C_Date] ASC ";
+                cmd = new SqlCommand(strf, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // con.Open();
+                da.Fill(ds);
+
+                // if (ds.Tables[0].Rows.Count > 0)
+                // {
+                GRD_View_Walkin.ItemsSource = ds.Tables[0].DefaultView;
+                // }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally { con.Close(); }
+        }
+
+        private void dp_View_walkinFromdate_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            FetchallDetailsofFollowupwalkins();
+            fetchByDate_VW();
+        }
    }
    
 }
