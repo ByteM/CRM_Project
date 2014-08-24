@@ -793,7 +793,7 @@
                     <TextBox x:Name="txtAdm_AllProducts_Search_Price" HorizontalAlignment="Left" Height="23" Margin="104,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" TextChanged="txtAdm_AllProducts_Search_Price_TextChanged"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="grd_SaleCustDetails" Visibility="Hidden"    HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid x:Name="grd_SaleCustDetails" Visibility="Visible"    HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <Button x:Name="btnAdm_SaleCustDetails_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,-1,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnAdm_SaleCustDetails_Exit_Click"/>
                 <Label Content="Sale Customer Details" HorizontalAlignment="Left" Margin="2,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                 <Grid HorizontalAlignment="Left" Height="510" Margin="18,40,0,0" VerticalAlignment="Top" Width="1120" Background="#FFFEFEFE">
@@ -1163,7 +1163,7 @@
                 </cht:Chart>
                 <Button x:Name="btnChartDetails_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1079,3,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnChartDetails_Exit_Click" />
             </Grid>
-            <Grid x:Name="grd_SalesByProducts" Visibility="Hidden" HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1165" Background="#FFF9F2F2">
+            <Grid x:Name="grd_SalesByProducts" Visibility="Hidden"   HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" VerticalAlignment="Top" Width="1165" Background="#FFF9F2F2">
                 <cht:Chart Title="Sales By Products" Name="salesChartByProducts"   Margin="2,1,2,0">
                     <cht:Chart.Series>
                         <cht:BarSeries ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="Green" ItemsSource="{Binding}" Title="Sale Products" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True"/>

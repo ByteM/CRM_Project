@@ -30,6 +30,9 @@ namespace CRM_User_Interface
       
     public partial class CRM_MainForm : Window
     {
+        string asd = System.DateTime.Now.ToString ();
+        string qwe = System.DateTime.Now.ToShortDateString();
+        DateTime azx =Convert .ToDateTime ( System.DateTime.Now.ToShortDateString());
 
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
         string caption = "Green Future Glob" ;
@@ -3135,7 +3138,7 @@ public void clearAllAddedProducts()
         public bool Invoic_Add_Validation()
         {
             bool res = false;
-            if (cmbInvoice_Tax1.SelectedValue  == "")
+            if (cmbInvoice_Tax1.SelectedValue  == null )
             {
                 res = true;
                 MessageBox.Show("Please Select TAX ", caption, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -4825,7 +4828,7 @@ private void rdo_ViewWalkinsAll_Checked(object sender, RoutedEventArgs e)
         dp_View_walkinTodate.IsEnabled = false;
         dp_View_walkinFromdate.IsEnabled = false;
         btn_View_walkinRefresh.IsEnabled = false;
-        btn_View_walkinSearch.IsEnabled = false;
+      
         txt_View_walkinName.IsEnabled = false;
         txt_View_walkinNumber.IsEnabled = false;
         FetchallDetailsofFollowupwalkins();
@@ -4842,7 +4845,7 @@ private void rdo_ViewWalkinsName_Checked(object sender, RoutedEventArgs e)
         dp_View_walkinTodate.IsEnabled = false;
         dp_View_walkinFromdate.IsEnabled = false;
         btn_View_walkinRefresh.IsEnabled = true ;
-        btn_View_walkinSearch.IsEnabled = true ;
+        
         FetchallDetailsofFollowupwalkins();
 
     }
@@ -4858,7 +4861,7 @@ private void rdo_View_WalkinsDate_Checked(object sender, RoutedEventArgs e)
         dp_View_walkinTodate.IsEnabled = true ;
         dp_View_walkinFromdate.IsEnabled = true ;
         btn_View_walkinRefresh.IsEnabled = true;
-        btn_View_walkinSearch.IsEnabled = true;
+        
         FetchallDetailsofFollowupwalkins();
     }
 }
@@ -4882,7 +4885,7 @@ private void smviewwalkin_Click(object sender, RoutedEventArgs e)
         dp_View_walkinTodate.IsEnabled = false;
         dp_View_walkinFromdate.IsEnabled = false;
         btn_View_walkinRefresh.IsEnabled = true;
-        btn_View_walkinSearch.IsEnabled = true;
+        
         FetchallDetailsofFollowupwalkins();
     }
     else if (rdo_View_WalkinsDate.IsChecked == true)
@@ -4892,7 +4895,7 @@ private void smviewwalkin_Click(object sender, RoutedEventArgs e)
         dp_View_walkinTodate.IsEnabled = true;
         dp_View_walkinFromdate.IsEnabled = true;
         btn_View_walkinRefresh.IsEnabled = true;
-        btn_View_walkinSearch.IsEnabled = true;
+        
         FetchallDetailsofFollowupwalkins();
     }
    
@@ -5002,15 +5005,19 @@ public void loadbynamenno_Followupvw()
                 string strf = "select ID, Followup_ID , Name , Mobile_No , Date_Of_Birth , Email_ID , Address , Product_Details , Followup_Type , F_Date , C_Date " +
                     "from tlb_FollowUp " +
                     "where  ";
-                if (dp_View_walkinFromdate.Text.Trim() != "")
+                //if (dp_View_walkinFromdate.Text.Trim() != "")
+                //{
+                //    strf = strf + " C_Date LIKE ISNULL('" + dp_View_walkinFromdate.Text.Trim() + "',[C_Date]) + '%' AND ";
+                //}
+                //if (dp_View_walkinTodate.Text.Trim() != "")
+                //{
+                //    strf = strf + " C_Date LIKE ISNULL('" + dp_View_walkinTodate.Text.Trim() + "',[C_Date]) + '%' AND ";
+                //}
+                if (dp_View_walkinFromdate.Text.Trim() != "" && dp_View_walkinTodate.Text.Trim() != "")
                 {
-                    strf = strf + " C_Date LIKE ISNULL('" + dp_View_walkinFromdate.Text.Trim() + "',[C_Date]) + '%' AND ";
+                    strf = strf + " C_Date BETWEEN  ('" + dp_View_walkinFromdate.Text + "') AND ( '" + dp_View_walkinTodate.Text + "') + '%' AND  ";
                 }
-                if (dp_View_walkinTodate.Text.Trim() != "")
-                {
-                    strf = strf + " C_Date LIKE ISNULL('" + dp_View_walkinTodate.Text.Trim() + "',[C_Date]) + '%' AND ";
-                }
-                strf = strf + " S_Status = 'Active' ORDER BY [C_Date] ASC ";
+                strf = strf + " S_Status = 'Active' ORDER BY [Name] ASC ";
                 cmd = new SqlCommand(strf, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 // con.Open();
@@ -5031,8 +5038,178 @@ public void loadbynamenno_Followupvw()
 
         private void dp_View_walkinFromdate_TextInput(object sender, TextCompositionEventArgs e)
         {
+           
+        }
+
+        private void dp_View_walkinFromdate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
             FetchallDetailsofFollowupwalkins();
             fetchByDate_VW();
+        }
+
+        private void dp_View_walkinTodate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FetchallDetailsofFollowupwalkins();
+            fetchByDate_VW();
+        }
+
+        private void smviewsale_Click(object sender, RoutedEventArgs e)
+        {
+            grd_SaleDetails.Visibility = Visibility;
+           
+
+            SaleCustomer_Details();
+        }
+
+        private void btnAdm_SaleCustDetails_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_SaleDetails.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnAdm_SaleCustDetails_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            txtAdm_SaleCustBillNo_Search.Text = "";
+            txtAdm_SaleCustDetails_Search.Text = "";
+            txtAdm_SaleCustMobileNo_Search.Text = "";
+            dgvAdm_SaleCustomerDetails.ItemsSource = null;
+            dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
+            SaleCustomer_Details();
+        }
+        public void SaleCustomer_Details()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT P.[ID],P.[Customer_ID],P.[Bill_No],P.[Payment_Mode],P.[Total_Price],P.[Paid_Amount],P.[Balance_Amount],P.[C_Date] " +
+                      ",C.[Name],C.[Mobile_No], C.[Email_ID] " +
+                      "FROM [tlb_Bill_No] P " +
+                      "INNER JOIN [tlb_Customer] C ON C.[ID]=P.[Customer_ID] " +
+                      "WHERE ";
+
+                if (txtAdm_SaleCustBillNo_Search.Text.Trim() != "")
+                {
+                    str = str + "P.[Bill_No] LIKE ISNULL('" + txtAdm_SaleCustBillNo_Search.Text.Trim() + "',P.[Bill_No]) + '%' AND ";
+                }
+                if (txtAdm_SaleCustDetails_Search.Text.Trim() != "")
+                {
+                    str = str + "C.[Name] LIKE ISNULL('" + txtAdm_SaleCustDetails_Search.Text.Trim() + "',C.[Name]) + '%' AND ";
+                }
+                if (txtAdm_SaleCustMobileNo_Search.Text.Trim() != "")
+                {
+                    str = str + "C.[Mobile_No] LIKE ISNULL('" + txtAdm_SaleCustMobileNo_Search.Text.Trim() + "',C.[Mobile_No]) + '%' AND ";
+                }
+                str = str + " P.[S_Status] = 'Active' ORDER BY P.[Bill_No] ASC ";
+                //str = str + " S_Status = 'Active' ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgvAdm_SaleCustomerDetails.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void txtAdm_SaleCustBillNo_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SaleCustomer_Details();
+        }
+
+        private void txtAdm_SaleCustDetails_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SaleCustomer_Details();
+        }
+
+        private void txtAdm_SaleCustMobileNo_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SaleCustomer_Details();
+        }
+
+        private void dgvAdm_SaleCustomerDetails_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            object item = dgvAdm_SaleCustomerDetails.SelectedItem;
+            string ID = (dgvAdm_SaleCustomerDetails.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+            //MessageBox.Show(ID);
+            try
+            {
+                con.Open();
+                string sqlquery = "SELECT [ID],[Customer_ID] " +
+                      "FROM [tlb_Bill_No] " +
+                      "WHERE [Bill_No]='" + ID + "' ";
+
+                SqlCommand cmd = new SqlCommand(sqlquery, con);
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    txtSaleCustID.Text = dt.Rows[0]["Customer_ID"].ToString();
+                }
+
+                //grd_FinalizeProducts.Visibility = System.Windows.Visibility.Visible;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            SaleCustomer_ProductDetails();
+        
+        }
+        public void SaleCustomer_ProductDetails()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT P.[ID],P.[Customer_ID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Per_Product_Price],P.[Qty],P.[C_Price] " +
+                      ",DM.[Domain_Name],PM.[Product_Name], B.[Brand_Name] , PC.[Product_Category] ,MN.[Model_No] ,C.[Color] " +
+                      "FROM [tlb_InvoiceDetails] P " +
+                      "INNER JOIN [tb_Domain] DM ON DM.[ID]=P.[Domain_ID] " +
+                      "INNER JOIN [tlb_Products] PM ON PM.[ID]=P.[Product_ID] " +
+                      "INNER JOIN [tlb_Brand] B ON B.[ID]=P.[Brand_ID] " +
+                      "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=P.[P_Category]" +
+                      "INNER JOIN [tlb_Model] MN ON MN.[ID]=P.[Model_No_ID] " +
+                      "INNER JOIN [tlb_Color] C ON C.[ID]=P.[Color_ID] " +
+                      "WHERE P.[Customer_ID]= '" + Convert.ToInt32(txtSaleCustID.Text) + "' AND P.[S_Status] = 'Active' ORDER BY P.[Bill_No] ASC ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgvAdm_SaleCustomer_ProductDetails.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void dgvAdm_FinalProcurement_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
         }
    }
    
