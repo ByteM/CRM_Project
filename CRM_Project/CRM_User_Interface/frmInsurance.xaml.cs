@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using CRM_BAL;
+using CRM_DAL;
 
 namespace CRM_User_Interface
 {
@@ -28,6 +30,9 @@ namespace CRM_User_Interface
         SqlDataReader dr;
         string caption = "Green Future Glob";
         static int PK_ID;
+
+        BAL_InsuranceEntry binsuranceEntry = new BAL_InsuranceEntry();
+        DAL_InsuranceEntry dinsuranceEntry = new DAL_InsuranceEntry();
 
         public frmInsurance()
         {
@@ -46,10 +51,90 @@ namespace CRM_User_Interface
         {
             this.Close();
         }
-
+        string SET_YEAR;
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                string FPInsurance;
+                
 
+                binsuranceEntry.Flag = 1;
+                binsuranceEntry.CustomerID = Convert.ToInt32(txtCustomerID.Text);
+                binsuranceEntry.InsuranceNo = lblInsuranceNo.Content.ToString();
+                binsuranceEntry.ProductName = lblProductName.Content.ToString();
+                binsuranceEntry.IntervalAmount = Convert.ToDouble(txtInsuranceAmt.Text);
+                binsuranceEntry.BankName = cmbBankIntegration.Text;
+                binsuranceEntry.InsuranceDate = Convert.ToDateTime(dtpDate.SelectedDate);
+                binsuranceEntry.NoOfYearsMonths = Convert.ToInt32(txtValidity.Text);
+                binsuranceEntry.NoOfMonth = Convert.ToInt32(txtMonths.Text);
+                binsuranceEntry.YearsMonth = cmbValidity.Text;
+                binsuranceEntry.IntervalMonth = Convert.ToInt32(txtInterval.Text);
+                binsuranceEntry.IntervalMonthY = cmbInterval.Text;
+                binsuranceEntry.IntervalAmount = Convert.ToDouble(txtIntervalTotalAmt.Text);
+
+                string STRTODAYDATE = Convert.ToString(txtDate.Text);
+                
+                //string time = Convert.ToString(dtpDate.SelectedDate);
+                string[] STRVAL = STRTODAYDATE.Split('-');
+                string STR_DATE1 = STRVAL[0];
+                string STR_MONTH = STRVAL[1];
+                string STR_YEAR = STRVAL[2];
+                if(cmbValidity.SelectedItem.Equals("Year"))
+                {
+                    int vlYear,vlNo,addNY;
+                    vlYear = Convert.ToInt32(STR_YEAR);
+                    vlNo = Convert.ToInt32(txtValidity.Text);
+                    addNY = vlYear + vlNo;
+                    SET_YEAR = Convert.ToString(addNY);
+                }
+                
+               
+                string DATE = STR_DATE1 + "-" + STR_MONTH + "-" + SET_YEAR;
+                dtpInstallmentDate.Text = DATE;
+
+                DateTime dt = Convert.ToDateTime(dtpInstallmentDate.SelectedDate);
+                ////txttime.Text = time;
+
+                //baddprd.C_Date =Convert .ToDateTime( DATE);
+
+                binsuranceEntry.NewInsuranceDate = Convert.ToDateTime(dt);
+                if(chbInsurance.IsChecked == true)
+                {
+                    FPInsurance = "Yes";
+                }
+                else
+                {
+                    FPInsurance = "No";
+                }
+                binsuranceEntry.FirstPartyInsurance = FPInsurance;
+                binsuranceEntry.IsClear = "Active";
+                binsuranceEntry.S_Status = "Active";
+                binsuranceEntry.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+
+                //string STRTODAYDATE = System.DateTime.Now.ToShortDateString();
+                //string time = System.DateTime.Now.ToShortTimeString();
+                //string[] STRVAL = STRTODAYDATE.Split('-');
+                //string STR_DATE1 = STRVAL[0];
+                //string STR_MONTH = STRVAL[1];
+                //string STR_YEAR = STRVAL[2];
+                //string DATE = STR_DATE1 + "-" + STR_MONTH + "-" + STR_YEAR;
+                ////txtdate.Text = DATE;
+                ////txttime.Text = time;
+
+                //baddprd.C_Date =Convert .ToDateTime( DATE);
+
+                MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
@@ -266,6 +351,7 @@ namespace CRM_User_Interface
                 adp.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
+                    txtCustomerID.Text = dt.Rows[0]["Customer_ID"].ToString();
                     lblCustomerName.Content = dt.Rows[0]["Name"].ToString();
                     lblMobileNo.Content = dt.Rows[0]["Mobile_No"].ToString();
                     lblEmailID.Content = dt.Rows[0]["Email_ID"].ToString();
@@ -282,8 +368,7 @@ namespace CRM_User_Interface
                 con.Close();
             }
         }
-
-
+        
         public void Cal_InstallmentMonth()
         {
             double insAmt,intMonth,intervalAmt,month, monthAmt;
@@ -301,6 +386,18 @@ namespace CRM_User_Interface
                 throw;
             }
         }
+
+        //string STRTODAYDATE = System.DateTime.Now.ToShortDateString();
+        //string time = System.DateTime.Now.ToShortTimeString();
+        //string[] STRVAL = STRTODAYDATE.Split('-');
+        //string STR_DATE1 = STRVAL[0];
+        //string STR_MONTH = STRVAL[1];
+        //string STR_YEAR = STRVAL[2];
+        //string DATE = STR_DATE1 + "-" + STR_MONTH + "-" + STR_YEAR;
+        ////txtdate.Text = DATE;
+        ////txttime.Text = time;
+
+        //baddprd.C_Date =Convert .ToDateTime( DATE);
         #endregion Insurance Function
         private void cmbInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -330,6 +427,11 @@ namespace CRM_User_Interface
             double Months = Years * 12;
             double Days = Convert.ToDouble(ts.TotalDays); 
 
+        }
+
+        private void dtpDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            txtDate.Text = dtpDate.Text;
         }
     }
 }
