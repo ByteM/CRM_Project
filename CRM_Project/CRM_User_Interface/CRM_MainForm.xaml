@@ -1025,7 +1025,7 @@
                 </Grid>
             </Grid>
          
-            <Grid x:Name="grd_SaleDetails" Visibility="Visible"    HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid x:Name="grd_SaleDetails" Visibility="Hidden"     HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <Button x:Name="btnAdm_SaleCustDetails_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,-1,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnAdm_SaleCustDetails_Exit_Click"/>
                 <Label Content="Sale  Details" HorizontalAlignment="Left" Margin="460,3,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                 <Grid HorizontalAlignment="Left" Height="510" Margin="18,40,0,0" VerticalAlignment="Top" Width="1120" Background="#FFFEFEFE">
