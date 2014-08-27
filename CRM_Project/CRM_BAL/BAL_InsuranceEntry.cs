@@ -13,6 +13,8 @@ namespace CRM_BAL
     {
         public int Flag { get; set; }
 
+        public int InsuranceID { get; set; }
+
         public int CustomerID { get; set; }
 
         public string InsuranceNo { get; set; }
@@ -23,7 +25,7 @@ namespace CRM_BAL
 
         public string BankName { get; set; }
 
-        public DateTime InsuranceDate { get; set; }
+        public string InsuranceDate { get; set; }
 
         public int NoOfYearsMonths { get; set; }
 
@@ -37,7 +39,7 @@ namespace CRM_BAL
 
         public double IntervalAmount { get; set; }
 
-        public DateTime NewInsuranceDate { get; set; }
+        public string NewInsuranceDate { get; set; }
 
         public string FirstPartyInsurance { get; set; }
 
@@ -45,7 +47,7 @@ namespace CRM_BAL
 
         public string S_Status { get; set; }
 
-        public DateTime C_Date { get; set; }
+        public string C_Date { get; set; }
 
     }
 }

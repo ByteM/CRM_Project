@@ -86,13 +86,13 @@ namespace CRM_User_Interface
         DAL_StockAddQty daddqty = new DAL_StockAddQty();
         DAL_FinalDealerUpdate dFup = new DAL_FinalDealerUpdate();
 
-        string maincked, CName;
-        string bpg, cid1;
-        int fetcdoc, Cust_id;
-        int exist;
+        //string maincked, CName;
+        //string bpg, cid1;
+        //int fetcdoc, Cust_id;
+        //int exist;
         List<string> checkedStuff;
         static DataTable dtstat = new DataTable();
-        double MA;
+        //double MA;
 
         private void btnadminexit_Click(object sender, RoutedEventArgs e)
         {
@@ -2060,7 +2060,6 @@ namespace CRM_User_Interface
 
         }
        
-
         #region SaleCustomerDetails Event 
         private void txtAdm_SaleCustBillNo_Search_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -2087,8 +2086,8 @@ namespace CRM_User_Interface
             //    ((DataRowView)(dgvAdm_SaleCustomerDetails.SelectedItem)).Row.Delete();
             //}
 
-            DataGridCellInfo cell = dgvAdm_SaleCustomerDetails.SelectedCells[0];
-            dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
+            //DataGridCellInfo cell = dgvAdm_SaleCustomerDetails.SelectedCells[0];
+            //dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
             //dgvAdm_SaleCustomerDetails.SelectedItem = null;
             SaleCustomer_Details();
         }
@@ -2135,134 +2134,8 @@ namespace CRM_User_Interface
             SaleCustomer_ProductDetails();
         }
         #endregion SaleCustomerDetails Event
-
         #endregion SaleCustomerDet Function
-
-        private void btnInsurance_Exit_Click(object sender, RoutedEventArgs e)
-        {
-            grd_Insurance.Visibility = System.Windows.Visibility.Hidden;
-            cmbInsurance_CustName.SelectedValue = null;
-            dgvInsurance_Details.ItemsSource = null;
-            
-        }
-
-        public void Load_CustomerDetails()
-        {
-            //  cmbInstall_CustID.Text = "--Select--";
-            string q = "SELECT ID  ,Name FROM tlb_Customer ";
-            cmd = new SqlCommand(q, con);
-            // DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            SqlDataAdapter adp = new SqlDataAdapter(cmd);
-
-            adp.Fill(ds);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                cmbInsurance_CustName.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
-                cmbInsurance_CustName.ItemsSource = ds.Tables[0].DefaultView;
-                cmbInsurance_CustName.DisplayMemberPath = ds.Tables[0].Columns["Name"].ToString();
-            }
-        }
-
-        public void Products_CustomerDetails()
-        {
-            try
-            {
-                String str;
-                //con.Open();
-                DataSet ds = new DataSet();
-                str = "SELECT P.[ID],P.[Customer_ID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Per_Product_Price],P.[Qty],P.[C_Price],P.[Tax_Name],P.[Tax],P.[Total_Price] " +
-                      ",DM.[Domain_Name],PM.[Product_Name],B.[Brand_Name],PC.[Product_Category],MN.[Model_No],C.[Color] " +
-                      ",S.[HaveInsurance] " +
-                      "FROM [tlb_InvoiceDetails] P " +
-                      "INNER JOIN [tb_Domain] DM ON DM.[ID]=P.[Domain_ID] " +
-                      "INNER JOIN [tlb_Products] PM ON PM.[ID]=P.[Product_ID] " +
-                      "INNER JOIN [tlb_Brand] B ON B.[ID]=P.[Brand_ID] " +
-                      "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=P.[P_Category]" +
-                      "INNER JOIN [tlb_Model] MN ON MN.[ID]=P.[Model_No_ID] " +
-                      "INNER JOIN [tlb_Color] C ON C.[ID]=P.[Color_ID] " +
-                      "INNER JOIN [StockDetails] S ON S.[Model_No_ID]=P.[Model_No_ID] " +
-                      "WHERE ";
-                if (cmbAdm_DealerFilter_Search.SelectedIndex > 0)
-                {
-                    str = str + "P.[Customer_ID] = '" + cmbInsurance_CustName.SelectedValue.GetHashCode() + "' AND ";
-                }
-                str = str + "P.[Customer_ID]= '" + cmbInsurance_CustName.SelectedValue.GetHashCode() + "' AND P.[S_Status] = 'Active' ORDER BY DM.[Domain_Name] ASC ";
-                
-                SqlCommand cmd = new SqlCommand(str, con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-
-                //if (ds.Tables[0].Rows.Count > 0)
-                //{
-                dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
-                //}
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
-
-        private void sminsurance_Click(object sender, RoutedEventArgs e)
-        {
-            grd_Insurance.Visibility = System.Windows.Visibility.Visible;
-            Load_CustomerDetails();
-        }
-
-        private void cmbInsurance_CustName_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Products_CustomerDetails();
-        }
-
-        private void dgvInsurance_Details_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            //frmInsurance obj = new frmInsurance();
-            //obj.ShowDialog();
-            //obj.LoadYearsMonth();
-            //obj.LoadInterval();
-        }
-
-        private void chkInsurance_Checked(object sender, RoutedEventArgs e)
-        {
-
-            try
-            {
-                var Iid = (DataRowView)dgvInsurance_Details.SelectedItem; //get specific ID from          DataGrid after click on Edit button in DataGrid   
-                PK_ID = Convert.ToInt32(Iid.Row["ID"].ToString());
-                con.Open();
-                string sqlquery = "SELECT * FROM tlb_InvoiceDetails where ID='" + PK_ID + "' ";
-                SqlCommand cmd = new SqlCommand(sqlquery, con);
-                SqlDataAdapter adp = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adp.Fill(dt);
-                if (dt.Rows.Count > 0)
-                {
-                    txtInsurance_InvoiceID.Text = dt.Rows[0]["ID"].ToString();
-                }
-
-                frmInsurance obj = new frmInsurance();
-                obj.InsuranceID(txtInsurance_InvoiceID.Text.Trim());
-                obj.Insurance_FillData();
-                //obj.LoadNoOfYears1();
-                //obj.LoadNoOfMonths1();
-                obj.ShowDialog();
-
-                // con.Close();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
+      
         
         //----------add product
         #region AddProduct Function
@@ -5222,7 +5095,434 @@ namespace CRM_User_Interface
 
         #endregion Cheque Function
 
+        #region Insurance Function
+        private void grd_InsuranceDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+            //AllInsurance_ProductsDetails();
+        }
+
+        #region Insurance Fun
+        public void Load_ProductInsuranceCustomerID()
+        {
+            //  cmbInstall_CustID.Text = "--Select--";
+            string q = "SELECT [ID],[Cust_ID] FROM [tlb_Customer]  Order By [Cust_ID] ";
+            cmd = new SqlCommand(q, con);
+            // DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            adp.Fill(ds);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                cmbInsurance_CustomerID.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                cmbInsurance_CustomerID.ItemsSource = ds.Tables[0].DefaultView;
+                cmbInsurance_CustomerID.DisplayMemberPath = ds.Tables[0].Columns["Cust_ID"].ToString();
+            }
+        }
         
+        public void Load_CustomerDetails()
+        {
+            //  cmbInstall_CustID.Text = "--Select--";
+            string q = "SELECT ID  ,Name FROM tlb_Customer ";
+            cmd = new SqlCommand(q, con);
+            // DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            adp.Fill(ds);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                cmbInsurance_CustName.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                cmbInsurance_CustName.ItemsSource = ds.Tables[0].DefaultView;
+                cmbInsurance_CustName.DisplayMemberPath = ds.Tables[0].Columns["Name"].ToString();
+            }
+        }
+
+        public void Products_CustomerDetails()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT P.[ID],P.[Customer_ID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Per_Product_Price],P.[Qty],P.[C_Price],P.[Tax_Name],P.[Tax],P.[Total_Price] " +
+                      ",DM.[Domain_Name],PM.[Product_Name],B.[Brand_Name],PC.[Product_Category],MN.[Model_No],C.[Color] " +
+                      ",S.[HaveInsurance] " +
+                      "FROM [tlb_InvoiceDetails] P " +
+                      "INNER JOIN [tb_Domain] DM ON DM.[ID]=P.[Domain_ID] " +
+                      "INNER JOIN [tlb_Products] PM ON PM.[ID]=P.[Product_ID] " +
+                      "INNER JOIN [tlb_Brand] B ON B.[ID]=P.[Brand_ID] " +
+                      "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=P.[P_Category]" +
+                      "INNER JOIN [tlb_Model] MN ON MN.[ID]=P.[Model_No_ID] " +
+                      "INNER JOIN [tlb_Color] C ON C.[ID]=P.[Color_ID] " +
+                      "INNER JOIN [StockDetails] S ON S.[Model_No_ID]=P.[Model_No_ID] " +
+                      "WHERE ";
+                if (cmbAdm_DealerFilter_Search.SelectedIndex > 0)
+                {
+                    str = str + "P.[Customer_ID] = '" + cmbInsurance_CustName.SelectedValue.GetHashCode() + "' AND ";
+                }
+                if (cmbInsurance_CustomerID.SelectedIndex >= 0)
+                {
+                    //str = str + "C.[Cust_ID] LIKE ISNULL('" + cmbAllInsurance_CustomerID.SelectedValue.GetHashCode() + "',C.[Cust_ID]) + '%' AND ";
+                    str = str + "P.[Customer_ID] = '" + cmbInsurance_CustomerID.SelectedValue.GetHashCode() + "' AND ";
+                }
+                str = str + "P.[S_Status] = 'Active' ORDER BY DM.[Domain_Name] ASC ";
+
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgvInsurance_Details.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        //public void Load_AllInsuranceCustomerDetails()
+        //{
+        //    //  cmbInstall_CustID.Text = "--Select--";
+        //    string q = "SELECT I.[ID ], distinct (I.[Customer_ID]) AS [Customer_ID] ,C.[Name] FROM [tlb_InsuranceEntry] I INNER JOIN [tlb_Customer] C ON C.[ID]=I.[Customer_ID] Group By C.[Name] ";
+        //    cmd = new SqlCommand(q, con);
+        //    // DataTable dt = new DataTable();
+        //    DataSet ds = new DataSet();
+        //    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+        //    adp.Fill(ds);
+        //    if (ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        cmbAllInsurance_CustName.SelectedValuePath = ds.Tables[0].Columns["Customer_ID"].ToString();
+        //        cmbAllInsurance_CustName.ItemsSource = ds.Tables[0].DefaultView;
+        //        cmbAllInsurance_CustName.DisplayMemberPath = ds.Tables[0].Columns["Name"].ToString();
+        //    }
+        //}
+
+        public void Load_AllInsuranceCustomerDetails()
+        {
+            //  cmbInstall_CustID.Text = "--Select--";
+            string q = "SELECT [ID],[Name] FROM [tlb_Customer]  Order By [Name] ";
+            cmd = new SqlCommand(q, con);
+            // DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            adp.Fill(ds);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                cmbAllInsurance_CustName.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                cmbAllInsurance_CustName.ItemsSource = ds.Tables[0].DefaultView;
+                cmbAllInsurance_CustName.DisplayMemberPath = ds.Tables[0].Columns["Name"].ToString();
+            }
+        }
+
+        public void Load_AllInsuranceCustomerID()
+        {
+            //  cmbInstall_CustID.Text = "--Select--";
+            string q = "SELECT [ID],[Cust_ID] FROM [tlb_Customer]  Order By [Cust_ID] ";
+            cmd = new SqlCommand(q, con);
+            // DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            adp.Fill(ds);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                cmbAllInsurance_CustomerID.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                cmbAllInsurance_CustomerID.ItemsSource = ds.Tables[0].DefaultView;
+                cmbAllInsurance_CustomerID.DisplayMemberPath = ds.Tables[0].Columns["Cust_ID"].ToString();
+            }
+        }
+
+        
+        public void Insurance_ProductsDetails()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT [ID],[Customer_ID],[InsuranceNo],[ProductName],[InsuranceAmt],[BankName],[InsuranceDate],[NoOfMonth],[NoOfYearMonths],[YearsMonths] AS [YearMonth],[IntervalMonths],[IntervalMonthY],[IntervalAmt],[NewInsuranceDate],[FirstPartyInsurance],[IsClear],[S_Status] " +
+                      "FROM [tlb_InsuranceEntry] " +
+                      "WHERE ";       //[Customer_ID]= '" + cmbInsurance_CustName.SelectedValue.GetHashCode() + "' AND [IsClear] = 'Active' ORDER BY [ProductName] ASC ";
+                if (cmbAdm_DealerFilter_Search.SelectedIndex > 0)
+                {
+                    str = str + "[Customer_ID] = '" + cmbInsurance_CustName.SelectedValue.GetHashCode() + "' AND ";
+                }
+                if (cmbInsurance_CustomerID.SelectedIndex >= 0)
+                {
+                    //str = str + "C.[Cust_ID] LIKE ISNULL('" + cmbAllInsurance_CustomerID.SelectedValue.GetHashCode() + "',C.[Cust_ID]) + '%' AND ";
+                    str = str + "[Customer_ID] = '" + cmbInsurance_CustomerID.SelectedValue.GetHashCode() + "' AND ";
+                }
+                str = str + "[IsClear] = 'Active' ORDER BY [ProductName] ASC ";
+
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgvInsurance_ProductDetails.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void AllInsurance_ProductsDetails()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT I.[ID],I.[Customer_ID],I.[InsuranceNo],I.[ProductName],I.[InsuranceAmt],I.[BankName],I.[InsuranceDate],I.[NoOfMonth],I.[NoOfYearMonths],I.[YearsMonths] AS [YearMonth],I.[IntervalMonths],I.[IntervalMonthY],I.[IntervalAmt],I.[NewInsuranceDate],I.[FirstPartyInsurance],I.[IsClear],I.[S_Status] " +
+                      ",C.[Cust_ID] " +
+                      "FROM [tlb_InsuranceEntry] I " +
+                      "INNER JOIN tlb_Customer C ON C.[ID]=I.[Customer_ID] " +
+                      "WHERE ";       //[Customer_ID]= '" + cmbInsurance_CustName.SelectedValue.GetHashCode() + "' AND [IsClear] = 'Active' ORDER BY [ProductName] ASC ";
+                if (cmbAllInsurance_CustName.SelectedIndex >= 0)
+                {
+                    str = str + "I.[Customer_ID] = '" + cmbAllInsurance_CustName.SelectedValue.GetHashCode() + "' AND ";
+
+                    //str = str + "I.[Customer_ID] = '" + cmbAllInsurance_CustName.SelectedValue.GetHashCode() + "' AND ";
+                    //str = str + "C.[Color] LIKE ISNULL('" + txtAdm_AllProducts_Search.Text.Trim() + "',C.[Color]) + '%' AND ";
+                }
+                if (cmbAllInsurance_CustomerID.SelectedIndex >= 0)
+                {
+                    //str = str + "C.[Cust_ID] LIKE ISNULL('" + cmbAllInsurance_CustomerID.SelectedValue.GetHashCode() + "',C.[Cust_ID]) + '%' AND ";
+                    str = str + "I.[Customer_ID] = '" + cmbAllInsurance_CustomerID.SelectedValue.GetHashCode() + "' AND ";
+                }
+                str = str + "I.[IsClear] = 'Active' ORDER BY I.[ProductName] ASC ";
+
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgvAllInsuranceDetails.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        #endregion Insurance Fun
+
+        #region Insurance Button Event
+        private void btnInsurance_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Insurance.Visibility = System.Windows.Visibility.Hidden;
+            cmbInsurance_CustName.SelectedValue = null;
+            dgvInsurance_Details.ItemsSource = null;
+
+        }
+
+        private void btnInsurance_Exit1_Click(object sender, RoutedEventArgs e)
+        {
+            grd_InsuranceDetails.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btndgv_InsuranceUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var id1 = (DataRowView)dgvAllInsuranceDetails.SelectedItem; //get specific ID from          DataGrid after click on Edit button in DataGrid   
+                PK_ID = Convert.ToInt32(id1.Row["ID"].ToString());
+                con.Open();
+                string sqlquery = "SELECT * FROM tlb_InsuranceEntry where ID='" + PK_ID + "' ";
+                SqlCommand cmd = new SqlCommand(sqlquery, con);
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    txtInsurance_ID.Text = dt.Rows[0]["ID"].ToString();
+                    txtInsurance_CustID.Text = dt.Rows[0]["Customer_ID"].ToString();
+                }
+
+                frmInsurance obj = new frmInsurance();
+                obj.InsuranceID(txtInsurance_ID.Text.Trim(), txtInsurance_CustID.Text.Trim());
+                obj.Insurance_FillData();
+                //obj.LoadNoOfYears1();
+                //obj.LoadNoOfMonths1();
+                obj.ShowDialog();
+
+                // con.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+            //GetData_EmployeeDetails();
+        }
+
+        private void btnInsurance_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            cmbAllInsurance_CustomerID.SelectedItem = null;
+            cmbAllInsurance_CustName.SelectedItem = null;
+            AllInsurance_ProductsDetails();
+        }
+        #endregion Insurance Button Event
+
+        #region Insurance Event
+        private void cmbInsurance_CustomerID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Products_CustomerDetails();
+            Insurance_ProductsDetails();
+        }
+
+        private void sminsuranceDetails_Click(object sender, RoutedEventArgs e)
+        {
+            grd_InsuranceDetails.Visibility = System.Windows.Visibility.Visible;
+            Load_AllInsuranceCustomerDetails();
+            Load_AllInsuranceCustomerID();
+            //AllInsurance_ProductsDetails();
+        }
+
+        //private void sminsurance_Click(object sender, RoutedEventArgs e)
+        //{
+        //    grd_Insurance.Visibility = System.Windows.Visibility.Visible;
+        //    Load_CustomerDetails();
+        //}
+
+        //private void cmbInsurance_CustName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    Products_CustomerDetails();
+        //    Insurance_ProductsDetails();
+        //}
+
+        //private void dgvInsurance_Details_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        //{
+        //    //frmInsurance obj = new frmInsurance();
+        //    //obj.ShowDialog();
+        //    //obj.LoadYearsMonth();
+        //    //obj.LoadInterval();
+        //}
+
+        //private void chkInsurance_Checked(object sender, RoutedEventArgs e)
+        //{
+
+        //    try
+        //    {
+        //        var Iid = (DataRowView)dgvInsurance_Details.SelectedItem; //get specific ID from          DataGrid after click on Edit button in DataGrid   
+        //        PK_ID = Convert.ToInt32(Iid.Row["ID"].ToString());
+        //        con.Open();
+        //        string sqlquery = "SELECT * FROM tlb_InvoiceDetails where ID='" + PK_ID + "' ";
+        //        SqlCommand cmd = new SqlCommand(sqlquery, con);
+        //        SqlDataAdapter adp = new SqlDataAdapter(cmd);
+        //        DataTable dt = new DataTable();
+        //        adp.Fill(dt);
+        //        if (dt.Rows.Count > 0)
+        //        {
+        //            txtInsurance_InvoiceID.Text = dt.Rows[0]["ID"].ToString();
+        //        }
+
+        //        frmInsurance obj = new frmInsurance();
+        //        obj.InsuranceID(txtInsurance_InvoiceID.Text.Trim(), txtInsurance_CustID.Text.Trim());
+        //        obj.Insurance_FillData();
+        //        obj.ShowDialog();
+
+        //        // con.Close();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //    AllInsurance_ProductsDetails();
+        //}
+
+        private void cmbAllInsurance_CustName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AllInsurance_ProductsDetails();
+        }
+
+        private void sminsurance_Click(object sender, RoutedEventArgs e)
+        {
+            grd_Insurance.Visibility = System.Windows.Visibility.Visible;
+            Load_CustomerDetails();
+            Load_ProductInsuranceCustomerID();
+        }
+
+        private void cmbInsurance_CustName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Products_CustomerDetails();
+            Insurance_ProductsDetails();
+        }
+
+        private void dgvInsurance_Details_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            //frmInsurance obj = new frmInsurance();
+            //obj.ShowDialog();
+            //obj.LoadYearsMonth();
+            //obj.LoadInterval();
+        }
+
+        private void chkInsurance_Checked(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                var Iid = (DataRowView)dgvInsurance_Details.SelectedItem; //get specific ID from          DataGrid after click on Edit button in DataGrid   
+                PK_ID = Convert.ToInt32(Iid.Row["ID"].ToString());
+                con.Open();
+                string sqlquery = "SELECT * FROM tlb_InvoiceDetails where ID='" + PK_ID + "' ";
+                SqlCommand cmd = new SqlCommand(sqlquery, con);
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    txtInsurance_InvoiceID.Text = dt.Rows[0]["ID"].ToString();
+                }
+
+                frmInsurance obj = new frmInsurance();
+                obj.InsuranceID(txtInsurance_ID.Text.Trim(), txtInsurance_CustID.Text.Trim());
+                obj.Insurance_FillData();
+                //obj.LoadNoOfYears1();
+                //obj.LoadNoOfMonths1();
+                obj.ShowDialog();
+
+                // con.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        #endregion Insurance Event
+        #endregion Insurance Function
 
     }
 }
