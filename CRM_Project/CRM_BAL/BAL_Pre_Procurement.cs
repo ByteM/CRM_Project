@@ -39,6 +39,6 @@ namespace CRM_BAL
      public string Follow_up { get; set; }
      public string Narration { get; set; }
         public string S_Status { get; set; }
-        public DateTime C_Date { get; set; }
+        public string  C_Date { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace CRM_BAL
        public int Flag { get; set; }
        public int F_ID { get; set; }
 
-       public int Employee_ID { get; set; }
+      // public int Employee_ID { get; set; }
 
        public string Cust_ID { get; set; }
       

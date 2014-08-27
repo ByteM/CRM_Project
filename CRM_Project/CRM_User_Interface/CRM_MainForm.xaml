@@ -157,8 +157,41 @@
                     <MenuItem Header=" Check Status" x:Name="smchkstatusinsurance"/>
 
                 </MenuItem>
+                <MenuItem Width="85">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Padding="0" Margin="0 0 0 1" Foreground="White" Content="Alerts" />
+                            <Border>
+                                <ToggleButton IsChecked="False" IsHitTestVisible="False"
+									BorderBrush="{TemplateBinding Border.BorderBrush}"
+									Background="{TemplateBinding Panel.Background}">
+                                    <ToggleButton.Style>
+                                        <Style TargetType="{x:Type ToggleButton}">
+                                            <Setter Property="OverridesDefaultStyle" Value="True" />
+
+                                            <Setter Property="Focusable" Value="False" />
+                                            <Setter Property="IsTabStop" Value="False" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                        <Path Data="M0,0L3.5,4 7,0z" Fill="White"  x:Name="Arrow"
+															Margin="3,1,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ToggleButton.Style>
+                                </ToggleButton>
+                            </Border>
+                        </StackPanel>
+                    </MenuItem.Header>
+                    <MenuItem Header="Customer" x:Name="smcustomer"/>
+                    <MenuItem Header="Dealer" x:Name="smdealer"/>
+                    <MenuItem Header="Employee" x:Name="smcemployee"/> `
+
+                </MenuItem>
                 <MenuItem Header="Calender"  Foreground="White" Width="70" x:Name="mcalender"/>
-                <MenuItem Header="Alerts"  Foreground="White" Width="55" x:Name="malerts" />
+                <!--<MenuItem Header="Alerts"  Foreground="White" Width="55" x:Name="malerts" Click="malerts_Click" />-->
                 <MenuItem Header="Forecast"  Foreground="White" Width="70" x:Name="mforcast" />
                 <TextBox Height="23" x:Name="txtsearch" TextWrapping="Wrap" Margin="200,0,0,0" Text="" Foreground="White"  Width="245" Background="#FF302D2D"/>
                 <Button Content="Search" HorizontalAlignment="Left" x:Name="btnsearch" Margin="0,0,0,0" VerticalAlignment="Top"  Width="75" Background="#FF1AAE1A"/>
@@ -390,8 +423,8 @@
 
             </Grid>
             <Button Content="Admin" Name="btnadminl" Foreground="White"  HorizontalAlignment="Left" Margin="980,10,0,0" VerticalAlignment="Top" Width="75" Background="#FF302D2D" Click="btnadminl_Click"/>
-            <Grid HorizontalAlignment="Left" Visibility="Hidden" Name="GRD_NewProcurement" Height="560" Margin="21,65,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0">
-                <Grid HorizontalAlignment="Left" Height="530" Margin="70,20,0,0" VerticalAlignment="Top" Width="1035" Background="White" >
+            <Grid HorizontalAlignment="Left" Visibility="Hidden"    Name="GRD_NewProcurement" Height="560" Margin="21,65,0,0" VerticalAlignment="Top" Width="1159" Background="#FFF0F0F0">
+                <Grid Height="530" Margin="70,20,54,0" VerticalAlignment="Top" Background="White" >
                     <Label Content="Pre-Procurement No :" HorizontalAlignment="Left" Margin="85,34,0,0" VerticalAlignment="Top" Width="146"/>
                     <Label Content="Dealer Name :" HorizontalAlignment="Left" Margin="89,63,0,0" VerticalAlignment="Top" Width="85"/>
                     <Label Content="Domain:" HorizontalAlignment="Left" Margin="90,94,0,0" VerticalAlignment="Top" Width="135"/>
@@ -454,7 +487,7 @@
                         </StackPanel>-->
                 </Grid>
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="565" Margin="20,66,0,0" Name="GRD_Follwupandnew"  Visibility="Hidden"    VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" >
+            <Grid HorizontalAlignment="Left" Height="565" Margin="20,66,0,0" Name="GRD_Follwupandnew"  Visibility="Hidden"      VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" >
                 <Grid HorizontalAlignment="Left" Height="540" Name="grd_addfollowupandwalkin" Margin="160,15,0,0" VerticalAlignment="Top" Width="835" Background="White">
                     <Label Content="Follow up Details" HorizontalAlignment="Left" Margin="409,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" />
                     <Label Content="Follow_up ID :" HorizontalAlignment="Left" Margin="95,47,0,0" VerticalAlignment="Top" Width="90"/>
@@ -493,7 +526,7 @@
                 </Grid>
             </Grid>
 
-            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Hidden"              VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Hidden"                VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <!--<Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales1"  Visibility="Hidden" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">-->
 
                 <Grid HorizontalAlignment="Left" Height="545" Visibility="Visible"  Margin="6,10,0,0" VerticalAlignment="Top" Width="1145" Background="White">
@@ -571,7 +604,7 @@
                         </GroupBox>
                     </Grid>
                 </Grid>
-                <Grid HorizontalAlignment="Left" Name="GRD_Customer_Billing" Height="509" VerticalAlignment="Top"  Visibility="Hidden"  Width="1130" Margin="16,56,0,0" Background="#FFF0F0F0" Loaded="GRD_Customer_Billing_Loaded">
+                <Grid HorizontalAlignment="Left" Name="GRD_Customer_Billing" Height="509" VerticalAlignment="Top"  Visibility="Hidden"      Width="1130" Margin="16,56,0,0" Background="#FFF0F0F0" Loaded="GRD_Customer_Billing_Loaded">
 
                     <Grid HorizontalAlignment="Left" Visibility="Visible"  Height="455" VerticalAlignment="Top"  Width="1090" Margin="15,20,0,0" Background="White">
 
@@ -597,14 +630,12 @@
                         <RadioButton x:Name="rdoSaleCustomerBusiness" Content="Business " HorizontalAlignment="Left" Margin="238,384,0,0" VerticalAlignment="Top" GroupName="bb" IsEnabled="False"/>
                         <RadioButton x:Name="rdoSaleCustomerPrivate" Content="Private Employee" HorizontalAlignment="Left" Margin="325,384,0,0" VerticalAlignment="Top" GroupName="bb" IsEnabled="False"/>
                         <RadioButton x:Name="rdoSaleCustomergovt" Content="GOVT Employee" HorizontalAlignment="Left" Margin="450,384,0,0" VerticalAlignment="Top" GroupName="bb" IsEnabled="False"/>
-                        <DatePicker x:Name="dpSaleCustomerDOB" HorizontalAlignment="Left" Margin="224,279,0,0" VerticalAlignment="Top" Width="133"/>
+                        <DatePicker x:Name="dpSaleCustomerDOB" HorizontalAlignment="Left" Margin="224,279,0,0" VerticalAlignment="Top" Width="201"/>
                         <TextBox HorizontalAlignment="Left" Height="30" Margin="220,344,0,0"  TextWrapping="Wrap" x:Name="txtSaleCustomerOccupation" Text="" VerticalAlignment="Top" Width="365"/>
                         <Button x:Name="btnSaleCustomerEditoccu" Content="Edit" HorizontalAlignment="Left" Margin="595,332,0,0" VerticalAlignment="Top" Width="65" Height="28" FontSize="14" Click="btnSaleCustomerEditoccu_Click" IsEnabled="False"/>
                         <Label x:Name="lblfollowupidfetch" Content="" HorizontalAlignment="Left" Margin="485,75,0,0" VerticalAlignment="Top" Width="90"/>
                         <Label Content="Source Of Enquiry:" HorizontalAlignment="Left" Margin="90,308,0,0" VerticalAlignment="Top" Width="120"/>
                         <ComboBox x:Name="cmbSourceOfEnquery" HorizontalAlignment="Left" Margin="225,311,0,0" VerticalAlignment="Top" Width="200" IsEditable="True" IsReadOnly="True"/>
-                        <Label Content="Employee Name:" HorizontalAlignment="Left" Margin="90,41,0,0" VerticalAlignment="Top" Width="120"/>
-                        <ComboBox x:Name="cmbCustomer_EmployeeName" HorizontalAlignment="Left" Margin="225,44,0,0" VerticalAlignment="Top" Width="360" IsEditable="True" IsReadOnly="True"/>
                         <Button x:Name="btnSaleCustomerExit" Content="Edit" HorizontalAlignment="Left" Margin="841,294,0,0" VerticalAlignment="Top" Width="89" Height="23" FontSize="14" Click="btnSaleCustomerExit_Click"/>
                     </Grid>
                 </Grid>
@@ -650,7 +681,7 @@
                 </Grid>
 
             </Grid>
-            <Grid HorizontalAlignment="Right" Visibility="Hidden"  Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
+            <Grid HorizontalAlignment="Right" Visibility="Hidden"           Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
                 <!--<Grid HorizontalAlignment="Right" Visibility="Visible"    x:Name="Grd_genratebill1" Height="565" Margin="-4,0,4,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
 
 
@@ -691,7 +722,7 @@
                                         </Grid>
                                     </GroupBox>
                  </Grid>-->
-                <Grid HorizontalAlignment="Right" Visibility="Visible"  Height="573" Margin="-2,3,3,-11" VerticalAlignment="Top" Width="1159" Background="#FFEEEEF2">
+                <Grid HorizontalAlignment="Right" Visibility="Visible"    Height="573" Margin="-2,3,3,-11" VerticalAlignment="Top" Width="1159" Background="#FFEEEEF2">
 
                     <Grid HorizontalAlignment="Left" Height="545" VerticalAlignment="Top" Width="1140" Background="White" Margin="9,15,0,0">
                         <Grid.ColumnDefinitions>
@@ -723,7 +754,7 @@
                                 <ComboBox x:Name="cmbInvoice_Tax1" HorizontalAlignment="Left" Margin="737,30,0,0" VerticalAlignment="Top" Width="85" IsEditable="True" SelectionChanged="cmbInvoice_Tax_SelectionChanged" Height="24" DropDownClosed="cmbInvoice_Tax1_DropDownClosed"/>
                                 <Label x:Name="lblinvoiceSr" Content="1" HorizontalAlignment="Left" Margin="123,0,0,0" VerticalAlignment="Top"/>
                                 <Label x:Name="txtInvoice_remainingqty" Content="Qty" HorizontalAlignment="Left" Margin="566,-19,0,0" VerticalAlignment="Top"/>
-                                <ComboBox x:Name="cmbInvoiceEmployeename" HorizontalAlignment="Left" Margin="694,-41,0,0" VerticalAlignment="Top" Width="330" SelectionChanged="ComboBox_SelectionChanged" IsEditable="True" DropDownClosed="cmbInvoiceStockProducts_DropDownClosed"/>
+                                <ComboBox x:Name="cmbInvoiceEmployeename" HorizontalAlignment="Left" Margin="694,-41,0,0" VerticalAlignment="Top" Width="330" SelectionChanged="ComboBox_SelectionChanged" IsEditable="True"/>
 
                             </Grid>
                         </GroupBox>
@@ -764,7 +795,7 @@
 
                             </Grid>
                         </GroupBox>
-                        <Grid HorizontalAlignment="Left"  Name="GRDInvoce_Cash" Height="200" Visibility="Hidden"         Margin="375,343,0,0" VerticalAlignment="Top" Width="745" Background="#FFF0F0F0" Grid.ColumnSpan="2">
+                        <Grid HorizontalAlignment="Left"  Name="GRDInvoce_Cash" Height="200" Visibility="Visible"          Margin="375,343,0,0" VerticalAlignment="Top" Width="745" Background="#FFF0F0F0" Grid.ColumnSpan="2">
                             <Label Content="Invoice Total Amount :" HorizontalAlignment="Left" Margin="71,55,0,0" VerticalAlignment="Top"/>
                             <Label Content="Paid Amount :" HorizontalAlignment="Left" Margin="324,52,0,0" VerticalAlignment="Top"/>
                             <Label Content="Balance Amount :" HorizontalAlignment="Left" Margin="547,53,0,0" VerticalAlignment="Top"/>
@@ -844,7 +875,7 @@
 
 
 
-            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Hidden"              Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Hidden"               Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
 
                 <Grid HorizontalAlignment="Left" Height="535" VerticalAlignment="Top" Width="1130" Margin="10,15,0,0" Background="White">
                     <Grid.ColumnDefinitions>
@@ -1024,8 +1055,8 @@
 
                 </Grid>
             </Grid>
-         
-            <Grid x:Name="grd_SaleDetails" Visibility="Hidden"     HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+
+            <Grid x:Name="grd_SaleDetails" Visibility="Hidden"           HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <Button x:Name="btnAdm_SaleCustDetails_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,-1,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnAdm_SaleCustDetails_Exit_Click"/>
                 <Label Content="Sale  Details" HorizontalAlignment="Left" Margin="460,3,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                 <Grid HorizontalAlignment="Left" Height="510" Margin="18,40,0,0" VerticalAlignment="Top" Width="1120" Background="#FFFEFEFE">
@@ -1128,7 +1159,63 @@
                 </Grid>
                 <TextBox x:Name="txtSaleCustID" HorizontalAlignment="Left" Height="23" Margin="770,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Visibility="Hidden"/>
             </Grid>
+            <TextBox x:Name="txtdiffdate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Margin="645,17,0,0"/>
+            <TextBox x:Name="txtnoti" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Margin="715,15,0,0"/>
 
+            <Grid HorizontalAlignment="Left" Name="GRD_AllertCustomer" Visibility="Hidden"         Height="560" VerticalAlignment="Top" Width="1150" Margin="25,68,0,0" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Height="520" VerticalAlignment="Top" Width="1140" Margin="5,32,0,0" Background="White">
+                    <GroupBox Header="Alerts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1130" Margin="5,0,0,0" Height="60">
+                        <Grid HorizontalAlignment="Left" Height="82" VerticalAlignment="Top" Width="1120" Margin="0,-2,-2,-32">
+                            <Label Content="Select Search Option :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="26,7,0,0" Width="128"/>
+                            <ComboBox x:Name="cmb_AlertsCustomer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="239,12,0,0" IsEditable="True" IsEnabled="False"/>
+                            <RadioButton x:Name="rdo_AlertsCustomer" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="194,16,0,0" Checked="rdo_AlertsCustomer_Checked" GroupName="alerts"/>
+                            <ComboBox x:Name="cmb_AlertsDealer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="525,13,0,0" IsEditable="True" IsEnabled="False"/>
+                            <RadioButton x:Name="rdo_AlertsDealer" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="480,17,0,0" GroupName="alerts" Checked="rdo_AlertsDealer_Checked"/>
+                            <ComboBox x:Name="cmb_AlertsEmployee" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="809,13,0,0" IsEditable="True" IsEnabled="False"/>
+                            <RadioButton x:Name="rdo_AlertsEmployee" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="764,17,0,0" GroupName="alerts" Checked="rdo_AlertsEmployee_Checked"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+                <Label Content="All Types Of Allerts" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="495,0,0,0"/>
+                <Button x:Name="btnAlertExit" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1065,2,0,0" Click="btnAlertExit_Click"/>
+
+            </Grid>
+            <Grid HorizontalAlignment="Left" Name="GRD_AlertsDealer" Visibility="Hidden" Height="565" VerticalAlignment="Top" Width="1157" Margin="23,65,0,0" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Height="520" VerticalAlignment="Top" Width="1145" Margin="7,30,0,0" Background="White">
+                    <GroupBox Header="Alerts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1135" Height="55" Margin="5,0,0,0" Background="#FFEEEEF2">
+                        <Grid HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="1125" Margin="0,-4,-2,0">
+                            <Label Content="Select Search Option :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="114,8,0,0" Width="128"/>
+                            <RadioButton x:Name="rdoAlertDealer_Birthday" Content="Birthday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="279,14,0,0"/>
+                            <RadioButton x:Name="rdoAlertDealer_Followup" Content="Follow-up" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="419,14,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <DataGrid HorizontalAlignment="Left" Name="DGRD_DealerAlerts" VerticalAlignment="Top" Margin="5,75,0,0" Height="445" Width="1134"/>
+                </Grid>
+                <Label Content="Dealer Alerts " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="529,-1,0,0" FontSize="16" FontWeight="Bold"/>
+
+            </Grid>
+            <Grid HorizontalAlignment="Left" Name="GRD_AlertEmployee" Visibility="Hidden" Height="563" VerticalAlignment="Top" Width="1155" Margin="25,67,0,0" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Height="525" VerticalAlignment="Top" Width="1145" Margin="4,25,0,0" Background="White">
+                    <GroupBox Header="Alerts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1135" Margin="5,0,0,0" Height="55" Background="#FFEEEEF2">
+                        <Grid HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="1125" Margin="0,-4,-2,0">
+                            <Label Content="Select Search Option :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="26,7,0,0" Width="128"/>
+                            <RadioButton x:Name="rdoAlertEmployeeBirthday" Content="Birthday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="199,14,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <DataGrid HorizontalAlignment="Left" Name="DGRD_AlertEmployee" VerticalAlignment="Top" Margin="6,68,0,0" Height="437" Width="1129" RenderTransformOrigin="0.5,0.5">
+                        <DataGrid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.042"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </DataGrid.RenderTransform>
+                    </DataGrid>
+
+                </Grid>
+                <Label Content="Employee Alerts" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="527,-2,0,0"/>
+            </Grid>
         </Grid>
 
 

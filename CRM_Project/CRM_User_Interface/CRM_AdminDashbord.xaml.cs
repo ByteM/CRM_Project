@@ -3201,7 +3201,7 @@ namespace CRM_User_Interface
                 baddprd.Narration = txtP_Narration.Text;
                 baddprd.Price = Convert.ToDouble(txtP_Price.Text);
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.Save_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtP_Narration.Text = "";
@@ -3337,7 +3337,7 @@ namespace CRM_User_Interface
                 baddprd.Cmp_ID_Proof = strcmpid;
                 baddprd.S_Status = "Active";
 
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddDomain_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtdomain.Text = "";
@@ -3370,7 +3370,7 @@ namespace CRM_User_Interface
                 baddprd.S_Status = "Active";
 
 
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddProducts_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtProductName.Text = "";
@@ -3404,7 +3404,7 @@ namespace CRM_User_Interface
                 baddprd.Product_ID = Convert.ToInt32(cmbProductBrand.SelectedValue.GetHashCode());
                 baddprd.Brand_Name = txtBrand.Text;
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date =System.DateTime.Now.ToShortDateString();
                 dalprd.AddBrand_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtBrand.Text = "";
@@ -3459,7 +3459,7 @@ namespace CRM_User_Interface
                 baddprd.Brand_ID = Convert.ToInt32(cmbBrandPCategory.SelectedValue.GetHashCode());
                 baddprd.Product_Category = txtPCategoy.Text;
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddP_Category_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtPCategoy.Text = "";
@@ -3517,7 +3517,7 @@ namespace CRM_User_Interface
                 baddprd.P_Category = Convert.ToInt32(cmbPCategoryModelno.SelectedValue.GetHashCode());
                 baddprd.Model_No = txtmodelno.Text;
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddModel_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtmodelno.Text = "";
@@ -3587,7 +3587,7 @@ namespace CRM_User_Interface
                 baddprd.Model_No_ID = Convert.ToInt32(cmbModelColor.SelectedValue.GetHashCode());
                 baddprd.Color = txtcolor.Text;
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddColor_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtcolor.Text = "";
@@ -4175,7 +4175,7 @@ namespace CRM_User_Interface
                 bpreproc.Follow_up = cmbPreFollowup.SelectedValue.ToString();
                 bpreproc.Narration = txtnarration.Text;
                 bpreproc.S_Status = "Active";
-                bpreproc.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                bpreproc.C_Date =System.DateTime.Now.ToShortDateString();
                 dpreproc.Pre_Procurement_Save_Insert_Update_Delete(bpreproc);
                 MessageBox.Show("Data Save Successfully", caption);
                 txtP_Narration.Text = txtnarration.Text;
@@ -4943,7 +4943,7 @@ namespace CRM_User_Interface
                 String str;
                 con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT distinct Count(I.EmployeeID) AS [EmployeeID],B.[EmployeeName] FROM [tlb_Customer] I INNER JOIN [tbl_Employee] B ON B.[ID]=I.[EmployeeID] WHERE I.[S_Status]='Active' Group By B.[EmployeeName]";
+                str = "SELECT distinct Count(I.Employee_ID) AS [EmployeeID],B.[EmployeeName] FROM [tlb_Bill_No] I INNER JOIN [tbl_Employee] B ON B.[ID]=I.[Employee_ID] WHERE I.[S_Status]='Active' Group By B.[EmployeeName]";
                 SqlCommand cmd = new SqlCommand(str, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(ds);

@@ -22,7 +22,7 @@ namespace CRM_DAL
                 cmd = new SqlCommand("SP_Customer", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Flag", 1);
-                cmd.Parameters.AddWithValue("@EmployeeID", bc.Employee_ID);
+               // cmd.Parameters.AddWithValue("@EmployeeID", bc.Employee_ID);
                 cmd.Parameters.AddWithValue("@Cust_ID", bc.Cust_ID);
                 cmd.Parameters.AddWithValue("@Name", bc.Name);
                 cmd.Parameters.AddWithValue("@Mobile_No", bc.Mobile_No);

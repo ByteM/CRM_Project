@@ -64,6 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DateDiff.cs" />
+    <Compile Include="DateDifference.cs" />
     <Compile Include="frmInsurance.xaml.cs">
       <DependentUpon>frmInsurance.xaml</DependentUpon>
     </Compile>
@@ -229,6 +231,15 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DurationCalculatorApp.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeReference Include="MyApplication.app, Version=1.0.0.0">
+      <Name>DurationCalculatorApp.vshost.exe.manifest</Name>
+      <HintPath>G:\new cmp\Notification and alerts\DurationCalculatorApp\DurationCalculatorApp\bin\Debug\DurationCalculatorApp.vshost.exe.manifest</HintPath>
+    </NativeReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

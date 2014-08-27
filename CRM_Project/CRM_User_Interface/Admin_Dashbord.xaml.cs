@@ -124,7 +124,7 @@ namespace CRM_User_Interface
            // baproduct.Product_ID  = txtpid .Text;
            // baproduct.Product_Name  = txtpname .Text;
             baproduct.S_Status = "Active";
-            baproduct.C_Date =Convert .ToDateTime ( System.DateTime.Now.ToShortDateString());
+            baproduct.C_Date = System.DateTime.Now.ToShortDateString();
             daproduct.AddDomain_Insert_Update_Delete(baproduct);
             addPorductcleaar();
         }

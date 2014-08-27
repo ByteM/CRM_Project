@@ -21,7 +21,7 @@ namespace CRM_BAL
 
         public double InsuranceAmt { get; set; }
 
-        public String BankName { get; set; }
+        public string BankName { get; set; }
 
         public DateTime InsuranceDate { get; set; }
 

@@ -39,7 +39,7 @@ namespace CRM_BAL
       public string Other_ID_Proof { get; set; }
       public string No_Documents { get; set; }
       public string Cmp_ID_Proof { get; set; }
-      public DateTime C_Date { get; set; }
+      public string  C_Date { get; set; }
 
     }
 }

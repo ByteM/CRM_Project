@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Globalization;
+using System.ComponentModel;
+using CRM_User_Interface.Add_Product;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Data;
 using System.Data.SqlClient;
@@ -31,14 +33,14 @@ namespace CRM_User_Interface
     public partial class CRM_MainForm : Window
     {
         string asd = System.DateTime.Now.ToString ();
-        string qwe = System.DateTime.Now.ToShortDateString();
+        string CommonDate = System.DateTime.Now.ToShortDateString();
         DateTime azx =Convert .ToDateTime ( System.DateTime.Now.ToShortDateString());
 
         NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
         string caption = "Green Future Glob" ;
         int cid,I,ID,i;
         double y1,m1,o,p,availqty;
-        string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue,occu;
+        string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue,occu, dob ;
         public Button targetButton;
       
         public CRM_MainForm()
@@ -46,7 +48,7 @@ namespace CRM_User_Interface
             InitializeComponent();
            
           DateTime  s =Convert .ToDateTime ( System.DateTime.Now.ToShortDateString());
-
+          Birthday_Notification();
           Chart_Followup();
           Chart_Seals();
           Chart_Procurment();
@@ -356,7 +358,7 @@ namespace CRM_User_Interface
                     baddprd.Cmp_ID_Proof = strcmpid;
                     baddprd.S_Status = "Active";
 
-                    baddprd.C_Date =Convert .ToDateTime ( System.DateTime.Now.ToShortDateString());
+                    baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                     dalprd.AddDomain_Insert_Update_Delete(baddprd);
                     MessageBox.Show ("Data Save Successfully");
                     txtdomain.Text = "";
@@ -589,7 +591,7 @@ namespace CRM_User_Interface
                 baddprd.S_Status = "Active";
 
               
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddProducts_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtProductName.Text = "";
@@ -624,7 +626,7 @@ namespace CRM_User_Interface
                 baddprd.Product_ID  = Convert.ToInt32(cmbProductBrand .SelectedValue.GetHashCode());
                 baddprd.Brand_Name  = txtBrand.Text;
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddBrand_Insert_Update_Delete (baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtBrand .Text = "";
@@ -656,7 +658,7 @@ namespace CRM_User_Interface
                 baddprd.Brand_ID = Convert.ToInt32(cmbBrandPCategory .SelectedValue.GetHashCode());
                 baddprd.Product_Category  = txtPCategoy .Text;
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddP_Category_Insert_Update_Delete (baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtPCategoy.Text = "";
@@ -811,7 +813,7 @@ namespace CRM_User_Interface
                 baddprd.P_Category   = Convert.ToInt32(cmbPCategoryModelno.SelectedValue.GetHashCode());
                 baddprd.Model_No  = txtmodelno.Text;
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd. AddModel_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtmodelno.Text = "";
@@ -985,7 +987,7 @@ namespace CRM_User_Interface
                 baddprd.Model_No_ID  = Convert.ToInt32(cmbModelColor.SelectedValue.GetHashCode());
                 baddprd.Color  = txtcolor.Text;
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date = System.DateTime.Now.ToShortDateString();
                 dalprd.AddColor_Insert_Update_Delete (baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtcolor.Text = "";
@@ -1225,7 +1227,7 @@ namespace CRM_User_Interface
                 baddprd.Narration = txtP_Narration.Text;
                 baddprd.Price =Convert .ToDouble ( txtP_Price.Text);
                 baddprd.S_Status = "Active";
-                baddprd.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                baddprd.C_Date =System.DateTime.Now.ToShortDateString();
                 dalprd.Save_Insert_Update_Delete(baddprd);
                 MessageBox.Show("Data Save Successfully");
                 txtP_Narration .Text = "";
@@ -1526,9 +1528,9 @@ namespace CRM_User_Interface
         private void btnPro_Save_Click(object sender, RoutedEventArgs e)
         {
             if (PrePro_Validation() == true)
-            {
-                return;
-                try
+               return;
+            
+            try 
                 {
 
                     bpreproc.Flag = 1;
@@ -1575,7 +1577,7 @@ namespace CRM_User_Interface
                     bpreproc.Follow_up = cmbPreFollowup.SelectedValue.ToString();
                     bpreproc.Narration = txtnarration.Text;
                     bpreproc.S_Status = "Active";
-                    bpreproc.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+                    bpreproc.C_Date = System.DateTime.Now.ToShortDateString();
                     dpreproc.Pre_Procurement_Save_Insert_Update_Delete(bpreproc);
                     MessageBox.Show("Data Save Successfully");
                     txtP_Narration.Text = txtnarration.Text;
@@ -1607,7 +1609,6 @@ namespace CRM_User_Interface
 
                     throw;
                 }
-            }
         }
         public void fetch_Documents()
         {
@@ -2039,7 +2040,7 @@ namespace CRM_User_Interface
             balfollow.Followup_ID = lblwalkin .Content.ToString();
             balfollow.Name = txtCName.Text;
             balfollow.Mobile_No = txtCMobile.Text;
-            balfollow.Date_Of_Birth = dp_Dob.SelectedDate.Value ;
+            balfollow.Date_Of_Birth = dp_Dob.Text  ;
             balfollow.Email_ID = txtCEmailid.Text;
             balfollow.Address = txtCAddress.Text;
             if(rdoBusiness .IsChecked ==true )
@@ -2069,12 +2070,12 @@ namespace CRM_User_Interface
              if (rdoCCustom .IsChecked == true )
             {
                 balfollow.Followup_Type = "Custom";
-                balfollow.F_Date = dp_Cdate.SelectedDate.Value;
+                balfollow.F_Date = dp_Cdate.Text;
                 balfollow.F_Message = txtCMessage.Text;
             }
             balfollow.Folloup_Update = "F_Active";
             balfollow.S_Status = "Active";
-            balfollow.C_Date =Convert .ToDateTime ( System.DateTime.Now.ToShortDateString());
+            balfollow.C_Date = System.DateTime.Now.ToShortDateString();
             dalfollow.Follwup1_Save_Insert_Update_Delete(balfollow);
             MessageBox .Show ("Customer Added sucsessfully ",caption , MessageBoxButton.OK);
             clearfunctionforfollowup();
@@ -2086,7 +2087,7 @@ namespace CRM_User_Interface
             balfollow.Followup_ID = lblwalkin.Content.ToString();
             balfollow.Name = txtCName.Text;
             balfollow.Mobile_No = txtCMobile.Text;
-            balfollow.Date_Of_Birth = dp_Dob.SelectedDate.Value;
+            balfollow.Date_Of_Birth = dp_Dob.Text;
             balfollow.Email_ID = txtCEmailid.Text;
             balfollow.Address = txtCAddress.Text;
             if (rdoBusiness.IsChecked == true)
@@ -2121,7 +2122,7 @@ namespace CRM_User_Interface
             //}
             balfollow.Folloup_Update = "F_Active";
             balfollow.S_Status = "Active";
-            balfollow.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
+            balfollow.C_Date = System.DateTime.Now.ToShortDateString();
             dalfollow.Follwup2_Save_Insert_Update_Delete(balfollow);
             MessageBox.Show("Customer Added sucsessfully ", caption, MessageBoxButton.OK);
             clearfunctionforfollowup();
@@ -2575,6 +2576,7 @@ namespace CRM_User_Interface
                 loadStockProducts();
                 FetchtaxDetails();
                 BillID_fetch();
+                Load_EmployeeDetails();
 
               
 
@@ -2589,6 +2591,7 @@ namespace CRM_User_Interface
                 FetchtaxDetails();
                 loadStockProducts();
                 BillID_fetch();
+                Load_EmployeeDetails();
 
             }
             else if (rdoSaleNewcustomer.IsChecked ==true )
@@ -2603,6 +2606,7 @@ namespace CRM_User_Interface
                 FetchtaxDetails();
                 loadStockProducts();
                 BillID_fetch();
+                Load_EmployeeDetails();
 
             }
             
@@ -3150,24 +3154,35 @@ public void clearAllAddedProducts()
                 MessageBox.Show("Please Insert Quantity ", caption,MessageBoxButton .OK , MessageBoxImage.Error );
 
             }
-            else if (cmbInvoiceStockProducts.SelectedValue =="")
+            else if (cmbInvoiceStockProducts.Text =="")
             {
                 res = true;
                 MessageBox.Show("Please Select Products ", caption, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return res;
         }
+
+        public void ckeck_addProduct()
+        {
+            if (dtstat.Rows.Count >0)
+            {
+                if (dtstat.Columns[1].ToString ()  == cmbInvoiceStockProducts.Text)
+                {
+                    MessageBox.Show("Already Present");
+                }
+            }
+        }
         private void btninvoice_addProduct_Click(object sender, RoutedEventArgs e)
         {
             if (Invoic_Add_Validation() == true)
                 return;
-
+            ckeck_addProduct();
                 if (dtstat.Rows.Count == 0)
                 {
                     dtstat.Columns.Add("SrNo");
 
                     dtstat.Columns.Add("Products");
-
+                    dtstat.Columns.Add("ID");
                     dtstat.Columns.Add("RatePer_Product");
                     dtstat.Columns.Add("Qty");
                     dtstat.Columns.Add("Total_Price");
@@ -3175,12 +3190,14 @@ public void clearAllAddedProducts()
                     dtstat.Columns.Add("Taxes %");
                     dtstat.Columns.Add("SubTotal");
                     dtstat.Columns.Add("availqty");
+                 
                     // dtstat.Columns["availqty"].Visible = false;
                 }
 
                 DataRow dr = dtstat.NewRow();
                 dr["SrNo"] = lblinvoiceSr.Content;
                 dr["Products"] = cmbInvoiceStockProducts.Text;
+                dr["ID"] = cmbInvoiceStockProducts.SelectedValue.GetHashCode();
                 dr["RatePer_Product"] = txtInvoiceActualPrice.Text;
                 dr["Qty"] = txtInvoice_Qty.Text;
 
@@ -3203,7 +3220,8 @@ public void clearAllAddedProducts()
                 //txtSubTotal.Text = "";
 
                 Dgrd_InvoiceADDProducts.ItemsSource = dtstat.DefaultView;
-                Dgrd_InvoiceADDProducts.Columns[8].Visibility = Visibility.Hidden;
+            Dgrd_InvoiceADDProducts .Columns [2].Visibility =Visibility .Hidden ;
+                Dgrd_InvoiceADDProducts.Columns[9].Visibility = Visibility.Hidden;
                 // Dgrd_InvoiceADDProducts.Columns[0].Visibility = Visibility.Hidden;
 
                 if (dtstat.Rows.Count > 0)
@@ -3250,7 +3268,7 @@ public void Save_FollowupCustomer()
     if (res ==MessageBoxResult.Yes  )
     {
         balc.Flag = 1;
-        balc.Employee_ID = cmbCustomer_EmployeeName.SelectedValue.GetHashCode();
+       // balc.Employee_ID = .SelectedValue.GetHashCode();
         balc.Cust_ID = txtvalueid.Text;
         balc.Name = txtSalecustomerName.Text;
         balc.Mobile_No = txtSaleCustomerMobileno.Text;
@@ -3308,7 +3326,7 @@ public void Save_NewCustomer()
     if (res == MessageBoxResult.Yes)
     {
         balc.Flag = 1;
-        balc.Employee_ID = cmbCustomer_EmployeeName.SelectedValue.GetHashCode();
+      //  balc.Employee_ID = cmbCustomer_EmployeeName.SelectedValue.GetHashCode();
         balc.Cust_ID = txtvalueid.Text;
         balc.Name = txtSalecustomerName.Text;
         balc.Mobile_No = txtSaleCustomerMobileno.Text;
@@ -3503,6 +3521,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             {
                 binvd.Flag = 1;
                 binvd.Products123 = g;
+                binvd.ID = Convert.ToInt32(dtstat.Rows[i]["ID"].ToString());
                  binvd.Bill_No = lblbillno.Content.ToString();
                double d = Convert.ToDouble(dtstat .Rows [i]["availqty"].ToString ());
                 double q = Convert.ToDouble(dtstat.Rows[i]["Qty"].ToString());
@@ -3547,6 +3566,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         {
             binvd.Flag = 1;
             binvd.Customer_ID = I;
+            binvd.Employee_ID = cmbInvoiceEmployeename.SelectedValue.GetHashCode();
             binvd.Bill_No = lblbillno .Content.ToString () ;
             if (pm_c == "Cash")
                     {
@@ -3655,7 +3675,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             SaveInvoiceDetails();
             Save_CommonBill();
             SaveCheque();
-           // updateQuantity();
+          // updateQuantity();
             clear_CustomerFields();
             clearAllAddedProducts();
             clear_AllCheque();
@@ -4432,7 +4452,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
            
        }
        SourceOfEnquiry();
-       Load_EmployeeDetails();
+      //Load_EmployeeDetails();
    }
 
    public void Load_EmployeeDetails()
@@ -4447,21 +4467,22 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
        adp.Fill(ds);
        if (ds.Tables[0].Rows.Count > 0)
        {
-           cmbCustomer_EmployeeName.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
-           cmbCustomer_EmployeeName.ItemsSource = ds.Tables[0].DefaultView;
-           cmbCustomer_EmployeeName.DisplayMemberPath = ds.Tables[0].Columns["EmployeeName"].ToString();
+           cmbInvoiceEmployeename.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+           cmbInvoiceEmployeename.ItemsSource = ds.Tables[0].DefaultView;
+           cmbInvoiceEmployeename.DisplayMemberPath = ds.Tables[0].Columns["EmployeeName"].ToString();
        }
    }
 
    public bool NewCustomer_Validation()
    {
        bool result = false;
-       if(cmbCustomer_EmployeeName.SelectedItem == null)
-       {
-           result = true;
-           MessageBox.Show("Please Select Employee Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
-       }
-       else if (txtSalecustomerName.Text == "")
+       //if(cmbCustomer_EmployeeName.SelectedItem == null)
+       //{
+       //    result = true;
+       //    MessageBox.Show("Please Select Employee Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
+       //}
+       //else
+       if (txtSalecustomerName.Text == "")
        {
            result = true;
            MessageBox.Show("Please Enter Customer Name", caption, MessageBoxButton.OK, MessageBoxImage.Stop);
@@ -5210,6 +5231,143 @@ public void loadbynamenno_Followupvw()
         private void dgvAdm_FinalProcurement_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
 
+        }
+
+       //======== Load Notification start ===========
+        public void Birthday_Notification()
+        {
+            fetch_C_Birthdays();
+           // Calculate_CBday();
+        }
+        public void fetch_C_Birthdays()
+        {
+            try
+            {int cnt1 = 0;
+                con.Open();
+                string sqlquery1 = "SELECT ID,Cust_ID,Name,Date_Of_Birth from tlb_Customer where S_Status='Active' ";
+                SqlCommand cmd = new SqlCommand(sqlquery1, con);
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                for (int i = 0; i < dt.Rows .Count ; i++)
+                {
+                    
+                     int id =Convert .ToInt32 ( dt.Rows[0]["ID"].ToString());
+                    string cid = dt.Rows[0]["Cust_ID"].ToString();
+                    string nam = dt.Rows[0]["Name"].ToString();
+                    dob = dt.Rows[0]["Date_Of_Birth"].ToString();
+                    Calculate_CBday();
+                    if (txtdiffdate.Text == "0")
+                    {
+                        MessageBox.Show("After 2 days  '" + nam + "' have a Birthday Dated on '" + dob + "'");
+                        cnt1 = cnt1 + 1;
+                    }
+                }
+
+                txtnoti.Text = cnt1.ToString();
+                //grd_FinalizeProducts.Visibility = System.Windows.Visibility.Visible;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+        public void Calculate_CBday()
+                    {
+            DateTime commondate1=Convert .ToDateTime (CommonDate);
+            DateTime dob1 = Convert.ToDateTime(dob);
+           //CRM_DAL.
+            DateDiff dateDifference = new DateDiff(commondate1, dob1);
+      txtdiffdate.Text =  dateDifference.ToString();
+
+            //DateDiff dateDifference = new DateDiff(this.dateTimeTo.Value, this.dateTimeFrom.Value);
+            //this.lblOutput.Text = "Difference between " + this.dateTimeFrom.Value.ToShortDateString()
+            //                    + " and " + this.dateTimeTo.Value.ToShortDateString() + " is :\n"
+            //                    + dateDifference.ToString();
+        }
+
+        private void rdo_AlertsCustomer_Checked(object sender, RoutedEventArgs e)
+        {
+           
+            cmb_AlertsCustomer.IsEnabled = true;
+           // cmb_AlertsCustomer.ItemsSource = null;
+            //load_AlertCustomer();
+           // cmb_AlertsDealer.ItemsSource = null;
+            cmb_AlertsDealer .IsEnabled = false ;
+
+           // cmb_AlertsEmployee.ItemsSource = null;
+            cmb_AlertsEmployee.IsEnabled = false ;
+        }
+
+        private void rdo_AlertsDealer_Checked(object sender, RoutedEventArgs e)
+        {
+          //  cmb_AlertsCustomer.ItemsSource = null;
+            cmb_AlertsCustomer.IsEnabled = false ;
+            cmb_AlertsDealer.IsEnabled = true ;
+           
+           // cmb_AlertsDealer.ItemsSource = null;
+           // Load_AlertDealer();
+           // cmb_AlertsEmployee.ItemsSource = null;
+            cmb_AlertsEmployee.IsEnabled = false;
+        }
+
+        private void rdo_AlertsEmployee_Checked(object sender, RoutedEventArgs e)
+        {
+           // cmb_AlertsCustomer.ItemsSource = null;
+            cmb_AlertsCustomer.IsEnabled = false;
+           // cmb_AlertsDealer.ItemsSource = null;
+            cmb_AlertsDealer.IsEnabled = false  ;        
+            cmb_AlertsEmployee.IsEnabled = true ;
+           // cmb_AlertsEmployee.ItemsSource = null;
+           // Load_AlertEmployee();
+        }
+
+        private void btnAlertExit_Click(object sender, RoutedEventArgs e)
+        {
+           // GRD_Allert.Visibility = Visibility.Hidden;
+        }
+        public void load_AlertCustomer()
+        {
+            cmb_AlertsCustomer.Items .Clear ();
+            cmb_AlertsCustomer.Text = "Customer";
+            cmb_AlertsCustomer.Items.Add("Follow-up");
+            cmb_AlertsCustomer.Items.Add("Birthday's");
+            cmb_AlertsCustomer.Items.Add("Balance");
+            cmb_AlertsCustomer.Items.Add("Warranty");
+            cmb_AlertsCustomer.Items.Add("Insurance");
+        }
+
+        public void Load_AlertDealer()
+        {
+            cmb_AlertsDealer.Items.Clear();
+            cmb_AlertsDealer.Text = "Dealer";
+            cmb_AlertsDealer.Items.Add("Birthday's");
+            cmb_AlertsDealer.Items.Add("Follow-up");
+        }
+        public void Load_AlertEmployee()
+        {
+            cmb_AlertsEmployee.Items.Clear();
+            cmb_AlertsEmployee.Text = "Employee";
+            cmb_AlertsEmployee.Items.Add("Birthday's");
+        }
+
+        private void malerts_Click(object sender, RoutedEventArgs e)
+        {
+          //  GRD_Allert.Visibility = Visibility;
+            //cmb_AlertsCustomer.ItemsSource  = null;
+            //cmb_AlertsDealer.ItemsSource = null;
+           // cmb_AlertsEmployee.ItemsSource = null;
+            //cmb_AlertsCustomer.Text = "Customer";
+            //cmb_AlertsDealer.Text = "Dealer";
+            //cmb_AlertsEmployee.Text = "Employee";
+            load_AlertCustomer();
+            Load_AlertDealer();
+            Load_AlertEmployee();
         }
    }
    

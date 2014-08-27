@@ -66,6 +66,7 @@ namespace CRM_DAL
                cmd.CommandType = CommandType.StoredProcedure;
                cmd.Parameters.AddWithValue("@Flag", 1);
                cmd.Parameters.AddWithValue("@Customer_ID", balid.Customer_ID);
+               cmd.Parameters.AddWithValue("@Employee_ID", balid.Employee_ID);
                cmd.Parameters.AddWithValue("@Bill_No", balid.Bill_No);
                cmd.Parameters.AddWithValue("@Payment_Mode", balid.Payment_Mode);
                cmd.Parameters.AddWithValue("@Total_Price", balid.Total_Price);
@@ -95,6 +96,7 @@ namespace CRM_DAL
                cmd.CommandType = CommandType.StoredProcedure;
                cmd.Parameters.AddWithValue("@Flag", 1);
                cmd.Parameters.AddWithValue("@Products123", balid.Products123);
+               cmd.Parameters.AddWithValue("@ID",balid .ID );
                cmd.Parameters.AddWithValue("@AvilableQty", balid.AvilableQty);
                cmd.Parameters.AddWithValue("@SaleQty", balid.SaleQty);
                cmd.Parameters.AddWithValue("@S_Status", balid.S_Status);
