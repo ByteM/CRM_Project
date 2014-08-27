@@ -1162,19 +1162,19 @@
             <TextBox x:Name="txtdiffdate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Margin="645,17,0,0"/>
             <TextBox x:Name="txtnoti" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Margin="715,15,0,0"/>
 
-            <Grid HorizontalAlignment="Left" Name="GRD_AllertCustomer" Visibility="Hidden"         Height="560" VerticalAlignment="Top" Width="1150" Margin="25,68,0,0" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Name="GRD_AllertCustomer" Visibility="Visible"          Height="560" VerticalAlignment="Top" Width="1150" Margin="25,68,0,0" Background="#FFF0F0F0">
                 <Grid HorizontalAlignment="Left" Height="520" VerticalAlignment="Top" Width="1140" Margin="5,32,0,0" Background="White">
-                    <GroupBox Header="Alerts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1130" Margin="5,0,0,0" Height="60">
-                        <Grid HorizontalAlignment="Left" Height="82" VerticalAlignment="Top" Width="1120" Margin="0,-2,-2,-32">
-                            <Label Content="Select Search Option :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="26,7,0,0" Width="128"/>
-                            <ComboBox x:Name="cmb_AlertsCustomer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="239,12,0,0" IsEditable="True" IsEnabled="False"/>
-                            <RadioButton x:Name="rdo_AlertsCustomer" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="194,16,0,0" Checked="rdo_AlertsCustomer_Checked" GroupName="alerts"/>
-                            <ComboBox x:Name="cmb_AlertsDealer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="525,13,0,0" IsEditable="True" IsEnabled="False"/>
-                            <RadioButton x:Name="rdo_AlertsDealer" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="480,17,0,0" GroupName="alerts" Checked="rdo_AlertsDealer_Checked"/>
-                            <ComboBox x:Name="cmb_AlertsEmployee" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="809,13,0,0" IsEditable="True" IsEnabled="False"/>
-                            <RadioButton x:Name="rdo_AlertsEmployee" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="764,17,0,0" GroupName="alerts" Checked="rdo_AlertsEmployee_Checked"/>
+                    <GroupBox Header="Alerts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1130" Margin="5,10,0,0" Height="60">
+                        <Grid HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Width="1120" Margin="0,-2,-2,-12">
+                            <Label Content="Select Search Option :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,7,0,0" Width="128"/>
+                            <RadioButton x:Name="rdo_AlertsCustomerBirthday" Content="BirthDay" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,16,0,0" Checked="rdo_AlertsCustomer_Checked" GroupName="alerts" Width="75"/>
+                            <RadioButton x:Name="rdo_AlertsCFollow_up" Content="Follow-up" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="366,17,0,0" GroupName="alerts" Checked="rdo_AlertsDealer_Checked"/>
+                            <RadioButton x:Name="rdo_AlertsCBalance" Content="Balance" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="505,19,0,0" GroupName="alerts" Checked="rdo_AlertsEmployee_Checked" Height="17" Width="69"/>
+                            <RadioButton x:Name="rdo_AlertsCWarranty" Content="Warranty" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,17,0,0" GroupName="alerts" Checked="rdo_AlertsEmployee_Checked"/>
+                            <RadioButton x:Name="rdo_AlertsCInsurance" Content="Insurance" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="758,19,0,0" GroupName="alerts" Checked="rdo_AlertsEmployee_Checked" Width="80"/>
                         </Grid>
                     </GroupBox>
+                    <DataGrid HorizontalAlignment="Left" Name="DGRD_AlertCust" VerticalAlignment="Top" Margin="6,80,0,0" Height="435" Width="1129"/>
                 </Grid>
                 <Label Content="All Types Of Allerts" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="495,0,0,0"/>
                 <Button x:Name="btnAlertExit" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1065,2,0,0" Click="btnAlertExit_Click"/>

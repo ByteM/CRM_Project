@@ -5294,80 +5294,29 @@ public void loadbynamenno_Followupvw()
         private void rdo_AlertsCustomer_Checked(object sender, RoutedEventArgs e)
         {
            
-            cmb_AlertsCustomer.IsEnabled = true;
-           // cmb_AlertsCustomer.ItemsSource = null;
-            //load_AlertCustomer();
-           // cmb_AlertsDealer.ItemsSource = null;
-            cmb_AlertsDealer .IsEnabled = false ;
-
-           // cmb_AlertsEmployee.ItemsSource = null;
-            cmb_AlertsEmployee.IsEnabled = false ;
+          
         }
 
         private void rdo_AlertsDealer_Checked(object sender, RoutedEventArgs e)
         {
-          //  cmb_AlertsCustomer.ItemsSource = null;
-            cmb_AlertsCustomer.IsEnabled = false ;
-            cmb_AlertsDealer.IsEnabled = true ;
-           
-           // cmb_AlertsDealer.ItemsSource = null;
-           // Load_AlertDealer();
-           // cmb_AlertsEmployee.ItemsSource = null;
-            cmb_AlertsEmployee.IsEnabled = false;
+         
         }
 
         private void rdo_AlertsEmployee_Checked(object sender, RoutedEventArgs e)
         {
-           // cmb_AlertsCustomer.ItemsSource = null;
-            cmb_AlertsCustomer.IsEnabled = false;
-           // cmb_AlertsDealer.ItemsSource = null;
-            cmb_AlertsDealer.IsEnabled = false  ;        
-            cmb_AlertsEmployee.IsEnabled = true ;
-           // cmb_AlertsEmployee.ItemsSource = null;
-           // Load_AlertEmployee();
+          
         }
 
         private void btnAlertExit_Click(object sender, RoutedEventArgs e)
         {
            // GRD_Allert.Visibility = Visibility.Hidden;
         }
-        public void load_AlertCustomer()
-        {
-            cmb_AlertsCustomer.Items .Clear ();
-            cmb_AlertsCustomer.Text = "Customer";
-            cmb_AlertsCustomer.Items.Add("Follow-up");
-            cmb_AlertsCustomer.Items.Add("Birthday's");
-            cmb_AlertsCustomer.Items.Add("Balance");
-            cmb_AlertsCustomer.Items.Add("Warranty");
-            cmb_AlertsCustomer.Items.Add("Insurance");
-        }
-
-        public void Load_AlertDealer()
-        {
-            cmb_AlertsDealer.Items.Clear();
-            cmb_AlertsDealer.Text = "Dealer";
-            cmb_AlertsDealer.Items.Add("Birthday's");
-            cmb_AlertsDealer.Items.Add("Follow-up");
-        }
-        public void Load_AlertEmployee()
-        {
-            cmb_AlertsEmployee.Items.Clear();
-            cmb_AlertsEmployee.Text = "Employee";
-            cmb_AlertsEmployee.Items.Add("Birthday's");
-        }
+      
 
         private void malerts_Click(object sender, RoutedEventArgs e)
         {
-          //  GRD_Allert.Visibility = Visibility;
-            //cmb_AlertsCustomer.ItemsSource  = null;
-            //cmb_AlertsDealer.ItemsSource = null;
-           // cmb_AlertsEmployee.ItemsSource = null;
-            //cmb_AlertsCustomer.Text = "Customer";
-            //cmb_AlertsDealer.Text = "Dealer";
-            //cmb_AlertsEmployee.Text = "Employee";
-            load_AlertCustomer();
-            Load_AlertDealer();
-            Load_AlertEmployee();
+          
+           
         }
    }
    
