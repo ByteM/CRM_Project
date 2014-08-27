@@ -66,6 +66,9 @@
     </ApplicationDefinition>
     <Compile Include="DateDiff.cs" />
     <Compile Include="DateDifference.cs" />
+    <Compile Include="frmCustomerBirthdayAlert.xaml.cs">
+      <DependentUpon>frmCustomerBirthdayAlert.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmInsurance.xaml.cs">
       <DependentUpon>frmInsurance.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmCRM_EmpDetailsEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmCustomerBirthdayAlert.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

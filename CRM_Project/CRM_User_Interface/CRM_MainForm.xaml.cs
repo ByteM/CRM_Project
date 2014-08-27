@@ -42,7 +42,7 @@ namespace CRM_User_Interface
         double y1,m1,o,p,availqty;
         string yarvalue, year, month, g, pm_c, pm_ch, pm_f, pm_ins, monthvalue,occu, dob ;
         public Button targetButton;
-      
+       
         public CRM_MainForm()
         {
             InitializeComponent();
@@ -5309,14 +5309,74 @@ public void loadbynamenno_Followupvw()
 
         private void btnAlertExit_Click(object sender, RoutedEventArgs e)
         {
-           // GRD_Allert.Visibility = Visibility.Hidden;
+            GRD_AllertCustomer.Visibility = Visibility.Hidden;
         }
-      
+        public void FetchCustomerBday_Alert()
+        {
+            try
+            {
+                string str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT  Distinct [ID],[Cust_ID],[Name],[Mobile_No],[Date_Of_Birth], [Email_ID],[Address],[Occupation] " +
+                      "FROM [tlb_Customer]  " +
+                      "WHERE ";
+                str = str + " [S_Status] = 'Active' and [Date_Of_Birth]= '" + CommonDate + "'  ORDER BY [Name] ASC ";
+                //str = str + " S_Status = 'Active' ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                DGRD_AlertCust.ItemsSource = ds.Tables[0].DefaultView;
+                }
+                else { MessageBox.Show("No Rows Found !!!!!"); }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
 
         private void malerts_Click(object sender, RoutedEventArgs e)
         {
           
            
+        }
+
+        private void rdo_AlertsCustomerBirthday_Checked(object sender, RoutedEventArgs e)
+        {
+            DGRD_AlertCust.Visibility = Visibility;
+            FetchCustomerBday_Alert();
+        }
+
+        private void chkSend_Message_Checked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void chkSend_MessageC_Checked(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void btnDefaultBirthAlert_Click(object sender, RoutedEventArgs e)
+        {
+            object item = DGRD_AlertCust.SelectedItem;
+            frmCustomerBirthdayAlert fcba = new frmCustomerBirthdayAlert();
+            fcba.cid_CAB = (DGRD_AlertCust.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
+            fcba. cname_CAB = (DGRD_AlertCust.SelectedCells[2].Column.GetCellContent(item) as TextBlock).Text;
+            fcba. cphone_CAB = (DGRD_AlertCust.SelectedCells[3].Column.GetCellContent(item) as TextBlock).Text;
+            fcba .cdob_CAB = (DGRD_AlertCust.SelectedCells[4].Column.GetCellContent(item) as TextBlock).Text;
+            fcba.Show();
+
+         //   MessageBox.Show(ID);
+
         }
    }
    
