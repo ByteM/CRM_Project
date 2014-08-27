@@ -157,9 +157,10 @@
                     <MenuItem Header=" Check Status" x:Name="smchkstatusinsurance"/>
 
                 </MenuItem>
-                <MenuItem Width="85">
+                <MenuItem Width="100" Click="MenuItem_Click">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
+
                             <Label Padding="0" Margin="0 0 0 1" Foreground="White" Content="Alerts" />
                             <Border>
                                 <ToggleButton IsChecked="False" IsHitTestVisible="False"
@@ -185,9 +186,14 @@
                             </Border>
                         </StackPanel>
                     </MenuItem.Header>
-                    <MenuItem Header="Customer" x:Name="smcustomer"/>
-                    <MenuItem Header="Dealer" x:Name="smdealer"/>
-                    <MenuItem Header="Employee" x:Name="smcemployee"/> `
+                    <MenuItem Header="Customer" x:Name="smcustomer" Click="smcustomer_Click" HorizontalAlignment="Right" Width="137" >
+                        <MenuItem.Icon >
+                            <Label Name="lblcalert" Margin="0,-6,-15,-3" Height="25" VerticalAlignment="Top"></Label>
+                            <!--<Button Click="Button_Click">i</Button>-->
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Dealer" x:Name="smdealer" Click="smdealer_Click"/>
+                    <MenuItem Header="Employee" x:Name="smcemployee" Click="smcemployee_Click"/> `
 
                 </MenuItem>
                 <MenuItem Header="Calender"  Foreground="White" Width="70" x:Name="mcalender"/>
@@ -1159,8 +1165,8 @@
                 </Grid>
                 <TextBox x:Name="txtSaleCustID" HorizontalAlignment="Left" Height="23" Margin="770,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Visibility="Hidden"/>
             </Grid>
-            <TextBox x:Name="txtdiffdate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Margin="645,17,0,0"/>
-            <TextBox x:Name="txtnoti" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Margin="715,15,0,0"/>
+            <TextBox x:Name="txtdiffdate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" Margin="660,7,0,0"/>
+            <TextBox x:Name="txtnoti" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" Margin="470,38,0,0" Background="#FFD30711" Foreground="White"/>
 
             <Grid HorizontalAlignment="Left" Name="GRD_AllertCustomer" Visibility="Visible" Height="560" VerticalAlignment="Top" Width="1150" Margin="25,68,0,0" Background="#FFF0F0F0">
                 <Grid HorizontalAlignment="Left" Height="520" VerticalAlignment="Top" Width="1140" Margin="5,32,0,0" Background="White">
@@ -1192,7 +1198,7 @@
                                         <!--<CheckBox  Name="chkSend_Message" Checked="chkSend_Message_Checked"  />-->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                                
+
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Custom" x:Name="customerbirthCustom" Width="50" >
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1206,7 +1212,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-                <Label Content="All Types Of Allerts" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="495,0,0,0"/>
+                <Label Content="All Types Of Allerts" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="459,0,0,0"/>
                 <Button x:Name="btnAlertExit" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1065,2,0,0" Click="btnAlertExit_Click"/>
 
             </Grid>

@@ -5265,6 +5265,7 @@ public void loadbynamenno_Followupvw()
                 }
 
                 txtnoti.Text = cnt1.ToString();
+                lblcalert.Content = cnt1.ToString();
                 //grd_FinalizeProducts.Visibility = System.Windows.Visibility.Visible;
             }
             catch (Exception)
@@ -5376,6 +5377,26 @@ public void loadbynamenno_Followupvw()
             fcba.Show();
 
          //   MessageBox.Show(ID);
+
+        }
+
+        private void smcustomer_Click(object sender, RoutedEventArgs e)
+        {
+            GRD_AllertCustomer.Visibility = Visibility;
+        }
+
+        private void smdealer_Click(object sender, RoutedEventArgs e)
+        {
+            GRD_AlertsDealer.Visibility = Visibility;
+        }
+
+        private void smcemployee_Click(object sender, RoutedEventArgs e)
+        {
+            GRD_AlertEmployee.Visibility = Visibility;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
 
         }
    }
