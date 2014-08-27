@@ -127,8 +127,8 @@
         </Menu>
         <Label Content="Customer Relationship Management" HorizontalAlignment="Left"  Margin="30,15,0,0" VerticalAlignment="Top"   FontSize="16" FontWeight="Bold" Grid.RowSpan="2"/>
 
-        <Grid  Name="newprocurementgrd" Visibility="Visible"      Height="547" Grid.RowSpan="2" VerticalAlignment="Top" Width="769" Margin="66,108,65,0">
-            <GroupBox Header="New Procurement " VerticalAlignment="Top" Margin="10,10,10,0" Height="527"/>
+        <Grid  Name="newprocurementgrd" Visibility="Hidden"      Height="547" Grid.RowSpan="2" VerticalAlignment="Top" Width="769" Margin="66,108,65,0">
+            <GroupBox Header="New Procurement " VerticalAlignment="Top" Margin="10,10,10,0" Height="527" />
             <Grid Margin="-11,0,11,-8" >
                 <Label Content="Procurement ID :" HorizontalAlignment="Left" Margin="50,46,0,0" VerticalAlignment="Top" Width="123"/>
                 <Label Content="Product Name :" HorizontalAlignment="Left" Margin="50,78,0,0" VerticalAlignment="Top" Width="123"/>
@@ -193,7 +193,7 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <Grid HorizontalAlignment="Left" Name="Addbirthgrd" Visibility="Hidden"  Height="345" Margin="199,161,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="505">
+        <Grid HorizontalAlignment="Left" Name="Addbirthgrd" Visibility="Visible"  Height="345" Margin="199,161,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="505">
             <GroupBox Header="Birth-Day"  HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="485" Height="325">
                 <Grid HorizontalAlignment="Left" Height="304" Margin="0,0,-2,-1" VerticalAlignment="Bottom" Width="475">
                     <Label Content="Birth-Day Message :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
