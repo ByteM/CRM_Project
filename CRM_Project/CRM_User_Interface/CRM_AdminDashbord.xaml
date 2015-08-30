@@ -794,7 +794,7 @@
                     <TextBox x:Name="txtAdm_AllProducts_Search_Price" HorizontalAlignment="Left" Height="23" Margin="104,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" TextChanged="txtAdm_AllProducts_Search_Price_TextChanged"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="grd_SaleCustDetails" Visibility="Visible"    HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid x:Name="grd_SaleCustDetails" Visibility="Hidden"  HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <Button x:Name="btnAdm_SaleCustDetails_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,-1,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnAdm_SaleCustDetails_Exit_Click"/>
                 <Label Content="Sale Customer Details" HorizontalAlignment="Left" Margin="2,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                 <Grid HorizontalAlignment="Left" Height="510" Margin="18,40,0,0" VerticalAlignment="Top" Width="1120" Background="#FFFEFEFE">
@@ -1111,12 +1111,12 @@
                     <Label Content="Waranty:" HorizontalAlignment="Left" Margin="532,239,0,0" VerticalAlignment="Top" Width="135"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="grd_Insurance" Visibility="Visible" HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid x:Name="grd_Insurance" Visibility="Hidden" HorizontalAlignment="Left" Height="565" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
                 <Button x:Name="btnInsurance_Exit" Content="Exit" HorizontalAlignment="Left" Margin="1085,0,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnInsurance_Exit_Click"/>
                 <Grid HorizontalAlignment="Left" Height="500" Margin="20,50,0,0" VerticalAlignment="Top" Width="1125" Background="White">
-                    <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="30,12,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="388,12,0,0" VerticalAlignment="Top"/>
                     <Label Content="Insurance" HorizontalAlignment="Left" Margin="5,-48,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                    <ComboBox x:Name="cmbInsurance_CustName" HorizontalAlignment="Left" Margin="139,15,0,0" VerticalAlignment="Top" Width="361" Height="24" SelectionChanged="cmbInsurance_CustName_SelectionChanged"/>
+                    <ComboBox x:Name="cmbInsurance_CustName" HorizontalAlignment="Left" Margin="497,14,0,0" VerticalAlignment="Top" Width="361" Height="24" SelectionChanged="cmbInsurance_CustName_SelectionChanged"/>
                     <DataGrid x:Name="dgvInsurance_Details" HorizontalAlignment="Left" Margin="5,66,0,0" VerticalAlignment="Top" Height="162" Width="1115" AutoGenerateColumns="False" SelectedCellsChanged="dgvInsurance_Details_SelectedCellsChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Width="25"  x:Name="grdInsuranece_ID" Visibility="Visible" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />
@@ -1150,10 +1150,12 @@
                             <DataGridTextColumn Header="NewInsuranceDate" Width="120"  x:Name="grdInsurnce_NewInsuranceDate" SortMemberPath="NewInsuranceDate" Binding="{Binding NewInsuranceDate, Mode=TwoWay}" />
                         </DataGrid.Columns>
                     </DataGrid>
+                    <Label Content="Customer ID:" HorizontalAlignment="Left" Margin="15,12,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmbInsurance_CustomerID" HorizontalAlignment="Left" Margin="102,14,0,0" VerticalAlignment="Top" Width="227" Height="24" SelectionChanged="cmbInsurance_CustomerID_SelectionChanged"/>
                 </Grid>
                 <TextBox x:Name="txtInsurance_InvoiceID" HorizontalAlignment="Left" Height="23" Margin="1020,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
             </Grid>
-            <Grid x:Name="grd_InsuranceDetails" Visibility="Visible" HorizontalAlignment="Left" Height="563" Margin="21,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" Loaded="grd_InsuranceDetails_Loaded">
+            <Grid x:Name="grd_InsuranceDetails" Visibility="Hidden" HorizontalAlignment="Left" Height="563" Margin="21,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" Loaded="grd_InsuranceDetails_Loaded">
                 <Button x:Name="btnInsurance_Exit1" Content="Exit" HorizontalAlignment="Left" Margin="1085,0,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnInsurance_Exit1_Click"/>
                 <Grid HorizontalAlignment="Left" Height="498" Margin="20,50,0,0" VerticalAlignment="Top" Width="1125" Background="White">
                     <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="330,12,0,0" VerticalAlignment="Top"/>
