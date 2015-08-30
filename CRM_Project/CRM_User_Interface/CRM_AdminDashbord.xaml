@@ -130,7 +130,7 @@
                         </StackPanel>
                     </MenuItem.Header>
                     <MenuItem Header="Insurance " x:Name="sminsurance" Click="sminsurance_Click" />
-
+                    <MenuItem Header="Insurance Details" x:Name="sminsuranceDetails" Click="sminsuranceDetails_Click"></MenuItem>
 
                 </MenuItem>
 
@@ -1138,23 +1138,53 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="dgvInsurance_Details_Copy" HorizontalAlignment="Left" Margin="5,235,0,0" VerticalAlignment="Top" Height="263" Width="1115" AutoGenerateColumns="False">
+                    <DataGrid x:Name="dgvInsurance_ProductDetails" HorizontalAlignment="Left" Margin="5,234,0,0" VerticalAlignment="Top" Height="263" Width="1115" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Domain Name" Width="125"  x:Name="grdInsuranece_ID1" Visibility="Visible" SortMemberPath="Domain_Name" Binding="{Binding Domain_Name, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Product Name" Width="125"  x:Name="grdInsurance_C_Date1" SortMemberPath="Product_Name" Binding="{Binding Product_Name, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Brand Name" Width="125"  x:Name="grdInsurance_Name1" SortMemberPath="Brand_Name" Binding="{Binding Brand_Name, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Product Category" Width="127"  x:Name="grdInsurance_MobileNo1" SortMemberPath="Product_Category" Binding="{Binding Product_Category, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Model No" Width="127"  x:Name="grdInsurance_PhoneNo1" SortMemberPath="Model_No" Binding="{Binding Model_No, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Color" Width="120"  x:Name="grdInsurnce_PhoneNo1" SortMemberPath="Color" Binding="{Binding Color, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Price" Width="90"  x:Name="grdInsurance_Products2" SortMemberPath="Per_Product_Price" Binding="{Binding Per_Product_Price, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Qty" Width="60"  x:Name="grdInsurance_Products3" SortMemberPath="Per_Product_Price" Binding="{Binding Qty, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Sub Total" Width="90"  x:Name="grdInsurance_Produc1" SortMemberPath="C_Price" Binding="{Binding C_Price, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Insurance" Width="70"  x:Name="grdInsurance_Insurance1" SortMemberPath="Have_Insurance" Binding="{Binding Have_Insurance, Mode=TwoWay}" />
-                            <DataGridCheckBoxColumn Header="Action" Width="50"  x:Name="grdInsurance_Check1" SortMemberPath="Insurance" Binding="{Binding Insurance, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Product Name" Width="250"  x:Name="grdInsuranece_ProductName" Visibility="Visible" SortMemberPath="ProductName" Binding="{Binding ProductName, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="InsuranceAmt" Width="120"  x:Name="grdInsurance_InsuranceAmt" SortMemberPath="InsuranceAmt" Binding="{Binding InsuranceAmt, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="BankName" Width="250"  x:Name="grdInsurance_BankName" SortMemberPath="BankName" Binding="{Binding BankName, Mode=TwoWay}" />
+
+                            <DataGridTextColumn Header="InsuranceDate" Width="120"  x:Name="grdInsurance_InsuranceDate" SortMemberPath="InsuranceDate" Binding="{Binding InsuranceDate, Mode=TwoWay}" />
+                            <DataGridTextColumn Width="20"  x:Name="grdInsurance_NoOfYearMonths" SortMemberPath="NoOfYearMonths" Binding="{Binding NoOfYearMonths, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Validity" Width="127"  x:Name="grdInsurance_YearMonth" SortMemberPath="YearMonth" Binding="{Binding YearMonth, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="NewInsuranceDate" Width="120"  x:Name="grdInsurnce_NewInsuranceDate" SortMemberPath="NewInsuranceDate" Binding="{Binding NewInsuranceDate, Mode=TwoWay}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
                 <TextBox x:Name="txtInsurance_InvoiceID" HorizontalAlignment="Left" Height="23" Margin="1020,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
+            </Grid>
+            <Grid x:Name="grd_InsuranceDetails" Visibility="Visible" HorizontalAlignment="Left" Height="563" Margin="21,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0" Loaded="grd_InsuranceDetails_Loaded">
+                <Button x:Name="btnInsurance_Exit1" Content="Exit" HorizontalAlignment="Left" Margin="1085,0,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnInsurance_Exit1_Click"/>
+                <Grid HorizontalAlignment="Left" Height="498" Margin="20,50,0,0" VerticalAlignment="Top" Width="1125" Background="White">
+                    <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="330,12,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Insurance Details" HorizontalAlignment="Left" Margin="5,-48,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                    <ComboBox x:Name="cmbAllInsurance_CustName" HorizontalAlignment="Left" Margin="439,15,0,0" VerticalAlignment="Top" Width="361" Height="24" SelectionChanged="cmbAllInsurance_CustName_SelectionChanged" IsEditable="True"/>
+                    <DataGrid x:Name="dgvAllInsuranceDetails" HorizontalAlignment="Left" Margin="5,52,0,0" VerticalAlignment="Top" Height="441" Width="1115" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" x:Name="grdInsurance_ID1" Visibility="Visible" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Product Name" Width="250"  x:Name="grdInsuranece_ProductName1" Visibility="Visible" SortMemberPath="ProductName" Binding="{Binding ProductName, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="InsuranceAmt" Width="120"  x:Name="grdInsurance_InsuranceAmt1" SortMemberPath="InsuranceAmt" Binding="{Binding InsuranceAmt, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="BankName" Width="250"  x:Name="grdInsurance_BankName1" SortMemberPath="BankName" Binding="{Binding BankName, Mode=TwoWay}" />
+
+                            <DataGridTextColumn Header="InsuranceDate" Width="120"  x:Name="grdInsurance_InsuranceDate1" SortMemberPath="InsuranceDate" Binding="{Binding InsuranceDate, Mode=TwoWay}" />
+                            <DataGridTextColumn Width="20"  x:Name="grdInsurance_NoOfYearMonths1" SortMemberPath="NoOfYearMonths" Binding="{Binding NoOfYearMonths, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Validity" Width="127"  x:Name="grdInsurance_YearMonth1" SortMemberPath="YearMonth" Binding="{Binding YearMonth, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="NewInsuranceDate" Width="120"  x:Name="grdInsurnce_NewInsuranceDate1" SortMemberPath="NewInsuranceDate" Binding="{Binding NewInsuranceDate, Mode=TwoWay}" />
+                            <DataGridTemplateColumn Header="Update">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <Button Content="Update" x:Name="btndgv_InsuranceUpdate"    CommandParameter="{Binding id}" Click="btndgv_InsuranceUpdate_Click" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Content="Customer ID:" HorizontalAlignment="Left" Margin="8,12,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmbAllInsurance_CustomerID" HorizontalAlignment="Left" Margin="95,15,0,0" VerticalAlignment="Top" Width="227" Height="24" SelectionChanged="cmbAllInsurance_CustName_SelectionChanged" IsEditable="True"/>
+                    <Button x:Name="btnInsurance_Refresh" Content="Refresh" HorizontalAlignment="Left" Margin="827,12,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnInsurance_Refresh_Click" />
+                </Grid>
+                <TextBox x:Name="txtInsurance_ID" HorizontalAlignment="Left" Height="23" Margin="1020,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
+                <TextBox x:Name="txtInsurance_CustID" HorizontalAlignment="Left" Height="23" Margin="948,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
             </Grid>
             <Grid x:Name="grd_ChartSalesByBrand" HorizontalAlignment="Left" Visibility="Hidden" Height="563" Margin="20,67,0,0" VerticalAlignment="Top" Width="1160" Background="#FFF7EDED">
                 <cht:Chart Title="Sales By Brand" Name="salesChartByBrand"   Margin="2,1,2,0">

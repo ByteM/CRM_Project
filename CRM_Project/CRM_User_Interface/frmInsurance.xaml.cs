@@ -50,91 +50,274 @@ namespace CRM_User_Interface
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Clear_ALL();
         }
+        
         string SET_YEAR;
+        string SET_MONTH, DATE1, DATE;
+        int addNY, iadd, totMonth;
+        int chsetYear, chsetMonth, chsetDate1;
+        int newLpDate, newLPMonth;
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (btnSave.Content == "Save")
             {
-                string FPInsurance;
-                
-
-                binsuranceEntry.Flag = 1;
-                binsuranceEntry.CustomerID = Convert.ToInt32(txtCustomerID.Text);
-                binsuranceEntry.InsuranceNo = lblInsuranceNo.Content.ToString();
-                binsuranceEntry.ProductName = lblProductName.Content.ToString();
-                binsuranceEntry.IntervalAmount = Convert.ToDouble(txtInsuranceAmt.Text);
-                binsuranceEntry.BankName = cmbBankIntegration.Text;
-                binsuranceEntry.InsuranceDate = Convert.ToDateTime(dtpDate.SelectedDate);
-                binsuranceEntry.NoOfYearsMonths = Convert.ToInt32(txtValidity.Text);
-                binsuranceEntry.NoOfMonth = Convert.ToInt32(txtMonths.Text);
-                binsuranceEntry.YearsMonth = cmbValidity.Text;
-                binsuranceEntry.IntervalMonth = Convert.ToInt32(txtInterval.Text);
-                binsuranceEntry.IntervalMonthY = cmbInterval.Text;
-                binsuranceEntry.IntervalAmount = Convert.ToDouble(txtIntervalTotalAmt.Text);
-
-                string STRTODAYDATE = Convert.ToString(txtDate.Text);
-                
-                //string time = Convert.ToString(dtpDate.SelectedDate);
-                string[] STRVAL = STRTODAYDATE.Split('-');
-                string STR_DATE1 = STRVAL[0];
-                string STR_MONTH = STRVAL[1];
-                string STR_YEAR = STRVAL[2];
-                if(cmbValidity.SelectedItem.Equals("Year"))
+                try
                 {
-                    int vlYear,vlNo,addNY;
-                    vlYear = Convert.ToInt32(STR_YEAR);
-                    vlNo = Convert.ToInt32(txtValidity.Text);
-                    addNY = vlYear + vlNo;
-                    SET_YEAR = Convert.ToString(addNY);
+                    string FPInsurance;
+
+                    binsuranceEntry.Flag = 1;
+                    binsuranceEntry.CustomerID = Convert.ToInt32(txtCustomerID.Text);
+                    binsuranceEntry.InsuranceNo = lblInsuranceNo.Content.ToString();
+                    binsuranceEntry.ProductName = lblProductName.Content.ToString();
+                    binsuranceEntry.InsuranceAmt = Convert.ToDouble(txtInsuranceAmt.Text);
+                    binsuranceEntry.BankName = cmbBankIntegration.Text;
+                    binsuranceEntry.InsuranceDate = dtpDate.Text;
+                    binsuranceEntry.NoOfYearsMonths = Convert.ToInt32(txtValidity.Text);
+                    binsuranceEntry.NoOfMonth = Convert.ToInt32(txtMonths.Text);
+                    binsuranceEntry.YearsMonth = cmbValidity.Text;
+                    binsuranceEntry.IntervalMonth = Convert.ToInt32(txtInterval.Text);
+                    binsuranceEntry.IntervalMonthY = cmbInterval.Text;
+                    binsuranceEntry.IntervalAmount = Convert.ToDouble(txtIntervalTotalAmt.Text);
+
+                    string STRTODAYDATE = dtpDate.Text;
+
+                    string[] STRVAL = STRTODAYDATE.Split('-');
+                    string STR_DATE1 = STRVAL[0];
+                    string STR_MONTH = STRVAL[1];
+                    string STR_YEAR = STRVAL[2];
+
+                    if (cmbValidity.SelectedItem.Equals("Year"))
+                    {
+                        int vlYear, vlNo, addNY;
+                        vlYear = Convert.ToInt32(STR_YEAR);
+                        vlNo = Convert.ToInt32(txtValidity.Text);
+                        addNY = vlYear + vlNo;
+                        SET_YEAR = Convert.ToString(addNY);
+
+                        DATE1 = STR_DATE1 + "-" + STR_MONTH + "-" + SET_YEAR;
+                    }
+                    else
+                        if (cmbValidity.SelectedItem.Equals("Month"))
+                        {
+                            int vlMonth, vlNo;
+                            vlMonth = Convert.ToInt32(STR_MONTH);
+                            vlNo = Convert.ToInt32(txtValidity.Text);
+
+                            for (int i = 1; i <= vlNo; i++)
+                            {
+                                if (addNY == 12)
+                                {
+                                    int abc;
+                                    abc = Convert.ToInt32(STR_YEAR) + 1;
+                                    SET_YEAR = Convert.ToString(abc);
+                                    int neMonth;
+                                    addNY = 0;
+                                    vlMonth = 0;
+                                    vlNo = 1;
+                                    totMonth = Convert.ToInt32(txtMonths.Text);
+                                    neMonth = totMonth - iadd;
+                                    for (int j = 1; j <= neMonth; j++)
+                                    {
+                                        addNY = vlMonth + j;
+                                    }
+                                }
+                                else
+                                {
+                                    int k = 0;
+                                    addNY = vlMonth + i;
+                                    iadd = k + i;
+                                }
+
+                            }
+                            SET_MONTH = Convert.ToString(addNY);
+
+                            DATE = STR_DATE1 + "-" + SET_MONTH + "-" + SET_YEAR;
+
+                            chsetYear = Convert.ToInt32(SET_YEAR);
+                            chsetMonth = Convert.ToInt32(SET_MONTH);
+                            chsetDate1 = Convert.ToInt32(STR_DATE1);
+                            if (chsetYear % 4 == 0)
+                            {
+                                if (chsetMonth == 2)
+                                {
+                                    if (chsetDate1 == 29)
+                                    {
+                                        newLpDate = 01;
+                                        newLPMonth = 03;
+                                    }
+                                }
+                                DATE1 = newLpDate + "-" + newLPMonth + "-" + SET_YEAR;
+                            }
+                            else
+                            {
+                                DATE1 = STR_DATE1 + "-" + SET_MONTH + "-" + SET_YEAR;
+                            }
+                        }
+
+                    dtpInstallmentDate.Text = DATE1;
+
+                    string dt = dtpInstallmentDate.Text;
+                    ////txttime.Text = time;
+
+                    //baddprd.C_Date =Convert .ToDateTime( DATE);
+
+                    binsuranceEntry.NewInsuranceDate = dt;
+                    if (chbInsurance.IsChecked == true)
+                    {
+                        FPInsurance = "Yes";
+                    }
+                    else
+                    {
+                        FPInsurance = "No";
+                    }
+                    binsuranceEntry.FirstPartyInsurance = FPInsurance;
+                    binsuranceEntry.IsClear = "Active";
+                    binsuranceEntry.S_Status = "Active";
+                    binsuranceEntry.C_Date = Convert.ToString(System.DateTime.Now.ToShortDateString());
+                    dinsuranceEntry.InsuranceEntry_Insert_Update_Delete(binsuranceEntry);
+                    MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                
-               
-                string DATE = STR_DATE1 + "-" + STR_MONTH + "-" + SET_YEAR;
-                dtpInstallmentDate.Text = DATE;
-
-                DateTime dt = Convert.ToDateTime(dtpInstallmentDate.SelectedDate);
-                ////txttime.Text = time;
-
-                //baddprd.C_Date =Convert .ToDateTime( DATE);
-
-                binsuranceEntry.NewInsuranceDate = Convert.ToDateTime(dt);
-                if(chbInsurance.IsChecked == true)
+                catch (Exception)
                 {
-                    FPInsurance = "Yes";
+                    throw;
                 }
-                else
+                finally
                 {
-                    FPInsurance = "No";
+                    con.Close();
                 }
-                binsuranceEntry.FirstPartyInsurance = FPInsurance;
-                binsuranceEntry.IsClear = "Active";
-                binsuranceEntry.S_Status = "Active";
-                binsuranceEntry.C_Date = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
-
-                //string STRTODAYDATE = System.DateTime.Now.ToShortDateString();
-                //string time = System.DateTime.Now.ToShortTimeString();
-                //string[] STRVAL = STRTODAYDATE.Split('-');
-                //string STR_DATE1 = STRVAL[0];
-                //string STR_MONTH = STRVAL[1];
-                //string STR_YEAR = STRVAL[2];
-                //string DATE = STR_DATE1 + "-" + STR_MONTH + "-" + STR_YEAR;
-                ////txtdate.Text = DATE;
-                ////txttime.Text = time;
-
-                //baddprd.C_Date =Convert .ToDateTime( DATE);
-
-                MessageBox.Show("Data Save Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
-
             }
-            catch (Exception)
+            else if (btnSave.Content == "Update")
             {
-                throw;
+                try
+                {
+                    string FPInsurance;
+
+                    binsuranceEntry.Flag = 2;
+                    binsuranceEntry.InsuranceID = Convert.ToInt32(txtInsuranceID.Text);
+                    binsuranceEntry.CustomerID = Convert.ToInt32(txtCustomerID.Text);
+                    binsuranceEntry.InsuranceNo = lblInsuranceNo.Content.ToString();
+                    binsuranceEntry.ProductName = lblProductName.Content.ToString();
+                    binsuranceEntry.InsuranceAmt = Convert.ToDouble(txtInsuranceAmt.Text);
+                    binsuranceEntry.BankName = cmbBankIntegration.Text;
+                    binsuranceEntry.InsuranceDate = dtpDate.Text;
+                    binsuranceEntry.NoOfYearsMonths = Convert.ToInt32(txtValidity.Text);
+                    binsuranceEntry.NoOfMonth = Convert.ToInt32(txtMonths.Text);
+                    binsuranceEntry.YearsMonth = cmbValidity.Text;
+                    binsuranceEntry.IntervalMonth = Convert.ToInt32(txtInterval.Text);
+                    binsuranceEntry.IntervalMonthY = cmbInterval.Text;
+                    binsuranceEntry.IntervalAmount = Convert.ToDouble(txtIntervalTotalAmt.Text);
+
+                    string STRTODAYDATE = dtpDate.Text;
+
+                    string[] STRVAL = STRTODAYDATE.Split('-');
+                    string STR_DATE1 = STRVAL[0];
+                    string STR_MONTH = STRVAL[1];
+                    string STR_YEAR = STRVAL[2];
+
+                    if (cmbValidity.SelectedItem.Equals("Year"))
+                    {
+                        int vlYear, vlNo, addNY;
+                        vlYear = Convert.ToInt32(STR_YEAR);
+                        vlNo = Convert.ToInt32(txtValidity.Text);
+                        addNY = vlYear + vlNo;
+                        SET_YEAR = Convert.ToString(addNY);
+
+                        DATE1 = STR_DATE1 + "-" + STR_MONTH + "-" + SET_YEAR;
+
+                    }
+                    else
+                        if (cmbValidity.SelectedItem.Equals("Month"))
+                        {
+                            int vlMonth, vlNo;
+                            vlMonth = Convert.ToInt32(STR_MONTH);
+                            vlNo = Convert.ToInt32(txtValidity.Text);
+
+                            for (int i = 1; i <= vlNo; i++)
+                            {
+                                if (addNY == 12)
+                                {
+                                    int abc;
+                                    abc = Convert.ToInt32(STR_YEAR) + 1;
+                                    SET_YEAR = Convert.ToString(abc);
+                                    int neMonth;
+                                    addNY = 0;
+                                    vlMonth = 0;
+                                    vlNo = 1;
+                                    totMonth = Convert.ToInt32(txtMonths.Text);
+                                    neMonth = totMonth - iadd;
+                                    for (int j = 1; j <= neMonth; j++)
+                                    {
+                                        addNY = vlMonth + j;
+                                    }
+                                }
+                                else
+                                {
+                                    int k = 0;
+                                    addNY = vlMonth + i;
+                                    iadd = k + i;
+                                }
+
+                            }
+                            SET_MONTH = Convert.ToString(addNY);
+
+                            DATE = STR_DATE1 + "-" + SET_MONTH + "-" + SET_YEAR;
+
+                            chsetYear = Convert.ToInt32(SET_YEAR);
+                            chsetMonth = Convert.ToInt32(SET_MONTH);
+                            chsetDate1 = Convert.ToInt32(STR_DATE1);
+                            if (chsetYear % 4 == 0)
+                            {
+                                if (chsetMonth == 2)
+                                {
+                                    if (chsetDate1 == 29)
+                                    {
+                                        newLpDate = 01;
+                                        newLPMonth = 03;
+                                    }
+                                }
+                                DATE1 = newLpDate + "-" + newLPMonth + "-" + SET_YEAR;
+                            }
+                            else
+                            {
+                                DATE1 = STR_DATE1 + "-" + SET_MONTH + "-" + SET_YEAR;
+                            }
+                        }
+
+                    dtpInstallmentDate.Text = DATE1;
+
+                    string dt = dtpInstallmentDate.Text;
+                    ////txttime.Text = time;
+
+                    //baddprd.C_Date =Convert .ToDateTime( DATE);
+
+                    binsuranceEntry.NewInsuranceDate = dt;
+                    if (chbInsurance.IsChecked == true)
+                    {
+                        FPInsurance = "Yes";
+                    }
+                    else
+                    {
+                        FPInsurance = "No";
+                    }
+                    binsuranceEntry.FirstPartyInsurance = FPInsurance;
+                    binsuranceEntry.IsClear = "Active";
+                    binsuranceEntry.S_Status = "Active";
+                    binsuranceEntry.C_Date = Convert.ToString(System.DateTime.Now.ToShortDateString());
+                    dinsuranceEntry.InsuranceEntry_Update_Delete(binsuranceEntry);
+                    MessageBox.Show("Data Updated Successfully", caption, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    con.Close();
+                }
             }
-            finally
-            {
-                con.Close();
-            }
+            Clear_ALL();
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
@@ -144,9 +327,43 @@ namespace CRM_User_Interface
         #endregion Event
 
         #region Insurance Function
-        public void InsuranceID(string iid)
+        public void Clear_ALL()
+        {
+            txtCustomerID.Text = "";
+            txtInsuranceID.Text = "";
+            txtInsuranceAmt.Text = "";
+            cmbBankIntegration.Text = "";
+            dtpDate.Text = "";
+            txtDate.Text = "";
+            txtValidity.Text = "";
+            cmbValidity.Text = "";
+            txtMonths.Text = "";
+            dtpInstallmentDate.Text = "";
+            chbInsurance.IsChecked = false;
+        }
+
+        public void Load_BankName()
+        {
+            //  cmbInstall_CustID.Text = "--Select--";
+            string q = "SELECT distinct(BankName) As BankName FROM tlb_InsuranceEntry ";
+            cmd = new SqlCommand(q, con);
+            // DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            adp.Fill(ds);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                //cmbInsurance_CustName.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                cmbBankIntegration.ItemsSource = ds.Tables[0].DefaultView;
+                cmbBankIntegration.DisplayMemberPath = ds.Tables[0].Columns["BankName"].ToString();
+            }
+        }
+
+        public void InsuranceID(string iid, string cuID)
         {
             txtInsuranceID.Text = iid;
+            txtCustomerID.Text = cuID;
         }
 
         public void LoadYearsMonth()
@@ -320,12 +537,30 @@ namespace CRM_User_Interface
                 result = true;
                 MessageBox.Show("Please Select Validity", "Green Future Glob", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
-            else if((txtInterval.Text == "") || (cmbInterval.SelectedItem == null))
-            {
-                result = true;
-                MessageBox.Show("Please Enetr Interval", "Green Future Glob", MessageBoxButton.OK, MessageBoxImage.Stop);
-            }
+            //else if((txtInterval.Text == "") || (cmbInterval.SelectedItem == null))
+            //{
+            //    result = true;
+            //    MessageBox.Show("Please Enetr Interval", "Green Future Glob", MessageBoxButton.OK, MessageBoxImage.Stop);
+            //}
             return result;
+        }
+
+        public void Cal_InstallmentMonth()
+        {
+            double insAmt, intMonth, intervalAmt, month, monthAmt;
+            try
+            {
+                insAmt = Convert.ToDouble(txtInsuranceAmt.Text);
+                intMonth = Convert.ToDouble(txtInterval.Text);
+                month = Convert.ToDouble(txtMonths.Text);
+                monthAmt = insAmt / month;
+                intervalAmt = monthAmt * intMonth;
+                txtIntervalTotalAmt.Text = (Microsoft.VisualBasic.Strings.Format(intervalAmt, "##,###.00"));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Insurance_FillData()
@@ -333,17 +568,10 @@ namespace CRM_User_Interface
             try
             {
                 con.Open();
-                string sqlquery = "SELECT I.[ID],I.[Customer_ID],I.[Domain_ID],I.[Product_ID],I.[Brand_ID],I.[P_Category],I.[Model_No_ID],I.[Color_ID] " + 
-                                  ",PM.[Product_Name] + ' , ' + B.[Brand_Name] + ' , ' + PC.[Product_Category] + ' , ' + MN.[Model_No] + ' , ' + C.[Color] AS [Products]" +
-                                  ",M.[Name],M.[Mobile_No],M.[Email_ID] " +
-                                  "FROM [tlb_InvoiceDetails] I " +
-                                  "INNER JOIN [tb_Domain] DM ON DM.[ID]=I.[Domain_ID] " +
-                                  "INNER JOIN [tlb_Products] PM ON PM.[ID]=I.[Product_ID] " +
-                                  "INNER JOIN [tlb_Brand] B ON B.[ID]=I.[Brand_ID] " +
-                                  "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=I.[P_Category]" +
-                                  "INNER JOIN [tlb_Model] MN ON MN.[ID]=I.[Model_No_ID] " +
-                                  "INNER JOIN [tlb_Color] C ON C.[ID]=I.[Color_ID] " +
-                                  "INNER JOIN [tlb_Customer] M ON M.[ID]=I.[Customer_ID] " +
+                string sqlquery = "SELECT I.[ID],I.[Customer_ID],I.[InsuranceNo],I.[ProductName],I.[InsuranceAmt],I.[BankName],I.[InsuranceDate],I.[NoOfYearMonths],I.[NoOfMonth],I.[YearsMonths],I.[IntervalMonths],I.[IntervalMonthY],I.[IntervalAmt],I.[NewInsuranceDate],I.[FirstPartyInsurance] " +
+                                  ",C.[Name],C.[Mobile_No],C.[Email_ID]" +
+                                  "FROM [tlb_InsuranceEntry] I " +
+                                  "INNER JOIN [tlb_Customer] C ON C.[ID]=I.[Customer_ID] " +
                                   "where I.[ID]='" + txtInsuranceID.Text + "' ";
                 SqlCommand cmd = new SqlCommand(sqlquery, con);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
@@ -351,12 +579,24 @@ namespace CRM_User_Interface
                 adp.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
-                    txtCustomerID.Text = dt.Rows[0]["Customer_ID"].ToString();
+                    lblInsuranceNo.Content = dt.Rows[0]["InsuranceNo"].ToString();
                     lblCustomerName.Content = dt.Rows[0]["Name"].ToString();
                     lblMobileNo.Content = dt.Rows[0]["Mobile_No"].ToString();
                     lblEmailID.Content = dt.Rows[0]["Email_ID"].ToString();
-                    lblProductName.Content = dt.Rows[0]["Products"].ToString();
-                    
+                    lblProductName.Content = dt.Rows[0]["ProductName"].ToString();
+                    txtInsuranceAmt.Text = dt.Rows[0]["InsuranceAmt"].ToString();
+                    cmbBankIntegration.Text = dt.Rows[0]["BankName"].ToString();
+                    dtpDate.SelectedDate = Convert.ToDateTime(dt.Rows[0]["InsuranceDate"].ToString());
+                    txtValidity.Text = dt.Rows[0]["NoOfYearMonths"].ToString();
+                    cmbValidity.SelectedItem = dt.Rows[0]["YearsMonths"].ToString();
+                    txtMonths.Text = dt.Rows[0]["NoOfMonth"].ToString();
+                    dtpInstallmentDate.SelectedDate = Convert.ToDateTime(dt.Rows[0]["NewInsuranceDate"].ToString());
+                    //chbInsurance.te = dt.Rows[0]["FirstPartyInsurance"].ToString();
+                    //cmbAdm_Emp_YearExp.SelectedItem = dt.Rows[0]["NoOfYears"].ToString();
+                    //lblYears.Content = dt.Rows[0]["Years"].ToString();
+                    //cmbAdm_Emp_Months.SelectedItem = dt.Rows[0]["NoOfMonths"].ToString();
+                    //lblMonths.Content = dt.Rows[0]["Months"].ToString();
+                    //txtAdm_Emp_Salary.Text = dt.Rows[0]["Salary"].ToString();
                 }
             }
             catch (Exception)
@@ -367,26 +607,9 @@ namespace CRM_User_Interface
             {
                 con.Close();
             }
+            btnSave.Content = "Update";
         }
         
-        public void Cal_InstallmentMonth()
-        {
-            double insAmt,intMonth,intervalAmt,month, monthAmt;
-            try
-            {
-                insAmt = Convert.ToDouble(txtInsuranceAmt.Text);
-                intMonth = Convert.ToDouble(txtInterval.Text);
-                month = Convert.ToDouble(txtMonths.Text);
-                monthAmt = insAmt / month;
-                intervalAmt = monthAmt * intMonth;
-                txtIntervalTotalAmt.Text = (Microsoft.VisualBasic.Strings.Format(intervalAmt, "##,###.00"));
-            }
-            catch(Exception)
-            {
-                throw;
-            }
-        }
-
         //string STRTODAYDATE = System.DateTime.Now.ToShortDateString();
         //string time = System.DateTime.Now.ToShortTimeString();
         //string[] STRVAL = STRTODAYDATE.Split('-');
@@ -399,9 +622,10 @@ namespace CRM_User_Interface
 
         //baddprd.C_Date =Convert .ToDateTime( DATE);
         #endregion Insurance Function
+
         private void cmbInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Cal_InstallmentMonth();
+            //Cal_InstallmentMonth();
         }
 
         private void cmbValidity_SelectionChanged(object sender, SelectionChangedEventArgs e)
